@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "cdktf-cli": "0.18.0"
+  }
+}

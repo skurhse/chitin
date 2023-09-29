@@ -1,0 +1,54 @@
+package resources
+
+import (
+	"fmt"
+
+	"github.com/aws/jsii-runtime-go"
+	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/transprogrammer/xenia/cfg"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/applicationsecuritygroup"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterface"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterfaceapplicationsecuritygroupassociation"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterfacesecuritygroupassociation"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/publicip"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualmachine"
+	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/transprogrammer/xenia/generated/naming"
+)
+
+func NewMongoPrivateDNSZone(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, rg resourcegroup.ResourceGroup) privatednszone.PrivateDnsZone {
+
+	id := cfg.ResourceIds.PrivateDNSZone
+
+	inp := &privatednszone.PrivateDnsZoneConfig{
+		Name:              jsii.String("privatelink.mongo.cosmos.azure.com"),
+		ResourceGroupName: rg.Name(),
+	}
+
+	return privatednszone.NewPrivateDnsZone(stk, id, inp)
+}
+
+func NewPrivateDNSZoneVirtualNetworkLink(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, nme naming.Naming, rg resourcegroup.ResourceGroup, privateDnsZone privatednszone.PrivateDnsZone, vnet virtualnetwork.VirtualNetwork) privatednszonevirtualnetworklink.PrivateDnsZoneVirtualNetworkLink {
+
+	id := cfg.ResourceIds.PrivateDNSZoneVirtualNetworkLink
+
+	linkName := fmt.Sprintf("%-vnetlink", nme.PrivateDnsZoneOutput())
+
+	inp := &privatednszonevirtualnetworklink.PrivateDnsZoneVirtualNetworkLinkConfig{
+		Name:                &linkName,
+		ResourceGroupName:   rg.Name(),
+		PrivateDnsZoneName:  privateDnsZone.Name(),
+		VirtualNetworkId:    vnet.Id(),
+		RegistrationEnabled: jsii.Bool(true),
+	}
+
+	return privatednszonevirtualnetworklink.NewPrivateDnsZoneVirtualNetworkLink(stk, id, inp)
+}
+
+
+
+
