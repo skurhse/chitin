@@ -7,7 +7,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewResourceGroup(stack cdktf.TerraformStack, cfg stacks.Config, naming *naming.Naming) *rg.ResourceGroup {
+func NewResourceGroup(stack cdktf.TerraformStack, cfg config.Config, naming *naming.Naming) *rg.ResourceGroup {
 
 	id := ResourceIds.ResourceGroup
 

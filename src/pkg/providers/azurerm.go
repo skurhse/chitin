@@ -6,7 +6,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewAzureRM(stack cdktf.TerraformStack, config stacks.Config) *provider.AzurermProvider {
+func NewAzureRM(stack cdktf.TerraformStack, config config.Config) *provider.AzurermProvider {
 	id := ProviderIds.AzureRM
 
 	input := &provider.AzurermProviderConfig{

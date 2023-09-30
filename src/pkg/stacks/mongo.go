@@ -73,7 +73,7 @@ func (c DefaultMongoCoreBeat) Subnet() *vnet.VirtualNetworkSubnetOutputReference
 	return c.Subnet_
 }
 
-func NewMongo(app constructs.Construct, cfg stacks.Config, core MongoCoreBeat) DefaultMongoDrum {
+func NewMongo(app constructs.Construct, cfg config.Config, core MongoCoreBeat) DefaultMongoDrum {
 
 	stackFormat := StackFormats.Mongo
 
@@ -128,7 +128,7 @@ func NewMongoAccount(stack cdktf.TerraformStack, config config.AppConfig, env co
 	return dbacct.NewCosmosdbAccount(stack, resources.Ids.NewCosmosDBAccount, &input)
 }
 
-func NewMongoDatabase(stk cdktf.TerraformStack, cfg stacks.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
+func NewMongoDatabase(stk cdktf.TerraformStack, cfg config.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
 
 	id := resources.Ids().MongoDatabase
 

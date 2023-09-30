@@ -7,7 +7,7 @@ import (
 	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"github.com/transprogrammer/xenia/pkg/config"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
 )
@@ -27,6 +27,11 @@ func (self DefaultJumpDrum) StackName() *string {
 
 func (self DefaultJumpDrum) Stack() cdktf.TerraformStack {
 	return self.Stack_
+}
+
+type JumpConfig interface {
+	config.Config
+	WhitelistIPs() *[]*string
 }
 
 type JumpCoreBeat interface {
@@ -63,7 +68,7 @@ func (c DefaultJumpCoreBeat) VNet() *vnet.VirtualNetwork {
 	return c.VNet_
 }
 
-func NewJump(app constructs.Construct, cfg stacks.Config, core JumpCoreBeat) DefaultJumpDrum {
+func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat) DefaultJumpDrum {
 	stkName := StackNames.Jump
 	stk := cdktf.NewTerraformStack(app, stkName)
 	providers.NewAzureRM(stk, cfg)

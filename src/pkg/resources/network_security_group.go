@@ -10,7 +10,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewNSG(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Naming, rg *rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) *nsg.NetworkSecurityGroup {
+func NewNSG(stack cdktf.TerraformStack, config config.Config, naming *naming.Naming, rg *rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) *nsg.NetworkSecurityGroup {
 
 	id := ResourceIds.NetworkSecurityGroup
 
@@ -26,7 +26,7 @@ func NewNSG(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Nam
 	return &nsg
 }
 
-func NewSSHSecurityRule(cfg stacks.Config, asg *asg.ApplicationSecurityGroup) nsg.NetworkSecurityGroupSecurityRule {
+func NewSSHSecurityRule(cfg config.Config, asg *asg.ApplicationSecurityGroup) nsg.NetworkSecurityGroupSecurityRule {
 
 	groupIds := &[]*string{(*asg).Id()}
 

@@ -6,13 +6,14 @@ import (
 
 	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/aspects"
+	"github.com/transprogrammer/xenia/pkg/config"
 	"github.com/transprogrammer/xenia/pkg/stacks"
 )
 
 func main() {
 	app := apps.App
 
-	cfg, err := stacks.LoadConfig()
+	cfg, err := config.LoadConfig()
 	if err != nil {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)

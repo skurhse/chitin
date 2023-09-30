@@ -1,12 +1,15 @@
-package apps
+package config
 
 import (
 	"fmt"
 	"strings"
+
+	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-var EnvPrefix = strings.ToUpper(*AppName)
-var RegionPrefix = fmt.Sprintf("%s_REGION", EnvPrefix)
+var EnvVarPrefix = strings.ToUpper(*apps.AppName)
+
+var RegionEnvVarPrefix = fmt.Sprintf("%s_REGION", EnvVarPrefix)
 
 type EnvVarNamesIndex struct {
 	Name         string
@@ -20,12 +23,10 @@ type RegionEnvVarNamesIndex struct {
 }
 
 var EnvVarNames = EnvVarNamesIndex{
-	Name: fmt.Sprintf("%s_NAME", EnvPrefix),
+	Name: fmt.Sprintf("%s_NAME", EnvVarPrefix),
 	Regions: RegionEnvVarNamesIndex{
-		Primary:   fmt.Sprintf("%s_PRIMARY", RegionPrefix),
-		Secondary: fmt.Sprintf("%s_SECONDARY", RegionPrefix),
+		Primary:   fmt.Sprintf("%s_PRIMARY", RegionEnvVarPrefix),
+		Secondary: fmt.Sprintf("%s_SECONDARY", RegionEnvVarPrefix),
 	},
-	WhitelistIPs: fmt.Sprintf("%s_WHITELIST_IPS", EnvPrefix),
+	WhitelistIPs: fmt.Sprintf("%s_WHITELIST_IPS", EnvVarPrefix),
 }
-
-type EnvVarName

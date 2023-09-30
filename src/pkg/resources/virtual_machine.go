@@ -10,7 +10,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewVirtualMachine(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Naming, rg *rg.ResourceGroup, nic *nic.NetworkInterface) *vm.VirtualMachine {
+func NewVirtualMachine(stack cdktf.TerraformStack, config config.Config, naming *naming.Naming, rg *rg.ResourceGroup, nic *nic.NetworkInterface) *vm.VirtualMachine {
 	id := ResourceIds.VirtualMachine
 
 	storageImageReference := &vm.VirtualMachineStorageImageReference{

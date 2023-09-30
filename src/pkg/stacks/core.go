@@ -7,6 +7,7 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
+	"github.com/transprogrammer/xenia/pkg/config"
 	"github.com/transprogrammer/xenia/pkg/modules"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
@@ -23,6 +24,27 @@ type DefaultCoreDrum struct {
 	Stack_      cdktf.TerraformStack
 	JumpBeat_   DefaultJumpCoreBeat
 	MongoBeats_ DefaultMongoCoreBeats
+}
+
+type CoreConfig interface {
+	config.Config
+	JumpConfig
+	MongoConfig
+}
+
+type CoreRegions interface {
+	Primary() *string
+	Secondary() *string
+}
+
+type DefaultCoreConfig struct {
+	Name_   *string
+	Regions DefaultCoreRegions
+}
+
+type DefaultCoreRegions struct {
+	Primary_   *string
+	Secondary_ *string
 }
 
 type CoreBeat interface {
@@ -44,25 +66,6 @@ func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
 
 func (c DefaultCoreDrum) MongoBeats() MongoCoreBeats {
 	return MongoCoreBeats(c.MongoBeats_)
-}
-
-type CoreConfig interface {
-	Config
-}
-
-type CoreRegions interface {
-	Primary() *string
-	Secondary() *string
-}
-
-type DefaultCoreConfig struct {
-	Name_   *string
-	Regions DefaultCoreRegions
-}
-
-type DefaultCoreRegions struct {
-	Primary_   *string
-	Secondary_ *string
 }
 
 var CoreAddressSpace = &[]*string{jsii.String("10.0.0.0/16")}

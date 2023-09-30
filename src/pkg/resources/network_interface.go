@@ -15,7 +15,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewNIC(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, subnet *vnet.VirtualNetworkSubnetOutputReference, ip *publicip.PublicIp) *nic.NetworkInterface {
+func NewNIC(stack cdktf.TerraformStack, config config.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, subnet *vnet.VirtualNetworkSubnetOutputReference, ip *publicip.PublicIp) *nic.NetworkInterface {
 	id := ResourceIds.NetworkInterface
 
 	ipConfig := nic.NetworkInterfaceIpConfiguration{
@@ -38,7 +38,7 @@ func NewNIC(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Nam
 	return &nic
 }
 
-func NewNICAssocASG(stack cdktf.TerraformStack, config stacks.Config, nic *nic.NetworkInterface, asg *asg.ApplicationSecurityGroup) *nicasg.NetworkInterfaceApplicationSecurityGroupAssociation {
+func NewNICAssocASG(stack cdktf.TerraformStack, config config.Config, nic *nic.NetworkInterface, asg *asg.ApplicationSecurityGroup) *nicasg.NetworkInterfaceApplicationSecurityGroupAssociation {
 	id := ResourceIds.NetworkInterfaceApplicationSecurityGroupAssociation
 
 	input := &nicasg.NetworkInterfaceApplicationSecurityGroupAssociationConfig{
@@ -51,7 +51,7 @@ func NewNICAssocASG(stack cdktf.TerraformStack, config stacks.Config, nic *nic.N
 	return &assoc
 }
 
-func NewNICAssocNSG(stack cdktf.TerraformStack, config stacks.Config, nic *nic.NetworkInterface, nsg *nsg.NetworkSecurityGroup) *nicnsg.NetworkInterfaceSecurityGroupAssociation {
+func NewNICAssocNSG(stack cdktf.TerraformStack, config config.Config, nic *nic.NetworkInterface, nsg *nsg.NetworkSecurityGroup) *nicnsg.NetworkInterfaceSecurityGroupAssociation {
 	id := ResourceIds.NetworkInterfaceNetworkSecurityGroupAssociation
 
 	input := &nicnsg.NetworkInterfaceSecurityGroupAssociationConfig{

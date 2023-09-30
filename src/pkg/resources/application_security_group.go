@@ -11,7 +11,7 @@ import (
 
 var appSecurityGroupResourceId = jsii.String("application_security_group")
 
-func NewAppSecurityGroup(stack cdktf.TerraformStack, config stacks.Config, *naming naming.Naming, rg *resourceGroup rg.ResourceGroup) *asg.ApplicationSecurityGroup {
+func NewAppSecurityGroup(stack cdktf.TerraformStack, config config.Config, *naming naming.Naming, rg *resourceGroup rg.ResourceGroup) *asg.ApplicationSecurityGroup {
 
 	id := ResourceIds
 

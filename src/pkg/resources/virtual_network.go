@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewVNet(stk cdktf.TerraformStack, cfg stacks.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, addrSpace *[]*string, subnetInputs []vnet.VirtualNetworkSubnet) *vnet.VirtualNetwork {
+func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, addrSpace *[]*string, subnetInputs []vnet.VirtualNetworkSubnet) *vnet.VirtualNetwork {
 
 	id := ResourceIds.VirtualNetwork
 

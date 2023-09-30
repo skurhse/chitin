@@ -1,4 +1,4 @@
-package stacks
+package config
 
 import (
 	"fmt"
@@ -17,6 +17,12 @@ type Regions interface {
 }
 
 type DefaultConfig struct {
+	Name_         *string        `json:"name"`
+	Regions_      DefaultRegions `json:"regions"`
+	WhitelistIPs_ *[]*string     `json:"sshSourceAddressPrefixes"`
+}
+
+type DefaultWhitelistConfig struct {
 	Name_         *string        `json:"name"`
 	Regions_      DefaultRegions `json:"regions"`
 	WhitelistIPs_ *[]*string     `json:"sshSourceAddressPrefixes"`
@@ -69,7 +75,7 @@ func LoadConfig() (cfg DefaultConfig, err error) {
 
 	whitelistIPVals := strings.Split(*whitelistIPsList, ",")
 	var whitelistIPs []*string
-	for i, _ := range whitelistIPVals {
+	for i := range whitelistIPVals {
 		val := whitelistIPVals[i]
 		whitelistIPs = append(whitelistIPs, &val)
 	}
