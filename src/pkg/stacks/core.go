@@ -5,6 +5,7 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
+	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/modules"

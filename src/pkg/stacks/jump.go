@@ -12,6 +12,23 @@ import (
 	"github.com/transprogrammer/xenia/pkg/resources"
 )
 
+type JumpDrum interface {
+	Drum
+}
+
+type DefaultJumpDrum struct {
+	StackName_ *string
+	Stack_     cdktf.TerraformStack
+}
+
+func (self DefaultJumpDrum) StackName() *string {
+	return self.StackName_
+}
+
+func (self DefaultJumpDrum) Stack() cdktf.TerraformStack {
+	return self.Stack_
+}
+
 type JumpCoreBeat interface {
 	CoreBeat
 	ASG() *asg.ApplicationSecurityGroup
@@ -46,46 +63,29 @@ func (c DefaultJumpCoreBeat) VNet() *vnet.VirtualNetwork {
 	return c.VNet_
 }
 
-type JumpDrum interface {
-	StackDrum
-}
-
-type DefaultJumpDrum struct {
-	StackName_ *string
-	Stack_     *cdktf.TerraformStack
-}
-
-func (self DefaultJumpDrum) StackName() *string {
-	return self.StackName_
-}
-
-func (self DefaultJumpDrum) Stack() *cdktf.TerraformStack {
-	return self.Stack_
-}
-
 func NewJump(app constructs.Construct, cfg apps.Config, core JumpCoreBeat) DefaultJumpDrum {
-	stackName := StackNames.Jump
-	stack := cdktf.NewTerraformStack(app, stackName)
-	providers.NewAzureRM(stack, cfg)
+	stkName := StackNames.Jump
+	stk := cdktf.NewTerraformStack(app, stkName)
+	providers.NewAzureRM(stk, cfg)
 
 	naming := core.Naming()
 	asg := core.ASG()
 	nsg := core.NSG()
 	subnet := core.Subnet()
 
-	rg := resources.NewResourceGroup(stack, cfg, naming)
+	rg := resources.NewResourceGroup(stk, cfg, naming)
 
-	ip := resources.NewPublicIP(stack, cfg, naming, rg)
+	ip := resources.NewPublicIP(stk, cfg, naming, rg)
 
-	nic := resources.NewNIC(stack, cfg, naming, rg, subnet, ip)
+	nic := resources.NewNIC(stk, cfg, naming, rg, subnet, ip)
 
-	resources.NewNICAssocASG(stack, cfg, nic, asg)
-	resources.NewNICAssocNSG(stack, cfg, nic, nsg)
+	resources.NewNICAssocASG(stk, cfg, nic, asg)
+	resources.NewNICAssocNSG(stk, cfg, nic, nsg)
 
-	resources.NewVirtualMachine(stack, cfg, naming, rg, nic)
+	resources.NewVirtualMachine(stk, cfg, naming, rg, nic)
 
 	return DefaultJumpDrum{
-		StackName_: jumpStackName,
-		Stack_:     stack,
+		StackName_: stkName,
+		Stack_:     stk,
 	}
 }

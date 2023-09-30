@@ -6,5 +6,5 @@ import (
 
 type Drum interface {
 	StackName() *string
-	Stack() *cdktf.TerraformStack
+	Stack() cdktf.TerraformStack
 }

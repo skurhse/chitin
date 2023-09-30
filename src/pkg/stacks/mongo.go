@@ -27,14 +27,14 @@ type MongoDrum interface {
 
 type DefaultMongoDrum struct {
 	StackName_ *string
-	Stack_     *cdktf.TerraformStack
+	Stack_     cdktf.TerraformStack
 }
 
 func (self DefaultMongoDrum) StackName() *string {
 	return self.StackName_
 }
 
-func (self DefaultMongoDrum) Stack() *cdktf.TerraformStack {
+func (self DefaultMongoDrum) Stack() cdktf.TerraformStack {
 	return self.Stack_
 }
 

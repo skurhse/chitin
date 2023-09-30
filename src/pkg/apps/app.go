@@ -1,7 +1,12 @@
 package apps
 
-import "github.com/hashicorp/terraform-cdk-go/cdktf"
+import (
+	"github.com/aws/jsii-runtime-go"
+	"github.com/hashicorp/terraform-cdk-go/cdktf"
+)
 
-func NewApp() cdktf.App {
-	return cdktf.NewApp(nil)
+var AppConfig = &cdktf.AppConfig{
+	Outdir: jsii.String("./out"),
 }
+
+var App = cdktf.NewApp(AppConfig)

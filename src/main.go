@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	app := apps.NewApp()
+	app := apps.App
 
-	cfg, err := apps.LoadConfig()
+	cfg, err := stacks.LoadConfig()
 	if err != nil {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
