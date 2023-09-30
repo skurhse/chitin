@@ -7,7 +7,6 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/modules"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
@@ -85,7 +84,7 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(app constructs.Construct, config apps.Config) DefaultCoreDrum {
+func NewCore(app constructs.Construct) DefaultCoreDrum {
 	stackName := StackNames.Core
 	stackTokens := StackTokens.Core
 

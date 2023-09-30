@@ -15,11 +15,11 @@ func main() {
 
 	config, err := apps.LoadConfig()
 	if err != nil {
-		err := fmt.Errorf("load config: %w", err)
+		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
 	}
 
-	core := stacks.NewCore(app, config)
+	core := stacks.NewCore(app)
 
 	jumpBeat := core.JumpBeat()
 
@@ -34,13 +34,13 @@ func main() {
 
 	drums := [4]stacks.StackDrum{
 		core,
-		stacks.NewJump(app, config, jumpBeat),
-		stacks.NewMongo(app, config, mongoDevBeat, mongoDevEnv),
-		stacks.NewMongo(app, config, mongoProdBeat, mongoProdEnv),
+		stacks.NewJump(app, jumpBeat),
+		stacks.NewMongo(app, mongoDevBeat, mongoDevEnv),
+		stacks.NewMongo(app, mongoProdBeat, mongoProdEnv),
 	}
 
 	for _, drum := range drums {
-		aspects.AddTags(drum, config)
+		aspects.AddTags(drum)
 	}
 
 	app.Synth()
