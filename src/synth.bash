@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# REQ: Builds and runs the project. <rbt 2023-09-22>
+# REQ: Synthesizes the cdktf app into terraform-compliant json. <rbt 2023-09-29>
 
 set +o braceexpand
 set -o errexit
