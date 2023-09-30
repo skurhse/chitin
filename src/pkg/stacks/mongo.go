@@ -21,11 +21,8 @@ import (
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
 
-// TODO: Add sg assocs <>
-// TODO: Hardening <>
-
 type MongoDrum interface {
-	StackDrum
+	Drum
 }
 
 type DefaultMongoDrum struct {
@@ -71,30 +68,12 @@ func (c DefaultMongoCoreBeats) Production() MongoCoreBeat {
 func (c DefaultMongoCoreBeat) Naming() *naming.Naming {
 	return c.Naming_
 }
+
 func (c DefaultMongoCoreBeat) Subnet() *vnet.VirtualNetworkSubnetOutputReference {
 	return c.Subnet_
 }
 
-type MongoEnvironments interface {
-	Development() MongoEnvironment
-	Production() MongoEnvironment
-}
-
-type MongoEnvironment interface {
-	ServerVersion() *string
-	ConsistencyLevel() *string
-	Throughput() *string
-}
-
-type DefaultMongoEnvironments struct {
-	Development_ DefaultMongoEnvironment
-	Production_  DefaultMongoEnvironment
-}
-
-type DefaultMongoEnvironment struct {
-}
-
-func NewMongo(app constructs.Construct, cfg apps.Config, core MongoCoreBeat, env MongoEnvironment) DefaultMongoDrum {
+func NewMongo(app constructs.Construct, cfg apps.Config, core MongoCoreBeat) DefaultMongoDrum {
 
 	stackFormat := StackFormats.Mongo
 

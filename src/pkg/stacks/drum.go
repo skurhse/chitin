@@ -4,7 +4,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 )
 
-type StackDrum interface {
+type Drum interface {
 	StackName() *string
 	Stack() *cdktf.TerraformStack
 }

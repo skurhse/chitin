@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# REQ: Synthesizes the cdktf app into terraform-compliant json. <rbt 2023-09-29>
+# REQ: Generates CDK constructs. <rbt 2023-09-29>
 
 set +o braceexpand
 set -o errexit
@@ -20,4 +20,3 @@ npm install
 
 npx cdktf --version
 npx cdktf get
-npx cdktf synth

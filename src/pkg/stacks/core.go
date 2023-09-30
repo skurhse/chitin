@@ -5,15 +5,15 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
+	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/modules"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
 )
 
 type CoreDrum interface {
-	StackDrum
+	Drum
 	JumpBeat() JumpCoreBeat
 	MongoBeats() MongoCoreBeats
 }
@@ -84,25 +84,25 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(app constructs.Construct) DefaultCoreDrum {
+func NewCore(app constructs.Construct, cfg apps.Config) DefaultCoreDrum {
 	stackName := StackNames.Core
 	stackTokens := StackTokens.Core
 
 	stack := cdktf.NewTerraformStack(app, stackName)
-	providers.NewAzureRM(stack, config)
+	providers.NewAzureRM(stack, cfg)
 
-	naming := modules.NewNaming(stack, config, stackTokens)
+	naming := modules.NewNaming(stack, cfg, stackTokens)
 
-	rg := resources.NewResourceGroup(stack, config, naming)
+	rg := resources.NewResourceGroup(stack, cfg, naming)
 
 	jumpTokens := StackTokens.Jump
-	jumpNaming := modules.NewNaming(stack, config, jumpTokens)
+	jumpNaming := modules.NewNaming(stack, cfg, jumpTokens)
 
-	jumpASG := resources.NewAppSecurityGroup(stack, config, jumpNaming, rg)
+	jumpASG := resources.NewAppSecurityGroup(stack, cfg, jumpNaming, rg)
 
-	jumpSecurityRule := resources.NewSSHSecurityRule(config, jumpASG)
+	jumpSecurityRule := resources.NewSSHSecurityRule(cfg, jumpASG)
 
-	jumpNSG := resources.NewNSG(stack, config, jumpNaming, rg, jumpSecurityRule)
+	jumpNSG := resources.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
 
 	jumpSubnetInput := resources.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
@@ -111,8 +111,8 @@ func NewCore(app constructs.Construct) DefaultCoreDrum {
 	mongoDevTokens := mongoTokens.Development
 	mongoProdTokens := mongoTokens.Production
 
-	mongoDevNaming := modules.NewNaming(stack, config, mongoDevTokens)
-	mongoProdNaming := modules.NewNaming(stack, config, mongoProdTokens)
+	mongoDevNaming := modules.NewNaming(stack, cfg, mongoDevTokens)
+	mongoProdNaming := modules.NewNaming(stack, cfg, mongoProdTokens)
 
 	mongoDevAddrs := CoreSubnets.Mongo.Development
 	mongoProdAddrs := CoreSubnets.Mongo.Production
@@ -125,7 +125,7 @@ func NewCore(app constructs.Construct) DefaultCoreDrum {
 	subnetInputs[CoreSubnetIndices.Mongo.Development] = mongoDevSubnetInput
 	subnetInputs[CoreSubnetIndices.Mongo.Production] = mongoProdSubnetInput
 
-	vnet := resources.NewVNet(stack, config, naming, rg, CoreAddressSpace, subnetInputs)
+	vnet := resources.NewVNet(stack, cfg, naming, rg, CoreAddressSpace, subnetInputs)
 
 	jumpSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Jump)
 	mongoDevSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Development)
