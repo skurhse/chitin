@@ -21,7 +21,7 @@ type CoreDrum interface {
 
 type DefaultCoreDrum struct {
 	StackName_  *string
-	Stack_      *cdktf.TerraformStack
+	Stack_      cdktf.TerraformStack
 	JumpBeat_   DefaultJumpCoreBeat
 	MongoBeats_ DefaultMongoCoreBeats
 }
@@ -35,7 +35,7 @@ func (c DefaultCoreDrum) StackName() *string {
 	return c.StackName_
 }
 
-func (c DefaultCoreDrum) Stack() *cdktf.TerraformStack {
+func (c DefaultCoreDrum) Stack() cdktf.TerraformStack {
 	return c.Stack_
 }
 
