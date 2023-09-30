@@ -7,7 +7,6 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/modules"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
@@ -45,6 +44,25 @@ func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
 
 func (c DefaultCoreDrum) MongoBeats() MongoCoreBeats {
 	return MongoCoreBeats(c.MongoBeats_)
+}
+
+type CoreConfig interface {
+	Config
+}
+
+type CoreRegions interface {
+	Primary() *string
+	Secondary() *string
+}
+
+type DefaultCoreConfig struct {
+	Name_   *string
+	Regions DefaultCoreRegions
+}
+
+type DefaultCoreRegions struct {
+	Primary_   *string
+	Secondary_ *string
 }
 
 var CoreAddressSpace = &[]*string{jsii.String("10.0.0.0/16")}
@@ -85,7 +103,7 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(app constructs.Construct, cfg stacks.Config) DefaultCoreDrum {
+func NewCore(app constructs.Construct, cfg CoreConfig) DefaultCoreDrum {
 	stackName := StackNames.Core
 	stackTokens := StackTokens.Core
 
@@ -134,7 +152,7 @@ func NewCore(app constructs.Construct, cfg stacks.Config) DefaultCoreDrum {
 
 	return DefaultCoreDrum{
 		StackName_: stackName,
-		Stack_:     &stack,
+		Stack_:     stack,
 		JumpBeat_: DefaultJumpCoreBeat{
 			Naming_: jumpNaming,
 			Subnet_: jumpSubnet,

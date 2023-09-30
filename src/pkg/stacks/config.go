@@ -9,7 +9,6 @@ import (
 type Config interface {
 	Name() *string
 	Regions() Regions
-	WhitelistIPs() *[]*string
 }
 
 type Regions interface {
