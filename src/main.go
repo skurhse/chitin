@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"log"
+
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/pkg/apps"
 	"github.com/transprogrammer/xenia/pkg/aspects"
@@ -10,7 +13,11 @@ import (
 func main() {
 	app := cdktf.NewApp(nil)
 
-	config, err := apps.NewConfig()
+	config, err := apps.LoadConfig()
+	if err != nil {
+		err := fmt.Errorf("load config: %w", err)
+		log.Fatal(err)
+	}
 
 	core := stacks.NewCore(app, config)
 
