@@ -63,7 +63,7 @@ func (c DefaultJumpCoreBeat) VNet() *vnet.VirtualNetwork {
 	return c.VNet_
 }
 
-func NewJump(app constructs.Construct, cfg apps.Config, core JumpCoreBeat) DefaultJumpDrum {
+func NewJump(app constructs.Construct, cfg stacks.Config, core JumpCoreBeat) DefaultJumpDrum {
 	stkName := StackNames.Jump
 	stk := cdktf.NewTerraformStack(app, stkName)
 	providers.NewAzureRM(stk, cfg)

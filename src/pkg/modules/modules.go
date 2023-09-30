@@ -7,7 +7,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewNaming(stack cdktf.TerraformStack, config apps.Config, suffix *[]*string) *naming.Naming {
+func NewNaming(stack cdktf.TerraformStack, config stacks.Config, suffix *[]*string) *naming.Naming {
 
 	id := ModuleIds.Naming
 

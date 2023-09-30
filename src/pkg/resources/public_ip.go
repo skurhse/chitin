@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewPublicIP(stack cdktf.TerraformStack, config apps.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup) *ip.PublicIp {
+func NewPublicIP(stack cdktf.TerraformStack, config stacks.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup) *ip.PublicIp {
 	id := ResourceIds.PublicIP
 
 	input := &ip.PublicIpConfig{

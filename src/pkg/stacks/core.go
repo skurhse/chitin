@@ -85,7 +85,7 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(app constructs.Construct, cfg apps.Config) DefaultCoreDrum {
+func NewCore(app constructs.Construct, cfg stacks.Config) DefaultCoreDrum {
 	stackName := StackNames.Core
 	stackTokens := StackTokens.Core
 
