@@ -2,7 +2,7 @@ package resources
 
 import "github.com/aws/jsii-runtime-go"
 
-type ResourceIdsIndex struct {
+type IdsIndex struct {
 	CosmosDBAccount                                     *string
 	NetworkInterface                                    *string
 	NetworkInterfaceApplicationSecurityGroupAssociation *string
@@ -19,7 +19,7 @@ type ResourceIdsIndex struct {
 	VirtualNetwork                                      *string
 }
 
-var ResourceIds = ResourceIdsIndex{
+var Ids = IdsIndex{
 	CosmosDBAccount:  jsii.String("cosmosdb_account"),
 	NetworkInterface: jsii.String("network_interface"),
 	NetworkInterfaceApplicationSecurityGroupAssociation: jsii.String("network_interface_asg_association"),

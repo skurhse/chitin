@@ -1,7 +1,6 @@
 package modules
 
 import (
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
 	"github.com/transprogrammer/xenia/generated/naming"
@@ -9,22 +8,19 @@ import (
 )
 
 type NamingConfig interface {
-	config.Config
+	Tokens() []*string
 }
 
-func NewNaming(scope constructs.Contstruct, config NamingConfig, suffix *[]*string) *naming.Naming {
+var NamingPrefix = &[]*string{apps.Name}
 
-	id := ModuleIds.Naming
+func NewNaming(scope constructs.Construct, config NamingConfig, suffix *[]*string) naming.Naming {
+	tokens := config.Tokens()
 
-	prefix := &[]*string{apps.AppName}
-
-	input := naming.NamingConfig{
-		Prefix:               prefix,
+	input := &naming.NamingConfig{
+		Prefix:               &tokens,
 		UniqueIncludeNumbers: jsii.Bool(false),
-		Suffix:               suffix,
+		Suffix:               &[]*string{},
 	}
 
-	naming := naming.NewNaming(scope, id, &input)
-
-	return &naming
+	return naming.NewNaming(scope, Ids.Naming, input)
 }

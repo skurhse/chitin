@@ -1,9 +1,11 @@
 package modules
 
-type ModuleIdsIndex struct {
+import "github.com/aws/jsii-runtime-go"
+
+type IdsIndex struct {
 	Naming *string
 }
 
-var ModuleIds = ModuleIdsIndex{
-	Naming: "naming"
+var Ids = IdsIndex{
+	Naming: jsii.String("naming"),
 }

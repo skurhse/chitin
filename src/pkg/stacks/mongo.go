@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/apps"
+	cfg "github.com/transprogrammer/xenia/pkg/config"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
 
@@ -36,6 +37,10 @@ func (self DefaultMongoDrum) StackName() *string {
 
 func (self DefaultMongoDrum) Stack() cdktf.TerraformStack {
 	return self.Stack_
+}
+
+type MongoConfig interface {
+	cfg.Config
 }
 
 type MongoCoreBeats interface {
@@ -73,13 +78,10 @@ func (c DefaultMongoCoreBeat) Subnet() *vnet.VirtualNetworkSubnetOutputReference
 	return c.Subnet_
 }
 
-func NewMongo(app constructs.Construct, cfg config.Config, core MongoCoreBeat) DefaultMongoDrum {
+func NewMongo(app constructs.Construct, cfg cfg.Config, core MongoCoreBeat) DefaultMongoDrum {
+	stackName := StackNames.Mongo
 
-	stackFormat := StackFormats.Mongo
-
-	stackName := fmt.Sprintf(stackFormat, envName)
-
-	stk := cdktf.NewTerraformStack(app, StackNames.Mongo)
+	stk := cdktf.NewTerraformStack(app, stackName)
 	providers.NewAzureRM(stk, cfg)
 
 	naming := core.Naming()
@@ -95,11 +97,11 @@ func NewMongo(app constructs.Construct, cfg config.Config, core MongoCoreBeat) D
 	return stack
 }
 
-func NewMongoAccount(stack cdktf.TerraformStack, config config.AppConfig, env config.MongoEnvironment, naming naming.Naming, rg resourcegroup.ResourceGroup) {
+func NewMongoAccount(stack cdktf.TerraformStack, cfg cfg.AppConfig, env cfg.MongoEnvironment, naming naming.Naming, rg resourcegroup.ResourceGroup) {
 
 	input := dbacct.CosmosdbAccountConfig{
 		Name:                       naming.CosmosdbAccountOutput(),
-		Location:                   config.Regions().Primary(),
+		Location:                   cfg.Regions().Primary(),
 		ResourceGroupName:          rg.Name(),
 		Kind:                       jsii.String("MongoDB"),
 		OfferType:                  jsii.String("Standard"),
@@ -110,7 +112,7 @@ func NewMongoAccount(stack cdktf.TerraformStack, config config.AppConfig, env co
 		},
 		GeoLocation: &[]*dbacct.CosmosdbAccountGeoLocation{
 			{
-				Location:         config.Regions().Secondary(),
+				Location:         cfg.Regions().Secondary(),
 				FailoverPriority: jsii.Number(0),
 				ZoneRedundant:    jsii.Bool(false),
 			},
@@ -128,7 +130,7 @@ func NewMongoAccount(stack cdktf.TerraformStack, config config.AppConfig, env co
 	return dbacct.NewCosmosdbAccount(stack, resources.Ids.NewCosmosDBAccount, &input)
 }
 
-func NewMongoDatabase(stk cdktf.TerraformStack, cfg config.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
+func NewMongoDatabase(stk cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
 
 	id := resources.Ids().MongoDatabase
 
@@ -141,7 +143,7 @@ func NewMongoDatabase(stk cdktf.TerraformStack, cfg config.Config, naming naming
 	return db.NewMongoDatabase(stk, id, &input)
 }
 
-func NewMongoPrivateEndpoint(stk cdktf.TerraformStack, cfg config.AppConfiguration, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet vnet.VirtualNetworkSubnetOutputReference) pe.PrivateEndpoint {
+func NewMongoPrivateEndpoint(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet vnet.VirtualNetworkSubnetOutputReference) pe.PrivateEndpoint {
 
 	id := resources.Ids().PrivateEndpoint()
 

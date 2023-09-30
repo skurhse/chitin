@@ -8,6 +8,7 @@ import (
 
 type Config interface {
 	Name() *string
+	Tokens() []*string
 	Regions() Regions
 }
 
@@ -17,9 +18,10 @@ type Regions interface {
 }
 
 type DefaultConfig struct {
-	Name_         *string        `json:"name"`
-	Regions_      DefaultRegions `json:"regions"`
-	WhitelistIPs_ *[]*string     `json:"sshSourceAddressPrefixes"`
+	Tokens_       *string
+	Name_         *string
+	Regions_      DefaultRegions
+	WhitelistIPs_ *[]*string
 }
 
 type DefaultWhitelistConfig struct {

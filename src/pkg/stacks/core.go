@@ -38,7 +38,7 @@ type CoreRegions interface {
 }
 
 type DefaultCoreConfig struct {
-	Name_   *string
+	Tokens_ []string
 	Regions DefaultCoreRegions
 }
 
@@ -106,56 +106,52 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(app constructs.Construct, cfg CoreConfig) DefaultCoreDrum {
-	stackName := StackNames.Core
-	stackTokens := StackTokens.Core
+func NewCore(scope constructs.Construct, cfg CoreConfig) DefaultCoreDrum {
+	stk := NewStack(scope, StackNames.Core)
+	providers.NewAzureRM(stk)
 
-	stack := cdktf.NewTerraformStack(app, stackName)
-	providers.NewAzureRM(stack, cfg)
+	naming := modules.NewNaming(stk, StackTokens.Core)
 
-	naming := modules.NewNaming(stack, cfg, stackTokens)
+	rg := resources.NewResourceGroup(stk, cfg, naming)
 
-	rg := resources.NewResourceGroup(stack, cfg, naming)
+	jumpNaming := modules.NewNaming(stk, cfg, StackTokens.Jump)
 
-	jumpTokens := StackTokens.Jump
-	jumpNaming := modules.NewNaming(stack, cfg, jumpTokens)
-
-	jumpASG := resources.NewAppSecurityGroup(stack, cfg, jumpNaming, rg)
+	jumpASG := resources.NewAppSecurityGroup(stk, cfg, jumpNaming, rg)
 
 	jumpSecurityRule := resources.NewSSHSecurityRule(cfg, jumpASG)
 
-	jumpNSG := resources.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
+	jumpNSG := resources.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
 
-	jumpSubnetInput := resources.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
+	jumpSubnetInput := resources.NewSubnetInput(stk, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
 	mongoTokens := StackTokens.Mongo
 
 	mongoDevTokens := mongoTokens.Development
 	mongoProdTokens := mongoTokens.Production
 
-	mongoDevNaming := modules.NewNaming(stack, cfg, mongoDevTokens)
-	mongoProdNaming := modules.NewNaming(stack, cfg, mongoProdTokens)
+	mongoDevNaming := modules.NewNaming(stk, cfg, mongoDevTokens)
+	mongoProdNaming := modules.NewNaming(stk, cfg, mongoProdTokens)
 
 	mongoDevAddrs := CoreSubnets.Mongo.Development
 	mongoProdAddrs := CoreSubnets.Mongo.Production
 
-	mongoDevSubnetInput := resources.NewSubnetInput(stack, mongoDevNaming, nil, mongoDevAddrs)
-	mongoProdSubnetInput := resources.NewSubnetInput(stack, mongoProdNaming, nil, mongoProdAddrs)
+	mongoDevSubnetInput := resources.NewSubnetInput(stk, mongoDevNaming, nil, mongoDevAddrs)
+	mongoProdSubnetInput := resources.NewSubnetInput(stk, mongoProdNaming, nil, mongoProdAddrs)
 
 	subnetInputs := make([]vnet.VirtualNetworkSubnet, 3)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
 	subnetInputs[CoreSubnetIndices.Mongo.Development] = mongoDevSubnetInput
 	subnetInputs[CoreSubnetIndices.Mongo.Production] = mongoProdSubnetInput
 
-	vnet := resources.NewVNet(stack, cfg, naming, rg, CoreAddressSpace, subnetInputs)
+	vnet := resources.NewVNet(stk, cfg, naming, rg, CoreAddressSpace, subnetInputs)
 
 	jumpSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Jump)
 	mongoDevSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Development)
 	mongoProdSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Production)
 
 	return DefaultCoreDrum{
-		StackName_: stackName,
-		Stack_:     stack,
+		StackName_: StackNames.Core,
+		Stack_:     stk,
 		JumpBeat_: DefaultJumpCoreBeat{
 			Naming_: jumpNaming,
 			Subnet_: jumpSubnet,

@@ -1,19 +1,14 @@
 package providers
 
 import (
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/provider"
-	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-func NewAzureRM(stack cdktf.TerraformStack, config config.Config) *provider.AzurermProvider {
-	id := ProviderIds.AzureRM
-
+func NewAzureRM(scope constructs.Construct) provider.AzurermProvider {
 	input := &provider.AzurermProviderConfig{
 		Features: &provider.AzurermProviderFeatures{},
 	}
 
-	provider := provider.NewAzurermProvider(stack, id, input)
-
-	return &provider
+	return provider.NewAzurermProvider(scope, ProviderIds.AzureRM, input)
 }
