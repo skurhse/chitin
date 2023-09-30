@@ -1,6 +1,6 @@
 # 🦊 xenia
 
-- an aks cdktf project.
+- an Azure Kubernetes Service (AKS) CDK for Terraform project.
 - bootstrapped with the terraform github provider.
 
 ## stack
