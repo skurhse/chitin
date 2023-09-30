@@ -1,5 +1,7 @@
 github.com/Masterminds/semver/v3 v3.2.1 h1:RN9w6+7QoMeJVGyfmbcgs28Br8cvmnucEXnY0rYXWg0=
 github.com/Masterminds/semver/v3 v3.2.1/go.mod h1:qvl/7zhW3nngYb5+80sSMF+FG2BjYrf8m9wsX0PNOMQ=
+github.com/aws/constructs-go v0.0.0-20230829151015-af7f963a0b95 h1:SVEu/VHrQfy6ohjNUTQrqZmyUWr8ZCc6lDaQkhnnVCI=
+github.com/aws/constructs-go v0.0.0-20230829151015-af7f963a0b95/go.mod h1:zOBT0kVK26HF9jv8YgCo+4HMlC8Cv0Bg1b5kHgW0Vk8=
 github.com/aws/constructs-go/constructs/v10 v10.1.297 h1:BuowJEAcbFQpNW7/WY7cOFCJXM3PrYTFOkzvJY2f5qc=
 github.com/aws/constructs-go/constructs/v10 v10.1.297/go.mod h1:5cQJ5iQD1rhDPczS+iQ9ItQXjBjQGnISqscErm9lT34=
 github.com/aws/jsii-runtime-go v1.87.0 h1:C8BMeDgDz4IcDvgKFPMDt2OUGsTiANVu/YZGtwUoJqE=
