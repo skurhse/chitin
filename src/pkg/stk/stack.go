@@ -1,4 +1,4 @@
-package stacks
+package stk
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"

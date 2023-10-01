@@ -1,4 +1,4 @@
-package stacks
+package stk
 
 import "fmt"
 

@@ -1,4 +1,4 @@
-package stacks
+package stk
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"

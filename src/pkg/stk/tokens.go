@@ -1,4 +1,4 @@
-package stacks
+package stk
 
 import cfg "github.com/transprogrammer/xenia/pkg/config"
 
