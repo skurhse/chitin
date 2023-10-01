@@ -1,12 +1,23 @@
 package stacks
 
-type TokenGenerator func(config config.Config, name string) []string 
-type EnvTokenGenerator func(config config.Config, env envs.env, name string) []string 
+import cfg "github.com/transprogrammer/xenia/pkg/config"
 
-type TokenGeneratorsIndex struct {
-	Core TokenGenerator
-	Jump TokenGenerator
-	Mongo EnvTokenGenerator
+type TokensIndex struct {
+	Core  string
+	Jump  string
+	Mongo string
+	Dev   string
+	Prod  string
 }
 
-typ
+var Tokens = TokensIndex{
+	Core:  "core",
+	Jump:  "jump",
+	Mongo: "mongo",
+	Dev:   "dev",
+	Prod:  "prod",
+}
+
+func EnrichTokens(cfg cfg.Config, tokens []string) {
+	return append(cfg.Name, tokens)
+}
