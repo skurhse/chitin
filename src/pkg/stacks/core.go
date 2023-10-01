@@ -106,10 +106,8 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(
-	scope constructs.Construct,
-	config CoreConfig,
-) DefaultCoreDrum {
+func NewCore(scope constructs.Construct, config CoreConfig) DefaultCoreDrum {
+	tokens := []string{config.Name(), "core"}
 	stack := NewStack(scope, 
 
 

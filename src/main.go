@@ -18,8 +18,10 @@ func main() {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
 	}
+	
+	:
 
-	core := stacks.NewCore(app, cfg, "core")
+	core := stacks.NewCore(app, cfg)
 
 	jumpBeat := core.JumpBeat()
 	mongoBeats := core.MongoBeats()
