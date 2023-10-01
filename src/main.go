@@ -13,13 +13,11 @@ import (
 func main() {
 	app := apps.App
 
-	cfg, err := config.LoadConfig()
+	cfg, err := config.Load()
 	if err != nil {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
 	}
-	
-	:
 
 	core := stacks.NewCore(app, cfg)
 

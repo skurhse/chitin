@@ -1,4 +1,4 @@
-package config
+package cfg
 
 import (
 	"fmt"
@@ -47,7 +47,7 @@ func (c DefaultConfig) WhitelistIPs() *[]*string {
 	return c.WhitelistIPs_
 }
 
-func LoadConfig() (cfg DefaultConfig, err error) {
+func Load() (cfg DefaultConfig, err error) {
 
 	var whitelistIPsList *string
 

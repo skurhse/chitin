@@ -1,4 +1,4 @@
-package config
+package cfg
 
 type Drum interface {
 	Config() Config
