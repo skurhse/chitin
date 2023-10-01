@@ -19,7 +19,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	core := stacks.NewCore(app, cfg)
+	core := stacks.NewCore(app, cfg, "core")
 
 	jumpBeat := core.JumpBeat()
 	mongoBeats := core.MongoBeats()

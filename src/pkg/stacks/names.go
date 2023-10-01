@@ -29,10 +29,10 @@ type MongoStackTokensIndex struct {
 }
 
 var StackTokens = StackTokensIndex{
-	Core: &[]*string{jsii.String("core")},
+	Core: []string{"core"},
 	Mongo: MongoStackTokensIndex{
-		Development: &[]*string{jsii.String("mongo"), jsii.String("dev")},
-		Production:  &[]*string{jsii.String("mongo"), jsii.String("prod")},
+		Development: []string{"mongo", "dev"},
+		Production:  &[]*string{"mongo", "prod"},
 	},
 	Jump: &[]*string{jsii.String("jump")},
 }
@@ -47,3 +47,7 @@ var StackNames = StackNamesIndex{
 	},
 	Jump: StackTokens.Jump[0],
 }
+
+func NewName(
+	config config.Config,
+	
