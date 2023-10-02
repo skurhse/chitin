@@ -21,7 +21,7 @@ type Regions interface {
 type DefaultConfig struct {
 	Name_         *string
 	Regions_      DefaultRegions
-	WhitelistIPs_ []*string
+	WhitelistIPs_ *[]*string
 }
 
 type DefaultRegions struct {
@@ -45,7 +45,7 @@ func (r DefaultRegions) Secondary() *string {
 	return r.Secondary_
 }
 
-func (c DefaultConfig) WhitelistIPs() []*string {
+func (c DefaultConfig) WhitelistIPs() *[]*string {
 	return c.WhitelistIPs_
 }
 
@@ -75,7 +75,7 @@ func Load() (cfg DefaultConfig, err error) {
 		whitelistIPs = append(whitelistIPs, jsii.String(val))
 	}
 
-	cfg.WhitelistIPs_ = whitelistIPs
+	cfg.WhitelistIPs_ = &whitelistIPs
 
 	return
 }

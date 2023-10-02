@@ -17,11 +17,11 @@ type JumpDrum interface {
 }
 
 type DefaultJumpDrum struct {
-	StackName_ string
+	StackName_ *string
 	Stack_     cdktf.TerraformStack
 }
 
-func (self DefaultJumpDrum) StackName() string {
+func (self DefaultJumpDrum) StackName() *string {
 	return self.StackName_
 }
 
@@ -68,7 +68,7 @@ func (c DefaultJumpCoreBeat) VNet() vnet.VirtualNetwork {
 	return c.VNet_
 }
 
-func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens ...string) DefaultJumpDrum {
+func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens []string) DefaultJumpDrum {
 	name := NewName(tokens)
 
 	stk := cdktf.NewTerraformStack(app, name)
