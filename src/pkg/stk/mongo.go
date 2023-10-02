@@ -8,7 +8,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/apps"
-	cfg "github.com/transprogrammer/xenia/pkg/config"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
 
@@ -17,7 +17,6 @@ import (
 	pdnsz "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
 	pdnszvnl "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
 	pe "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privateendpoint"
-	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
@@ -70,67 +69,37 @@ func (c DefaultMongoCoreBeats) Production() MongoCoreBeat {
 	return c.Production()
 }
 
-func (c DefaultMongoCoreBeat) Naming() *naming.Naming {
+func (c DefaultMongoCoreBeat) Naming() naming.Naming {
 	return c.Naming_
 }
 
-func (c DefaultMongoCoreBeat) Subnet() *vnet.VirtualNetworkSubnetOutputReference {
+func (c DefaultMongoCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
 	return c.Subnet_
 }
 
-func NewMongo(app constructs.Construct, cfg cfg.Config, core MongoCoreBeat) DefaultMongoDrum {
-	stackName := StackNames.Mongo
+func NewMongo(scope constructs.Construct, cfg cfg.Config, core MongoCoreBeat, tokens []string) DefaultMongoDrum {
+	name := NewName(tokens)
 
-	stk := cdktf.NewTerraformStack(app, stackName)
-	providers.NewAzureRM(stk, cfg)
+	stack := cdktf.NewTerraformStack(scope, name)
+	providers.NewAzureRM(stack)
 
 	naming := core.Naming()
 	subnet := core.Subnet()
 
-	rg := resource.NewResourceGroup(stk, cfg, naming)
+	rg := resources.NewResourceGroup(stack, cfg, naming)
 
-	acct := NewMongoAccount(stk, cfg, env, naming, rg)
+	acct := NewMongoAccount(stack, cfg, naming, rg)
 
-	NewMongoDatabase(stk, cfg, env, naming, acct)
-	NewPrivateEndpoint(stk, cfg, env, naming, rg, subnet)
+	NewMongoDatabase(stack, cfg, naming, acct)
+	NewPrivateEndpoint(stack, cfg, naming, rg, subnet)
 
-	return stack
-}
-
-func NewMongoAccount(stack cdktf.TerraformStack, cfg cfg.AppConfig, env cfg.MongoEnvironment, naming naming.Naming, rg resourcegroup.ResourceGroup) {
-
-	input := dbacct.CosmosdbAccountConfig{
-		Name:                       naming.CosmosdbAccountOutput(),
-		Location:                   cfg.Regions().Primary(),
-		ResourceGroupName:          rg.Name(),
-		Kind:                       jsii.String("MongoDB"),
-		OfferType:                  jsii.String("Standard"),
-		MongoServerVersion:         env.ServerVersion(),
-		PublicNetworkAccessEnabled: jsii.Bool(false),
-		ConsistencyPolicy: &dbacct.CosmosdbAccountConsistencyPolicy{
-			ConsistencyLevel: env.ConsistencyLevel(),
-		},
-		GeoLocation: &[]*dbacct.CosmosdbAccountGeoLocation{
-			{
-				Location:         cfg.Regions().Secondary(),
-				FailoverPriority: jsii.Number(0),
-				ZoneRedundant:    jsii.Bool(false),
-			},
-		},
-		Capabilities: &[]*dbacct.CosmosdbAccountCapabilities{
-			{
-				Name: jsii.String("DisabledRateLimitingResponses"),
-			},
-			{
-				Name: jsii.String("EnableServerless"),
-			},
-		},
+	return DefaultMongoDrum{
+		StackName_: name,
+		Stack_:     stack,
 	}
-
-	return dbacct.NewCosmosdbAccount(stack, resources.Ids.NewCosmosDBAccount, &input)
 }
 
-func NewMongoDatabase(stk cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
+func NewMongoDatabase(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, acct dbacct.CosmosdbAccount) db.MongoDatabase {
 
 	id := resources.Ids().MongoDatabase
 
@@ -140,10 +109,10 @@ func NewMongoDatabase(stk cdktf.TerraformStack, cfg cfg.Config, naming naming.Na
 		resourceGroupName: rg.Name(),
 	}
 
-	return db.NewMongoDatabase(stk, id, &input)
+	return db.NewMongoDatabase(stack, id, &input)
 }
 
-func NewMongoPrivateEndpoint(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet vnet.VirtualNetworkSubnetOutputReference) pe.PrivateEndpoint {
+func NewMongoPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.AppConfiguration, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet vnet.VirtualNetworkSubnetOutputReference) pe.PrivateEndpoint {
 
 	id := resources.Ids().PrivateEndpoint()
 
@@ -161,7 +130,7 @@ func NewMongoPrivateEndpoint(stk cdktf.TerraformStack, cfg cfg.AppConfiguration,
 		PrivateServiceConnection: &conn,
 	}
 
-	return pe.NewPrivateEndpoint(stk, id, &input)
+	return pe.NewPrivateEndpoint(stack, id, &input)
 }
 
 var PrivateDNSZone pdnsz.PrivateDnsZone = pdnsz.NewPrivateDnsZone(Stk, Ids.PrivateDNSZone, &pdnsz.PrivateDnsZoneConfig{
