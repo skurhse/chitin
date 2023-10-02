@@ -6,13 +6,10 @@ import (
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"honnef.co/go/tools/config"
 )
 
 func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, addrSpace *[]*string, subnetInputs []vnet.VirtualNetworkSubnet) *vnet.VirtualNetwork {
-
-	id := ResourceIds.VirtualNetwork
-
 	input := &vnet.VirtualNetworkConfig{
 		Name:              (*naming).VirtualNetworkOutput(),
 		AddressSpace:      addrSpace,
@@ -21,22 +18,22 @@ func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming *naming.Naming,
 		Subnet:            subnetInputs,
 	}
 
-	vnet := vnet.NewVirtualNetwork(stk, id, input)
+	vnet := vnet.NewVirtualNetwork(stk, Ids.VirtualNetwork, input)
 
 	return &vnet
 }
 
-func NewSubnetInput(stk cdktf.TerraformStack, naming *naming.Naming, nsg *networksecuritygroup.NetworkSecurityGroup, addressPrefix *string) vnet.VirtualNetworkSubnet {
+func NewSubnetInput(stk cdktf.TerraformStack, naming naming.Naming, nsg networksecuritygroup.NetworkSecurityGroup, addressPrefix string) vnet.VirtualNetworkSubnet {
 
 	return vnet.VirtualNetworkSubnet{
-		Name:          (*naming).SubnetOutput(),
-		AddressPrefix: addressPrefix,
-		SecurityGroup: (*nsg).Id(),
+		Name:          naming.SubnetOutput(),
+		AddressPrefix: &addressPrefix,
+		SecurityGroup: nsg.Id(),
 	}
 }
 
-func GetSubnet(vnet *vnet.VirtualNetwork, index int) *vnet.VirtualNetworkSubnetOutputReference {
+func GetSubnet(vnet vnet.VirtualNetwork, index int) vnet.VirtualNetworkSubnetOutputReference {
 	i := float64(index)
 
-	return (*vnet).Subnet().Get(&i)
+	return vnet.Subnet().Get(&i)
 }

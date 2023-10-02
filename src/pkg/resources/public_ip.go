@@ -6,24 +6,20 @@ import (
 	ip "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/public_ip"
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewPublicIP(stack cdktf.TerraformStack, config config.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup) *ip.PublicIp {
-	id := ResourceIds.PublicIP
-
-	input := &ip.PublicIpConfig{
-		Name:                 (*naming).PublicIpOutput(),
-		Location:             config.Regions().Primary(),
-		ResourceGroupName:    (*rg).Name(),
+func NewPublicIP(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) ip.PublicIp {
+	input := ip.PublicIpConfig{
+		Name:                 naming.PublicIpOutput(),
+		Location:             cfg.Regions().Primary(),
+		ResourceGroupName:    rg.Name(),
 		Sku:                  jsii.String("Basic"),
 		AllocationMethod:     jsii.String("Dynamic"),
 		IpVersion:            jsii.String("IPv4"),
-		DomainNameLabel:      apps.AppName,
+		DomainNameLabel:      cfg.Name,
 		IdleTimeoutInMinutes: jsii.Number(4),
 	}
 
-	ip := ip.NewPublicIp(stack, id, input)
-
-	return &ip
+	return ip.NewPublicIp(stack, Ids.PublicIP, input)
 }

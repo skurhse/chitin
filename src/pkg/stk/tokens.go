@@ -1,23 +1,35 @@
 package stk
 
-import cfg "github.com/transprogrammer/xenia/pkg/config"
+import "github.com/transprogrammer/xenia/pkg/cfg"
 
-type TokensIndex struct {
-	Core  string
-	Jump  string
-	Mongo string
-	Dev   string
-	Prod  string
+const (
+	CoreToken  = "core"
+	JumpToken  = "jump"
+	MongoToken = "mongo"
+	DevToken   = "dev"
+	ProdToken  = "prod"
+)
+
+type Tokens struct {
+	Core  []string
+	Jump  []string
+	Mongo MongoTokens
 }
 
-var Tokens = TokensIndex{
-	Core:  "core",
-	Jump:  "jump",
-	Mongo: "mongo",
-	Dev:   "dev",
-	Prod:  "prod",
+type MongoTokens struct {
+	Dev  []string
+	Prod []string
 }
 
-func EnrichTokens(cfg cfg.Config, tokens []string) {
-	return append(cfg.Name, tokens)
+func NewTokens(cfg cfg.Config) Tokens {
+	name := cfg.Name()
+
+	return Tokens{
+		Core: []string{name, CoreToken},
+		Jump: []string{name, JumpToken},
+		Mongo: MongoTokens{
+			Dev:  []string{name, MongoToken, DevToken},
+			Prod: []string{name, MongoToken, ProdToken},
+		},
+	}
 }

@@ -7,7 +7,7 @@ import (
 	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/config"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/resources"
 )
@@ -17,11 +17,11 @@ type JumpDrum interface {
 }
 
 type DefaultJumpDrum struct {
-	StackName_ *string
+	StackName_ string
 	Stack_     cdktf.TerraformStack
 }
 
-func (self DefaultJumpDrum) StackName() *string {
+func (self DefaultJumpDrum) StackName() string {
 	return self.StackName_
 }
 
@@ -30,48 +30,49 @@ func (self DefaultJumpDrum) Stack() cdktf.TerraformStack {
 }
 
 type JumpConfig interface {
-	config.Config
-	WhitelistIPs() *[]*string
+	cfg.Config
+	WhitelistIPs() []string
 }
 
 type JumpCoreBeat interface {
 	CoreBeat
-	ASG() *asg.ApplicationSecurityGroup
-	NSG() *nsg.NetworkSecurityGroup
+	ASG() asg.ApplicationSecurityGroup
+	NSG() nsg.NetworkSecurityGroup
 }
 
 type DefaultJumpCoreBeat struct {
-	Naming_ *naming.Naming
-	Subnet_ *vnet.VirtualNetworkSubnetOutputReference
-	ASG_    *asg.ApplicationSecurityGroup
-	NSG_    *nsg.NetworkSecurityGroup
-	VNet_   *vnet.VirtualNetwork
+	Naming_ naming.Naming
+	Subnet_ vnet.VirtualNetworkSubnetOutputReference
+	ASG_    asg.ApplicationSecurityGroup
+	NSG_    nsg.NetworkSecurityGroup
+	VNet_   vnet.VirtualNetwork
 }
 
-func (c DefaultJumpCoreBeat) Naming() *naming.Naming {
+func (c DefaultJumpCoreBeat) Naming() naming.Naming {
 	return c.Naming_
 }
 
-func (c DefaultJumpCoreBeat) Subnet() *vnet.VirtualNetworkSubnetOutputReference {
+func (c DefaultJumpCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
 	return c.Subnet_
 }
 
-func (c DefaultJumpCoreBeat) ASG() *asg.ApplicationSecurityGroup {
+func (c DefaultJumpCoreBeat) ASG() asg.ApplicationSecurityGroup {
 	return c.ASG_
 }
 
-func (c DefaultJumpCoreBeat) NSG() *nsg.NetworkSecurityGroup {
+func (c DefaultJumpCoreBeat) NSG() nsg.NetworkSecurityGroup {
 	return c.NSG_
 }
 
-func (c DefaultJumpCoreBeat) VNet() *vnet.VirtualNetwork {
+func (c DefaultJumpCoreBeat) VNet() vnet.VirtualNetwork {
 	return c.VNet_
 }
 
-func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat) DefaultJumpDrum {
-	stkName := StackNames.Jump
-	stk := cdktf.NewTerraformStack(app, stkName)
-	providers.NewAzureRM(stk, cfg)
+func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens ...string) DefaultJumpDrum {
+	name := NewName(tokens)
+
+	stk := cdktf.NewTerraformStack(app, name)
+	providers.NewAzureRM(stk)
 
 	naming := core.Naming()
 	asg := core.ASG()

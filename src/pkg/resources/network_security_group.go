@@ -7,23 +7,21 @@ import (
 	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"honnef.co/go/tools/config"
 )
 
-func NewNSG(stack cdktf.TerraformStack, config config.Config, naming *naming.Naming, rg *rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) *nsg.NetworkSecurityGroup {
+func NewNSG(stack cdktf.TerraformStack, config config.Config, naming naming.Naming, rg rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) nsg.NetworkSecurityGroup {
 
-	id := ResourceIds.NetworkSecurityGroup
+	id := Ids.NetworkSecurityGroup
 
-	input := &nsg.NetworkSecurityGroupConfig{
-		Name:              (*naming).NetworkSecurityGroupOutput(),
+	input := nsg.NetworkSecurityGroupConfig{
+		Name:              naming.NetworkSecurityGroupOutput(),
 		Location:          config.Regions().Primary(),
-		ResourceGroupName: (*rg).Name(),
+		ResourceGroupName: rg.Name(),
 		SecurityRule:      &securityRule,
 	}
 
-	nsg := nsg.NewNetworkSecurityGroup(stack, id, input)
-
-	return &nsg
+	return nsg.NewNetworkSecurityGroup(stack, id, &input)
 }
 
 func NewSSHSecurityRule(cfg config.Config, asg *asg.ApplicationSecurityGroup) nsg.NetworkSecurityGroupSecurityRule {

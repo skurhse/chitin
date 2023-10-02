@@ -20,7 +20,7 @@ type CoreDrum interface {
 }
 
 type DefaultCoreDrum struct {
-	StackName_  *string
+	StackName_  string
 	Stack_      cdktf.TerraformStack
 	JumpBeat_   DefaultJumpCoreBeat
 	MongoBeats_ DefaultMongoCoreBeats
@@ -33,8 +33,8 @@ type CoreConfig interface {
 }
 
 type CoreRegions interface {
-	Primary() *string
-	Secondary() *string
+	Primary() string
+	Secondary() string
 }
 
 type DefaultCoreConfig struct {
@@ -43,16 +43,16 @@ type DefaultCoreConfig struct {
 }
 
 type DefaultCoreRegions struct {
-	Primary_   *string
-	Secondary_ *string
+	Primary_   string
+	Secondary_ string
 }
 
 type CoreBeat interface {
-	Naming() *naming.Naming
-	Subnet() *vnet.VirtualNetworkSubnetOutputReference
+	Naming() naming.Naming
+	Subnet() vnet.VirtualNetworkSubnetOutputReference
 }
 
-func (c DefaultCoreDrum) StackName() *string {
+func (c DefaultCoreDrum) StackName() string {
 	return c.StackName_
 }
 
@@ -106,20 +106,17 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	},
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, tokens ...string) DefaultCoreDrum {
-	tokens = EnrichTokens(cfg)
-	name := NewName(tokens)
+func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultCoreDrum {
+	name := NewName(tokens.Core)
 
 	stack := NewStack(scope, name)
-
-	stack := NewStack(scope, StackNames.Core)
 	providers.NewAzureRM(stack)
 
-	naming := modules.NewNaming(stack, StackTokens.Core)
+	naming := modules.NewNaming(stack, tokens.Core)
 
 	rg := resources.NewResourceGroup(stack, cfg, naming)
 
-	jumpNaming := modules.NewNaming(stack, cfg, StackTokens.Jump)
+	jumpNaming := modules.NewNaming(stack, tokens.Jump)
 
 	jumpASG := resources.NewAppSecurityGroup(stack, cfg, jumpNaming, rg)
 

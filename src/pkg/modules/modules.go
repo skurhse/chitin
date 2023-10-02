@@ -13,11 +13,14 @@ type NamingConfig interface {
 
 var NamingPrefix = &[]*string{apps.Name}
 
-func NewNaming(scope constructs.Construct, config NamingConfig, suffix *[]*string) naming.Naming {
-	tokens := config.Tokens()
+func NewNaming(scope constructs.Construct, tokens []string) naming.Naming {
+	var prefix []*string
+	for _, token := range tokens {
+		prefix = append(prefix, jsii.String(token))
+	}
 
 	input := &naming.NamingConfig{
-		Prefix:               &tokens,
+		Prefix:               &prefix,
 		UniqueIncludeNumbers: jsii.Bool(false),
 		Suffix:               &[]*string{},
 	}
