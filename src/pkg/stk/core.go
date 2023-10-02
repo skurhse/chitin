@@ -20,7 +20,7 @@ type CoreDrum interface {
 }
 
 type DefaultCoreDrum struct {
-	StackName_  string
+	StackName_  *string
 	Stack_      cdktf.TerraformStack
 	JumpBeat_   DefaultJumpCoreBeat
 	MongoBeats_ DefaultMongoCoreBeats
@@ -52,7 +52,7 @@ type CoreBeat interface {
 	Subnet() vnet.VirtualNetworkSubnetOutputReference
 }
 
-func (c DefaultCoreDrum) StackName() string {
+func (c DefaultCoreDrum) StackName() *string {
 	return c.StackName_
 }
 
@@ -68,23 +68,30 @@ func (c DefaultCoreDrum) MongoBeats() MongoCoreBeats {
 	return MongoCoreBeats(c.MongoBeats_)
 }
 
-var CoreAddressSpace = &[]*string{jsii.String("10.0.0.0/16")}
-
 type CoreSubnetsIndex struct {
 	Jump  *string
 	Mongo MongoSubnetsIndex
 }
 
 type MongoSubnetsIndex struct {
-	Development *string
-	Production  *string
+	Dev  *string
+	Prod *string
 }
 
+const (
+	coreAddr      = "10.0.0.0/16"
+	jumpAddr      = "10.1.0.0./24"
+	mongoDevAddr  = "10.2.0.0./24"
+	mongoProdAddr = "10.3.0.0./24"
+)
+
+var CoreAddrSpace = []*string{jsii.String(coreAddr)}
+
 var CoreSubnets = CoreSubnetsIndex{
-	Jump: jsii.String("10.1.0.0/24"),
+	Jump: jsii.String(jumpAddr),
 	Mongo: MongoSubnetsIndex{
-		Development: jsii.String("10.2.0.0/24"),
-		Production:  jsii.String("10.3.0.0/24"),
+		Dev:  jsii.String(mongoDevAddr),
+		Prod: jsii.String(mongoProdAddr),
 	},
 }
 
@@ -94,15 +101,15 @@ type CoreSubnetsIndicesIndex struct {
 }
 
 type MongoCoreSubnetsIndicesIndex struct {
-	Development int
-	Production  int
+	Dev  int
+	Prod int
 }
 
 var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	Jump: 0,
 	Mongo: MongoCoreSubnetsIndicesIndex{
-		Development: 1,
-		Production:  2,
+		Dev:  1,
+		Prod: 2,
 	},
 }
 
@@ -118,41 +125,38 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 
 	jumpNaming := modules.NewNaming(stack, tokens.Jump)
 
-	jumpASG := resources.NewAppSecurityGroup(stack, cfg, jumpNaming, rg)
+	jumpASG := resources.NewASG(stack, cfg, jumpNaming, rg)
 
-	jumpSecurityRule := resources.NewSSHSecurityRule(cfg, jumpASG)
+	jumpSecurityRule := resources.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 
 	jumpNSG := resources.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
 
 	jumpSubnetInput := resources.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
-	mongoTokens := StackTokens.Mongo
+	mongoTokens := tokens.Mongo
 
-	mongoDevTokens := mongoTokens.Development
-	mongoProdTokens := mongoTokens.Production
+	mongoDevNaming := modules.NewNaming(stack, mongoTokens.Dev)
+	mongoProdNaming := modules.NewNaming(stack, mongoTokens.Prod)
 
-	mongoDevNaming := modules.NewNaming(stack, cfg, mongoDevTokens)
-	mongoProdNaming := modules.NewNaming(stack, cfg, mongoProdTokens)
-
-	mongoDevAddrs := CoreSubnets.Mongo.Development
-	mongoProdAddrs := CoreSubnets.Mongo.Production
+	mongoDevAddrs := CoreSubnets.Mongo.Dev
+	mongoProdAddrs := CoreSubnets.Mongo.Prod
 
 	mongoDevSubnetInput := resources.NewSubnetInput(stack, mongoDevNaming, nil, mongoDevAddrs)
 	mongoProdSubnetInput := resources.NewSubnetInput(stack, mongoProdNaming, nil, mongoProdAddrs)
 
 	subnetInputs := make([]vnet.VirtualNetworkSubnet, 3)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
-	subnetInputs[CoreSubnetIndices.Mongo.Development] = mongoDevSubnetInput
-	subnetInputs[CoreSubnetIndices.Mongo.Production] = mongoProdSubnetInput
+	subnetInputs[CoreSubnetIndices.Mongo.Dev] = mongoDevSubnetInput
+	subnetInputs[CoreSubnetIndices.Mongo.Prod] = mongoProdSubnetInput
 
-	vnet := resources.NewVNet(stack, cfg, naming, rg, CoreAddressSpace, subnetInputs)
+	vnet := resources.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
 
 	jumpSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Jump)
-	mongoDevSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Development)
-	mongoProdSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Production)
+	mongoDevSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Dev)
+	mongoProdSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Prod)
 
 	return DefaultCoreDrum{
-		StackName_: StackNames.Core,
+		StackName_: name,
 		Stack_:     stack,
 		JumpBeat_: DefaultJumpCoreBeat{
 			Naming_: jumpNaming,
@@ -161,11 +165,11 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 			NSG_:    jumpNSG,
 		},
 		MongoBeats_: DefaultMongoCoreBeats{
-			Development_: DefaultMongoCoreBeat{
+			Dev_: DefaultMongoCoreBeat{
 				Naming_: mongoDevNaming,
 				Subnet_: mongoDevSubnet,
 			},
-			Production_: DefaultMongoCoreBeat{
+			Prod_: DefaultMongoCoreBeat{
 				Naming_: mongoProdNaming,
 				Subnet_: mongoProdSubnet,
 			},

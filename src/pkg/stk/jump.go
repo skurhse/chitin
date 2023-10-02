@@ -31,7 +31,7 @@ func (self DefaultJumpDrum) Stack() cdktf.TerraformStack {
 
 type JumpConfig interface {
 	cfg.Config
-	WhitelistIPs() []string
+	WhitelistIPs() *[]*string
 }
 
 type JumpCoreBeat interface {

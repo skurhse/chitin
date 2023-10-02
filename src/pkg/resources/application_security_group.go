@@ -6,20 +6,18 @@ import (
 	asg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/applicationsecuritygroup"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
 var appSecurityGroupResourceId = jsii.String("application_security_group")
 
-func NewAppSecurityGroup(stack cdktf.TerraformStack, config config.Config, *naming naming.Naming, rg *resourceGroup rg.ResourceGroup) *asg.ApplicationSecurityGroup {
-
-	id := ResourceIds
-
-	input := &asg.ApplicationSecurityGroupConfig{
+func NewASG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup) asg.ApplicationSecurityGroup {
+	input := asg.ApplicationSecurityGroupConfig{
 		Name:              naming.ApplicationSecurityGroupOutput(),
-		Location:          config.Regions().Primary(),
-		ResourceGroupName: resourceGroup.Name(),
+		Location:          cfg.Regions().Primary(),
+		ResourceGroupName: rg.Name(),
 	}
 
-	return asg.NewApplicationSecurityGroup(stack, id, input)
+	return asg.NewApplicationSecurityGroup(stack, id, &input)
+
 }

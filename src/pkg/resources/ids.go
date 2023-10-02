@@ -16,7 +16,7 @@ type IdsIndex struct {
 	ResourceGroup                                       *string
 	Subnet                                              *string
 	VirtualMachine                                      *string
-	VNet                                                *string
+	VirtualNetwork                                      *string
 }
 
 var Ids = IdsIndex{
@@ -33,5 +33,5 @@ var Ids = IdsIndex{
 	ResourceGroup:                                       jsii.String("resource_group"),
 	Subnet:                                              jsii.String("subnet"),
 	VirtualMachine:                                      jsii.String("virtual_machine"),
-	VNet:                                                jsii.String("virtual_network"),
+	VirtualNetwork:                                      jsii.String("virtual_network"),
 }

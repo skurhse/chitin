@@ -7,16 +7,16 @@ import (
 	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"honnef.co/go/tools/config"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewNSG(stack cdktf.TerraformStack, config config.Config, naming naming.Naming, rg rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) nsg.NetworkSecurityGroup {
+func NewNSG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) nsg.NetworkSecurityGroup {
 
 	id := Ids.NetworkSecurityGroup
 
 	input := nsg.NetworkSecurityGroupConfig{
 		Name:              naming.NetworkSecurityGroupOutput(),
-		Location:          config.Regions().Primary(),
+		Location:          cfg.Regions().Primary(),
 		ResourceGroupName: rg.Name(),
 		SecurityRule:      &securityRule,
 	}
@@ -24,11 +24,9 @@ func NewNSG(stack cdktf.TerraformStack, config config.Config, naming naming.Nami
 	return nsg.NewNetworkSecurityGroup(stack, id, &input)
 }
 
-func NewSSHSecurityRule(cfg config.Config, asg *asg.ApplicationSecurityGroup) nsg.NetworkSecurityGroupSecurityRule {
+func NewSSHSecurityRule(ips *[]*string, asg asg.ApplicationSecurityGroup) nsg.NetworkSecurityGroupSecurityRule {
 
-	groupIds := &[]*string{(*asg).Id()}
-
-	srcPrefixes := cfg.SSHSourceAddressPrefixes()
+	groupIds := &[]*string{asg.Id()}
 
 	return nsg.NetworkSecurityGroupSecurityRule{
 		Name:                                   jsii.String("SSH"),
@@ -39,7 +37,7 @@ func NewSSHSecurityRule(cfg config.Config, asg *asg.ApplicationSecurityGroup) ns
 		Protocol:                               jsii.String("Tcp"),
 		DestinationPortRange:                   jsii.String("22"),
 		DestinationApplicationSecurityGroupIds: groupIds,
-		SourceAddressPrefixes:                  srcPrefixes,
+		SourceAddressPrefixes:                  ips,
 		SourcePortRange:                        jsii.String("*"),
 	}
 }

@@ -9,25 +9,23 @@ import (
 	"honnef.co/go/tools/config"
 )
 
-func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming *naming.Naming, rg *resourcegroup.ResourceGroup, addrSpace *[]*string, subnetInputs []vnet.VirtualNetworkSubnet) *vnet.VirtualNetwork {
-	input := &vnet.VirtualNetworkConfig{
-		Name:              (*naming).VirtualNetworkOutput(),
-		AddressSpace:      addrSpace,
-		Location:          (*rg).Location(),
-		ResourceGroupName: (*rg).Name(),
+func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, subnetInputs []vnet.VirtualNetworkSubnet) vnet.VirtualNetwork {
+	input := vnet.VirtualNetworkConfig{
+		Name:              naming.VirtualNetworkOutput(),
+		AddressSpace:      &addrSpace,
+		Location:          rg.Location(),
+		ResourceGroupName: rg.Name(),
 		Subnet:            subnetInputs,
 	}
 
-	vnet := vnet.NewVirtualNetwork(stk, Ids.VirtualNetwork, input)
-
-	return &vnet
+	return vnet.NewVirtualNetwork(stk, Ids.VirtualNetwork, &input)
 }
 
-func NewSubnetInput(stk cdktf.TerraformStack, naming naming.Naming, nsg networksecuritygroup.NetworkSecurityGroup, addressPrefix string) vnet.VirtualNetworkSubnet {
+func NewSubnetInput(stk cdktf.TerraformStack, naming naming.Naming, nsg networksecuritygroup.NetworkSecurityGroup, addressPrefix *string) vnet.VirtualNetworkSubnet {
 
 	return vnet.VirtualNetworkSubnet{
 		Name:          naming.SubnetOutput(),
-		AddressPrefix: &addressPrefix,
+		AddressPrefix: addressPrefix,
 		SecurityGroup: nsg.Id(),
 	}
 }

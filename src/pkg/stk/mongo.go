@@ -53,13 +53,13 @@ type MongoCoreBeat interface {
 }
 
 type DefaultMongoCoreBeats struct {
-	Development_ DefaultMongoCoreBeat
-	Production_  DefaultMongoCoreBeat
+	Dev_  DefaultMongoCoreBeat
+	Prod_ DefaultMongoCoreBeat
 }
 
 type DefaultMongoCoreBeat struct {
-	Naming_ *naming.Naming
-	Subnet_ *vnet.VirtualNetworkSubnetOutputReference
+	Naming_ naming.Naming
+	Subnet_ vnet.VirtualNetworkSubnetOutputReference
 }
 
 func (c DefaultMongoCoreBeats) Development() MongoCoreBeat {
