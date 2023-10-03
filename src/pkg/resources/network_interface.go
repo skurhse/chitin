@@ -12,12 +12,12 @@ import (
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"honnef.co/go/tools/config"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewNIC(stack cdktf.TerraformStack, config config.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, ip publicip.PublicIp) nic.NetworkInterface {
+func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, ip publicip.PublicIp) nic.NetworkInterface {
 	ipConfig := nic.NetworkInterfaceIpConfiguration{
-		Name:                    jsii.String("ipconfig"),
+		Name:                    jsii.String("ipcfg"),
 		Primary:                 jsii.Bool(true),
 		SubnetId:                subnet.Id(),
 		PublicIpAddressId:       ip.Id(),
@@ -26,7 +26,7 @@ func NewNIC(stack cdktf.TerraformStack, config config.Config, naming naming.Nami
 
 	input := &nic.NetworkInterfaceConfig{
 		Name:              naming.NetworkInterfaceOutput(),
-		Location:          config.Regions().Primary(),
+		Location:          cfg.Regions().Primary(),
 		ResourceGroupName: rg.Name(),
 		IpConfiguration:   ipConfig,
 	}
@@ -34,7 +34,7 @@ func NewNIC(stack cdktf.TerraformStack, config config.Config, naming naming.Nami
 	return nic.NewNetworkInterface(stack, Ids.NetworkInterface, input)
 }
 
-func NewNICAssocASG(stack cdktf.TerraformStack, config config.Config, nic nic.NetworkInterface, asg asg.ApplicationSecurityGroup) nicasg.NetworkInterfaceApplicationSecurityGroupAssociation {
+func NewNICAssocASG(stack cdktf.TerraformStack, cfg cfg.Config, nic nic.NetworkInterface, asg asg.ApplicationSecurityGroup) nicasg.NetworkInterfaceApplicationSecurityGroupAssociation {
 	id := Ids.NetworkInterfaceApplicationSecurityGroupAssociation
 
 	input := &nicasg.NetworkInterfaceApplicationSecurityGroupAssociationConfig{
@@ -45,15 +45,13 @@ func NewNICAssocASG(stack cdktf.TerraformStack, config config.Config, nic nic.Ne
 	return nicasg.NewNetworkInterfaceApplicationSecurityGroupAssociation(stack, id, input)
 }
 
-func NewNICAssocNSG(stack cdktf.TerraformStack, config config.Config, nic *nic.NetworkInterface, nsg *nsg.NetworkSecurityGroup) *nicnsg.NetworkInterfaceSecurityGroupAssociation {
-	id := ResourceIds.NetworkInterfaceNetworkSecurityGroupAssociation
+func NewNICAssocNSG(stack cdktf.TerraformStack, cfg cfg.Config, nic nic.NetworkInterface, nsg nsg.NetworkSecurityGroup) nicnsg.NetworkInterfaceSecurityGroupAssociation {
+	id := Ids.NetworkInterfaceNetworkSecurityGroupAssociation
 
 	input := &nicnsg.NetworkInterfaceSecurityGroupAssociationConfig{
-		NetworkInterfaceId:     (*nic).Id(),
-		NetworkSecurityGroupId: (*nsg).Id(),
+		NetworkInterfaceId:     nic.Id(),
+		NetworkSecurityGroupId: nsg.Id(),
 	}
 
-	assoc := nicnsg.NewNetworkInterfaceSecurityGroupAssociation(stack, id, input)
-
-	return &assoc
+	return nicnsg.NewNetworkInterfaceSecurityGroupAssociation(stack, id, input)
 }
