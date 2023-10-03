@@ -22,7 +22,7 @@ type MongoTokens struct {
 }
 
 func NewTokens(cfg cfg.Config) Tokens {
-	name := cfg.Name()
+	name := *cfg.Name()
 
 	return Tokens{
 		Core: []string{name, CoreToken},
