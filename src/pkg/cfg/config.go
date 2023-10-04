@@ -49,8 +49,15 @@ func (c DefaultConfig) WhitelistIPs() *[]*string {
 	return c.WhitelistIPs_
 }
 
-func Load() (cfg DefaultConfig, err error) {
+func Load() (DefaultConfig, error) {
 
+	cfg := DefaultConfig{
+		Name_: new(string),
+		Regions_: DefaultRegions{
+			Primary_:   new(string),
+			Secondary_: new(string),
+		},
+	}
 	var whitelistIPsList string
 
 	keyMap := map[*string]string{
@@ -62,11 +69,13 @@ func Load() (cfg DefaultConfig, err error) {
 
 	for k, v := range keyMap {
 		var present bool
+		var val string
 		*k, present = os.LookupEnv(v)
 		if !present {
-			err = fmt.Errorf("lookup env: %v not present", v)
-			return
+			err := fmt.Errorf("lookup env: %v not present", v)
+			return cfg, err
 		}
+		k = &val
 	}
 
 	whitelistIPVals := strings.Split(whitelistIPsList, ",")
@@ -77,5 +86,5 @@ func Load() (cfg DefaultConfig, err error) {
 
 	cfg.WhitelistIPs_ = &whitelistIPs
 
-	return
+	return cfg, nil
 }
