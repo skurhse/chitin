@@ -5,12 +5,7 @@ type Drum interface {
 	Tokens() []*string
 }
 
-type DefaultDrum
-
-type Tokens interface {
-}
-
 type DefaultDrum struct {
 	Config_ Config
-	Tokens_ Tokens
+	Tokens_ []*string
 }

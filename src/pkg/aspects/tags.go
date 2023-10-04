@@ -5,8 +5,8 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/transprogrammer/xenia/pkg/config"
-	"github.com/transprogrammer/xenia/pkg/stacks"
+	"github.com/transprogrammer/xenia/pkg/cfg"
+	"github.com/transprogrammer/xenia/pkg/stk"
 )
 
 const ProjectTagKey = "project"
@@ -34,10 +34,10 @@ func NewTagsAddingAspect(tags *map[string]*string) *TagsAddingAspect {
 	return &TagsAddingAspect{Tags: tags}
 }
 
-func AddTags(container stacks.StackContainer, config config.AppConfig) {
-	stack := *container.Stack()
+func AddTags(container stk.Drum, cfg cfg.Config) {
+	stack := container.Stack()
 	stackName := container.StackName()
-	projectName := config.Name()
+	projectName := cfg.Name()
 
 	projectEntry := &map[string]*string{ProjectTagKey: projectName}
 	stackEntry := &map[string]*string{StackTagKey: stackName}

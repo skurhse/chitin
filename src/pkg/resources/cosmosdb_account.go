@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewMongoAccount(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) dbacct.CosmosdbAccount {
+func NewCosmosDBMongoAccount(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) dbacct.CosmosdbAccount {
 
 	consistencyPolicy := dbacct.CosmosdbAccountConsistencyPolicy{
 		ConsistencyLevel: jsii.String("Eventual"),

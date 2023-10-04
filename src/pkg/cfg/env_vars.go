@@ -7,7 +7,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-var EnvVarPrefix = strings.ToUpper(*apps.AppName)
+var EnvVarPrefix = strings.ToUpper(*apps.Name)
 
 var RegionEnvVarPrefix = fmt.Sprintf("%s_REGION", EnvVarPrefix)
 

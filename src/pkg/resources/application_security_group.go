@@ -18,6 +18,5 @@ func NewASG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg
 		ResourceGroupName: rg.Name(),
 	}
 
-	return asg.NewApplicationSecurityGroup(stack, id, &input)
-
+	return asg.NewApplicationSecurityGroup(stack, Ids.AppSecGroup, &input)
 }

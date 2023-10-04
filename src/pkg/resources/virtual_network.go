@@ -6,10 +6,10 @@ import (
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
-	"honnef.co/go/tools/config"
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewVNet(stk cdktf.TerraformStack, cfg config.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, subnetInputs []vnet.VirtualNetworkSubnet) vnet.VirtualNetwork {
+func NewVNet(stk cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, subnetInputs []vnet.VirtualNetworkSubnet) vnet.VirtualNetwork {
 	input := vnet.VirtualNetworkConfig{
 		Name:              naming.VirtualNetworkOutput(),
 		AddressSpace:      &addrSpace,
