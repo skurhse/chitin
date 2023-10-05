@@ -1,7 +1,6 @@
 # 🦊 xenia
 
-- a terraform cdk project that creates and provisions Azure Kubernetes Service clusters.
-- bootstrapped with the terraform github provider.
+- a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters.
 
 ## docs
 
