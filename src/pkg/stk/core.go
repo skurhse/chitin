@@ -119,11 +119,14 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	stack := NewStack(scope, name)
 	providers.NewAzureRM(stack)
 
+	mongoTokens := tokens.Mongo
+
 	naming := modules.NewNaming(stack, tokens.Core)
+	jumpNaming := modules.NewNaming(stack, tokens.Jump)
+	mongoDevNaming := modules.NewNaming(stack, mongoTokens.Dev)
+	mongoProdNaming := modules.NewNaming(stack, mongoTokens.Prod)
 
 	rg := resources.NewResourceGroup(stack, cfg, naming)
-
-	jumpNaming := modules.NewNaming(stack, tokens.Jump)
 
 	jumpASG := resources.NewASG(stack, cfg, jumpNaming, rg)
 
@@ -132,11 +135,6 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	jumpNSG := resources.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
 
 	jumpSubnetInput := resources.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
-
-	mongoTokens := tokens.Mongo
-
-	mongoDevNaming := modules.NewNaming(stack, mongoTokens.Dev)
-	mongoProdNaming := modules.NewNaming(stack, mongoTokens.Prod)
 
 	mongoDevAddrs := CoreSubnets.Mongo.Dev
 	mongoProdAddrs := CoreSubnets.Mongo.Prod
