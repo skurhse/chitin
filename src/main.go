@@ -25,8 +25,8 @@ func main() {
 
 	jumpBeat := core.JumpBeat()
 	mongoBeats := core.MongoBeats()
-	mongoDevBeat := mongoBeats.Development()
-	mongoProdBeat := mongoBeats.Production()
+	mongoDevBeat := mongoBeats.Dev()
+	mongoProdBeat := mongoBeats.Prod()
 	mongoTokens := tokens.Mongo
 
 	drums := [4]stk.Drum{

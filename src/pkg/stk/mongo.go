@@ -33,8 +33,8 @@ type MongoConfig interface {
 }
 
 type MongoCoreBeats interface {
-	Development() MongoCoreBeat
-	Production() MongoCoreBeat
+	Dev() MongoCoreBeat
+	Prod() MongoCoreBeat
 }
 
 type MongoCoreBeat interface {
@@ -53,12 +53,12 @@ type DefaultMongoCoreBeat struct {
 	VNet_   vnet.VirtualNetwork
 }
 
-func (c DefaultMongoCoreBeats) Development() MongoCoreBeat {
-	return c.Development()
+func (c DefaultMongoCoreBeats) Dev() MongoCoreBeat {
+	return c.Dev_
 }
 
-func (c DefaultMongoCoreBeats) Production() MongoCoreBeat {
-	return c.Production()
+func (c DefaultMongoCoreBeats) Prod() MongoCoreBeat {
+	return c.Prod_
 }
 
 func (c DefaultMongoCoreBeat) Naming() naming.Naming {
