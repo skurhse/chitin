@@ -166,10 +166,12 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 			Dev_: DefaultMongoCoreBeat{
 				Naming_: mongoDevNaming,
 				Subnet_: mongoDevSubnet,
+				VNet_:   vnet,
 			},
 			Prod_: DefaultMongoCoreBeat{
 				Naming_: mongoProdNaming,
 				Subnet_: mongoProdSubnet,
+				VNet_:   vnet,
 			},
 		},
 	}

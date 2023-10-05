@@ -15,7 +15,7 @@ import (
 
 func NewPrivateDNSZoneVNetLink(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, zone pdnsz.PrivateDnsZone, vnet vnet.VirtualNetwork) pdnszvnl.PrivateDnsZoneVirtualNetworkLink {
 
-	name := fmt.Sprintf("%s-vnetlink", naming.PrivateDnsZoneOutput())
+	name := fmt.Sprintf("%s-vnetlink", *naming.PrivateDnsZoneOutput())
 
 	input := pdnszvnl.PrivateDnsZoneVirtualNetworkLinkConfig{
 		Name:                &name,

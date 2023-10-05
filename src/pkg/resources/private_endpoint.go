@@ -20,6 +20,7 @@ func NewPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.Config, naming namin
 		Name:                        jsii.String("cosmosdb"),
 		PrivateConnectionResourceId: acct.Id(),
 		SubresourceNames:            &[]*string{jsii.String("MongoDB")},
+		IsManualConnection:          jsii.Bool(false),
 	}
 
 	privateDNSZoneIds := []*string{zone.Id()}
