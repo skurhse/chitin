@@ -28,7 +28,7 @@ func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg
 		Name:              naming.NetworkInterfaceOutput(),
 		Location:          cfg.Regions().Primary(),
 		ResourceGroupName: rg.Name(),
-		IpConfiguration:   ipConfig,
+		IpConfiguration:   &[]*nic.NetworkInterfaceIpConfiguration{&ipConfig},
 	}
 
 	return nic.NewNetworkInterface(stack, Ids.NetworkInterface, input)
