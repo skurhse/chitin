@@ -17,11 +17,11 @@ import (
 
 func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, ip publicip.PublicIp) nic.NetworkInterface {
 	ipConfig := nic.NetworkInterfaceIpConfiguration{
-		Name:                    jsii.String("ipcfg"),
-		Primary:                 jsii.Bool(true),
-		SubnetId:                subnet.Id(),
-		PublicIpAddressId:       ip.Id(),
-		PrivateIpAddressVersion: jsii.String("Dynamic"),
+		Name:                       jsii.String("ipcfg"),
+		Primary:                    jsii.Bool(true),
+		SubnetId:                   subnet.Id(),
+		PublicIpAddressId:          ip.Id(),
+		PrivateIpAddressAllocation: jsii.String("Dynamic"),
 	}
 
 	input := &nic.NetworkInterfaceConfig{
