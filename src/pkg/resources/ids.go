@@ -22,9 +22,10 @@ type IdsIndex struct {
 }
 
 var Ids = IdsIndex{
-	AppSecGroup:      jsii.String("application_security_group"),
-	CosmosDBAccount:  jsii.String("cosmosdb_account"),
-	NetworkInterface: jsii.String("network_interface"),
+	AppSecGroup:           jsii.String("application_security_group"),
+	CosmosDBAccount:       jsii.String("cosmosdb_account"),
+	CosmosDBMongoDatabase: jsii.String("cosmosdb_mongo_database"),
+	NetworkInterface:      jsii.String("network_interface"),
 	NetworkInterfaceApplicationSecurityGroupAssociation: jsii.String("network_interface_asg_association"),
 	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),
 	NetworkSecurityGroup:                                jsii.String("network_security_group"),
