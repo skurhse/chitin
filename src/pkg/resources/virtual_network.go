@@ -23,10 +23,17 @@ func NewVNet(stk cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg 
 
 func NewSubnetInput(stk cdktf.TerraformStack, naming naming.Naming, nsg networksecuritygroup.NetworkSecurityGroup, addressPrefix *string) vnet.VirtualNetworkSubnet {
 
+	var securityGroup *string
+	if nsg != nil {
+		securityGroup = nsg.Id()
+	} else {
+		securityGroup = nil
+	}
+
 	return vnet.VirtualNetworkSubnet{
 		Name:          naming.SubnetOutput(),
 		AddressPrefix: addressPrefix,
-		SecurityGroup: nsg.Id(),
+		SecurityGroup: securityGroup,
 	}
 }
 
