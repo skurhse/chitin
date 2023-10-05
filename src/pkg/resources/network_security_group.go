@@ -18,7 +18,7 @@ func NewNSG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg
 		Name:              naming.NetworkSecurityGroupOutput(),
 		Location:          cfg.Regions().Primary(),
 		ResourceGroupName: rg.Name(),
-		SecurityRule:      &securityRule,
+		SecurityRule:      &[]*nsg.NetworkSecurityGroupSecurityRule{&securityRule},
 	}
 
 	return nsg.NewNetworkSecurityGroup(stack, id, &input)
