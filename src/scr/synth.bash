@@ -19,4 +19,5 @@ export XENIA_REGION_PRIMARY='USEast2'
 export XENIA_REGION_SECONDARY='USWest2'
 [[ "${XENIA_WHITELIST_IPS@a}" == *x* ]] || export XENIA_WHITELIST_IPS=''
 
+mkdir -p './out'
 npx cdktf synth 
