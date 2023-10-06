@@ -22,17 +22,12 @@ func main() {
 
 	core := stk.NewCore(app, cfg, tokens)
 
-	jumpBeat := core.JumpBeat()
-	mongoBeats := core.MongoBeats()
-	mongoDevBeat := mongoBeats.Dev()
-	mongoProdBeat := mongoBeats.Prod()
-	mongoTokens := tokens.Mongo
-
-	drums := [4]stk.Drum{
+	drums := [5]stk.Drum{
 		core,
-		stk.NewJump(app, cfg, jumpBeat, tokens.Jump),
-		stk.NewMongo(app, cfg, mongoDevBeat, mongoTokens.Dev),
-		stk.NewMongo(app, cfg, mongoProdBeat, mongoTokens.Prod),
+		stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump),
+		stk.NewMongo(app, cfg, core.MongoBeats().Dev(), tokens.Mongo.Dev),
+		stk.NewMongo(app, cfg, core.MongoBeats().Prod(), tokens.Mongo.Prod),
+		stk.NewCluster(app, cfg, core.ClusterBeat(), tokens.Cluster),
 	}
 
 	for _, drum := range drums {

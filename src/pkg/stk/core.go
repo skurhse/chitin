@@ -17,13 +17,15 @@ type CoreDrum interface {
 	Drum
 	JumpBeat() JumpCoreBeat
 	MongoBeats() MongoCoreBeats
+	ClusterBeat() ClusterCoreBeat
 }
 
 type DefaultCoreDrum struct {
-	StackName_  *string
-	Stack_      cdktf.TerraformStack
-	JumpBeat_   DefaultJumpCoreBeat
-	MongoBeats_ DefaultMongoCoreBeats
+	StackName_   *string
+	Stack_       cdktf.TerraformStack
+	JumpBeat_    DefaultJumpCoreBeat
+	MongoBeats_  DefaultMongoCoreBeats
+	ClusterBeat_ DefaultClusterCoreBeat
 }
 
 type CoreConfig interface {
@@ -66,6 +68,10 @@ func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
 
 func (c DefaultCoreDrum) MongoBeats() MongoCoreBeats {
 	return MongoCoreBeats(c.MongoBeats_)
+}
+
+func (c DefaultCoreDrum) ClusterBeat() ClusterCoreBeat {
+	return ClusterCoreBeat(c.ClusterBeat_)
 }
 
 type CoreSubnetsIndex struct {
