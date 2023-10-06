@@ -2,12 +2,9 @@ package cfg
 
 import (
 	"fmt"
-	"strings"
-
-	"github.com/transprogrammer/xenia/pkg/apps"
 )
 
-var EnvVarPrefix = strings.ToUpper(*apps.Name)
+const EnvVarPrefix = "XENIA"
 
 var RegionEnvVarPrefix = fmt.Sprintf("%s_REGION", EnvVarPrefix)
 

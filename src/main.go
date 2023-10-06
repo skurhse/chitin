@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/transprogrammer/xenia/pkg/apps"
+	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/pkg/aspects"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/stk"
 )
 
 func main() {
-	app := apps.App
+	app := cdktf.NewApp(nil)
 
 	cfg, err := cfg.Load()
 	if err != nil {
