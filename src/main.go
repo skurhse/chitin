@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/transprogrammer/xenia/pkg/aspects"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/stk"
 )
@@ -37,7 +36,8 @@ func main() {
 	}
 
 	for _, drum := range drums {
-		aspects.AddTags(drum, cfg)
+		// aspects.AddTags(drum, cfg)
+		fmt.Printf(*drum.StackName())
 	}
 
 	app.Synth()

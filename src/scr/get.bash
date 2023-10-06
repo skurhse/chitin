@@ -12,7 +12,7 @@ set -o xtrace
 
 path=$(realpath "$0")
 dir=$(dirname "$path")
-cd "$dir"
+cd "$dir/../"
 
 npm --version
 npm cache verify
