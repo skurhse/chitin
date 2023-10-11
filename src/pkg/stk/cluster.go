@@ -7,6 +7,7 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
+	"github.com/transprogrammer/xenia/pkg/resources"
 )
 
 type ClusterDrum interface {
@@ -54,7 +55,9 @@ func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBea
 	stk := cdktf.NewTerraformStack(app, name)
 	providers.NewAzureRM(stk)
 
-	// naming := core.Naming()
+	naming := core.Naming()
+
+	rg := resources.NewResourceGroup(stk, cfg, naming)
 
 	return DefaultClusterDrum{
 		StackName_: name,
