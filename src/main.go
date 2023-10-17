@@ -21,14 +21,14 @@ func main() {
 	tokens := stk.NewTokens(cfg)
 
 	core := stk.NewCore(app, cfg, tokens)
+	jump := stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump)
 
-	drums := [5]stk.Drum{
-		core,
-		stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump),
-		stk.NewMongo(app, cfg, core.MongoBeats().Dev(), tokens.Mongo.Dev),
-		stk.NewMongo(app, cfg, core.MongoBeats().Prod(), tokens.Mongo.Prod),
-		stk.NewCluster(app, cfg, core.ClusterBeat(), tokens.Cluster),
-	}
+	mongoDev := stk.NewMongo(app, cfg, core.MongoBeats().Dev(), tokens.Mongo.Dev)
+	mongoProd := stk.NewMongo(app, cfg, core.MongoBeats().Prod(), tokens.Mongo.Prod)
+
+	cluster := stk.NewCluster(app, cfg, core.ClusterBeat(), jump.ClusterBeat(), tokens.Cluster)
+
+	drums := [5]stk.Drum{core, jump, mongoDev, mongoProd, cluster}
 
 	for _, drum := range drums {
 		// aspects.AddTags(drum, cfg)

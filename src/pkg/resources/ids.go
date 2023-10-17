@@ -6,6 +6,7 @@ type IdsIndex struct {
 	AppSecGroup                                         *string
 	CosmosDBAccount                                     *string
 	CosmosDBMongoDatabase                               *string
+	KubernetesCluster                                   *string
 	NetworkInterface                                    *string
 	NetworkInterfaceApplicationSecurityGroupAssociation *string
 	NetworkInterfaceNetworkSecurityGroupAssociation     *string
@@ -25,6 +26,7 @@ var Ids = IdsIndex{
 	AppSecGroup:           jsii.String("application_security_group"),
 	CosmosDBAccount:       jsii.String("cosmosdb_account"),
 	CosmosDBMongoDatabase: jsii.String("cosmosdb_mongo_database"),
+	KubernetesCluster:     jsii.String("kubernetes_cluster"),
 	NetworkInterface:      jsii.String("network_interface"),
 	NetworkInterfaceApplicationSecurityGroupAssociation: jsii.String("network_interface_asg_association"),
 	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),

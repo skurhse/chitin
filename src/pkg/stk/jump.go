@@ -68,6 +68,8 @@ func (c DefaultJumpCoreBeat) VNet() vnet.VirtualNetwork {
 	return c.VNet_
 }
 
+type JumpBeat interface{}
+
 func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens []string) DefaultJumpDrum {
 	name := NewName(tokens)
 
