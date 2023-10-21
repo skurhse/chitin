@@ -92,6 +92,8 @@ func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens
 
 	resources.NewVirtualMachine(stk, cfg, naming, rg, nic)
 
+	resources.New
+
 	return DefaultJumpDrum{
 		StackName_: name,
 		Stack_:     stk,

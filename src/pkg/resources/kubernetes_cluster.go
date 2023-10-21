@@ -23,7 +23,11 @@ func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming
 		VnetIntegrationEnabled: jsii.Bool(true),
 	}
 
-  autoscalerProfile := 
+	roleBasedAccessControl := AzureActiveDirectoryRoleBasedAccessControl{
+		Managed:             jsii.Bool(true),
+		AzureRbacEnabled:    jsii.Bool(true),
+		AdminGroupObjectIds: *[]*string{group.ObjectId()},
+	}
 
 	input := KubernetesClusterConfig{
 		Name:                    naming.KubernetesClusterOutput(),
@@ -32,7 +36,7 @@ func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming
 		DnsPrefixPrivateCluster: cfg.Name(),
 		AutomaticChannelUpgrade: jsii.String("node-image"),
 		APIServerAccessProfile:  accessProfile,
-		AutoScalerProfile:       autoscalerProfile,
+		AzureActiveDirectoryRoleBasedAccessControl: roleBasedAccessControl,
 	}
 
 	id := Ids.KubernetesCluster
