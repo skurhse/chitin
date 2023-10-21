@@ -1,1 +1,1 @@
-package resources
+package res

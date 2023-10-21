@@ -1,4 +1,4 @@
-package resources
+package res
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"

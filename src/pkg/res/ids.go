@@ -1,4 +1,4 @@
-package resources
+package res
 
 import "github.com/aws/jsii-runtime-go"
 
