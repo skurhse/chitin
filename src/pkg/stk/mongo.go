@@ -6,7 +6,7 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
-	"github.com/transprogrammer/xenia/pkg/resources"
+	"github.com/transprogrammer/xenia/pkg/res"
 
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
@@ -83,16 +83,16 @@ func NewMongo(scope constructs.Construct, cfg cfg.Config, core MongoCoreBeat, to
 	subnet := core.Subnet()
 	vnet := core.VNet()
 
-	rg := resources.NewResourceGroup(stack, cfg, naming)
+	rg := res.NewResourceGroup(stack, cfg, naming)
 
-	acct := resources.NewCosmosDBMongoAccount(stack, cfg, naming, rg)
+	acct := res.NewCosmosDBMongoAccount(stack, cfg, naming, rg)
 
-	resources.NewCosmosDBMongoDatabase(stack, cfg, naming, rg, acct)
+	res.NewCosmosDBMongoDatabase(stack, cfg, naming, rg, acct)
 
-	zone := resources.NewPrivateDNSZone(stack, rg)
-	resources.NewPrivateDNSZoneVNetLink(stack, cfg, naming, rg, zone, vnet)
+	zone := res.NewPrivateDNSZone(stack, rg)
+	res.NewPrivateDNSZoneVNetLink(stack, cfg, naming, rg, zone, vnet)
 
-	resources.NewPrivateEndpoint(stack, cfg, naming, rg, acct, subnet, zone)
+	res.NewPrivateEndpoint(stack, cfg, naming, rg, acct, subnet, zone)
 
 	return DefaultMongoDrum{
 		StackName_: name,

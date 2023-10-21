@@ -7,7 +7,7 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
-	"github.com/transprogrammer/xenia/pkg/resources"
+	"github.com/transprogrammer/xenia/pkg/res"
 )
 
 type ClusterDrum interface {
@@ -59,8 +59,8 @@ func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBea
 
 	naming := core.Naming()
 
-	resources.NewResourceGroup(stk, cfg, naming)
-	resources.NewCluster(stk, cfg, naming, rg, subnet)
+	res.NewResourceGroup(stk, cfg, naming)
+	res.NewCluster(stk, cfg, naming, rg, subnet)
 
 	return DefaultClusterDrum{
 		StackName_: name,

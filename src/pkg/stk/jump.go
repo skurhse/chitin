@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/providers"
-	"github.com/transprogrammer/xenia/pkg/resources"
+	"github.com/transprogrammer/xenia/pkg/res"
 )
 
 type JumpDrum interface {
@@ -81,18 +81,18 @@ func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens
 	nsg := core.NSG()
 	subnet := core.Subnet()
 
-	rg := resources.NewResourceGroup(stk, cfg, naming)
+	rg := res.NewResourceGroup(stk, cfg, naming)
 
-	ip := resources.NewPublicIP(stk, cfg, naming, rg)
+	ip := res.NewPublicIP(stk, cfg, naming, rg)
 
-	nic := resources.NewNIC(stk, cfg, naming, rg, subnet, ip)
+	nic := res.NewNIC(stk, cfg, naming, rg, subnet, ip)
 
-	resources.NewNICAssocASG(stk, cfg, nic, asg)
-	resources.NewNICAssocNSG(stk, cfg, nic, nsg)
+	res.NewNICAssocASG(stk, cfg, nic, asg)
+	res.NewNICAssocNSG(stk, cfg, nic, nsg)
 
-	resources.NewVirtualMachine(stk, cfg, naming, rg, nic)
+	res.NewVirtualMachine(stk, cfg, naming, rg, nic)
 
-	resources.New
+	res.New
 
 	return DefaultJumpDrum{
 		StackName_: name,

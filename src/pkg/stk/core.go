@@ -10,7 +10,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/modules"
 	"github.com/transprogrammer/xenia/pkg/providers"
-	"github.com/transprogrammer/xenia/pkg/resources"
+	"github.com/transprogrammer/xenia/pkg/res"
 )
 
 type CoreDrum interface {
@@ -132,32 +132,32 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	mongoDevNaming := modules.NewNaming(stack, mongoTokens.Dev)
 	mongoProdNaming := modules.NewNaming(stack, mongoTokens.Prod)
 
-	rg := resources.NewResourceGroup(stack, cfg, naming)
+	rg := res.NewResourceGroup(stack, cfg, naming)
 
-	jumpASG := resources.NewASG(stack, cfg, jumpNaming, rg)
+	jumpASG := res.NewASG(stack, cfg, jumpNaming, rg)
 
-	jumpSecurityRule := resources.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
+	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 
-	jumpNSG := resources.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
+	jumpNSG := res.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
 
-	jumpSubnetInput := resources.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
+	jumpSubnetInput := res.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
 	mongoDevAddrs := CoreSubnets.Mongo.Dev
 	mongoProdAddrs := CoreSubnets.Mongo.Prod
 
-	mongoDevSubnetInput := resources.NewSubnetInput(stack, mongoDevNaming, nil, mongoDevAddrs)
-	mongoProdSubnetInput := resources.NewSubnetInput(stack, mongoProdNaming, nil, mongoProdAddrs)
+	mongoDevSubnetInput := res.NewSubnetInput(stack, mongoDevNaming, nil, mongoDevAddrs)
+	mongoProdSubnetInput := res.NewSubnetInput(stack, mongoProdNaming, nil, mongoProdAddrs)
 
 	subnetInputs := make([]vnet.VirtualNetworkSubnet, 3)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
 	subnetInputs[CoreSubnetIndices.Mongo.Dev] = mongoDevSubnetInput
 	subnetInputs[CoreSubnetIndices.Mongo.Prod] = mongoProdSubnetInput
 
-	vnet := resources.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
+	vnet := res.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
 
-	jumpSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Jump)
-	mongoDevSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Dev)
-	mongoProdSubnet := resources.GetSubnet(vnet, CoreSubnetIndices.Mongo.Prod)
+	jumpSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Jump)
+	mongoDevSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Mongo.Dev)
+	mongoProdSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Mongo.Prod)
 
 	return DefaultCoreDrum{
 		StackName_: name,
