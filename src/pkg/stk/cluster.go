@@ -6,7 +6,7 @@ import (
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/providers"
+	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 )
 
@@ -55,7 +55,7 @@ func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBea
 	name := NewName(tokens)
 
 	stk := cdktf.NewTerraformStack(app, name)
-	providers.NewAzureRM(stk)
+	prv.NewAzureRM(stk)
 
 	naming := core.Naming()
 

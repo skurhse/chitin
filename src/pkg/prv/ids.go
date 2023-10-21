@@ -1,4 +1,4 @@
-package providers
+package prv
 
 import "github.com/aws/jsii-runtime-go"
 

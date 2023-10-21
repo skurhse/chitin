@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/mod"
-	"github.com/transprogrammer/xenia/pkg/providers"
+	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 )
 
@@ -123,7 +123,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	name := NewName(tokens.Core)
 
 	stack := NewStack(scope, name)
-	providers.NewAzureRM(stack)
+	prv.NewAzureRM(stack)
 
 	mongoTokens := tokens.Mongo
 

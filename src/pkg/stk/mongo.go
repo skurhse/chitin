@@ -5,7 +5,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/providers"
+	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
@@ -77,7 +77,7 @@ func NewMongo(scope constructs.Construct, cfg cfg.Config, core MongoCoreBeat, to
 	name := NewName(tokens)
 
 	stack := cdktf.NewTerraformStack(scope, name)
-	providers.NewAzureRM(stack)
+	prv.NewAzureRM(stack)
 
 	naming := core.Naming()
 	subnet := core.Subnet()
