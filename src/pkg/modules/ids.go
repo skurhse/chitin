@@ -1,4 +1,4 @@
-package modules
+package mod
 
 import "github.com/aws/jsii-runtime-go"
 

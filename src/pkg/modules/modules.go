@@ -1,4 +1,4 @@
-package modules
+package mod
 
 import (
 	"fmt"

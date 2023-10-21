@@ -8,7 +8,7 @@ import (
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/modules"
+	"github.com/transprogrammer/xenia/pkg/mod"
 	"github.com/transprogrammer/xenia/pkg/providers"
 	"github.com/transprogrammer/xenia/pkg/res"
 )
@@ -127,10 +127,10 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 
 	mongoTokens := tokens.Mongo
 
-	naming := modules.NewNaming(stack, tokens.Core)
-	jumpNaming := modules.NewNaming(stack, tokens.Jump)
-	mongoDevNaming := modules.NewNaming(stack, mongoTokens.Dev)
-	mongoProdNaming := modules.NewNaming(stack, mongoTokens.Prod)
+	naming := mod.NewNaming(stack, tokens.Core)
+	jumpNaming := mod.NewNaming(stack, tokens.Jump)
+	mongoDevNaming := mod.NewNaming(stack, mongoTokens.Dev)
+	mongoProdNaming := mod.NewNaming(stack, mongoTokens.Prod)
 
 	rg := res.NewResourceGroup(stack, cfg, naming)
 
