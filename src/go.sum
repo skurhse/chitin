@@ -8,8 +8,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/fatih/color v1.15.0 h1:kOqh6YHBtK8aywxGerMG2Eq3H6Qgoqeo13Bk2Mv/nBs=
 github.com/fatih/color v1.15.0/go.mod h1:0h5ZqXfHYED7Bhv2ZJamyIOUej9KtShiJESRwBDUSsw=
-github.com/hashicorp/terraform-cdk-go/cdktf v0.18.0 h1:3fK+YbYQF8s06Oe45fOFarCg3P4rsdIOoNh68p7fVAg=
-github.com/hashicorp/terraform-cdk-go/cdktf v0.18.0/go.mod h1:SIM8npS+U6ZTFgglrLWZysoP2tA18dtMOjpcOhizHuU=
+github.com/hashicorp/terraform-cdk-go/cdktf v0.19.0 h1:JFgRlxgraluUMBLXqgcOgKMvMbwtGja3WPTdUixrRBo=
+github.com/hashicorp/terraform-cdk-go/cdktf v0.19.0/go.mod h1:SIM8npS+U6ZTFgglrLWZysoP2tA18dtMOjpcOhizHuU=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
 github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
