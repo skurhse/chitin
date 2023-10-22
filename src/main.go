@@ -31,7 +31,7 @@ func main() {
 	drums := [5]stk.Drum{core, jump, mongoDev, mongoProd, cluster}
 
 	for _, drum := range drums {
-		// aspects.AddTags(drum, cfg)
+		// asp.AddTags(drum, cfg)
 		fmt.Printf(*drum.StackName())
 	}
 

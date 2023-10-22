@@ -1,4 +1,4 @@
-package aspects
+package asp
 
 import (
 	"maps"
@@ -43,10 +43,10 @@ func AddTags(container stk.Drum, cfg cfg.Config) {
 	stackEntry := &map[string]*string{StackTagKey: stackName}
 	entries := [2]*map[string]*string{projectEntry, stackEntry}
 
-	aspects := cdktf.Aspects_Of(stack)
+	asp := cdktf.Aspects_Of(stack)
 
 	for _, entry := range entries {
 		aspect := NewTagsAddingAspect(entry)
-		aspects.Add(aspect)
+		asp.Add(aspect)
 	}
 }
