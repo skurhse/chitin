@@ -12,5 +12,5 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
 - modules
   - [azurerm-naming](https://github.com/Azure/terraform-azurerm-naming)
 - actions
-  - [terraform-cdk-actionn](https://github.com/marketplace/actions/terraform-cdk-action)
+  - [terraform-cdk-action](https://github.com/marketplace/actions/terraform-cdk-action)
   - [deploy-to-kubernetes-cluster](https://github.com/marketplace/actions/deploy-to-kubernetes-cluster)
