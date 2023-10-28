@@ -52,6 +52,8 @@ func (c DefaultClusterCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReferenc
 func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBeat, jump ClusterJumpBeat, tokens []string) DefaultClusterDrum {
 	subnet := core.Subnet()
 
+	adminGroup := jump.AdminGroup()
+
 	name := NewName(tokens)
 
 	stk := cdktf.NewTerraformStack(app, name)
@@ -59,8 +61,8 @@ func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBea
 
 	naming := core.Naming()
 
-	res.NewResourceGroup(stk, cfg, naming)
-	res.NewCluster(stk, cfg, naming, rg, subnet)
+	rg := res.NewResourceGroup(stk, cfg, naming)
+	res.NewCluster(stk, cfg, naming, rg, subnet, adminGroup)
 
 	return DefaultClusterDrum{
 		StackName_: name,
