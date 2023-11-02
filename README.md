@@ -3,6 +3,12 @@
 
 a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
 
+## runtimes
+- [go](https://go.dev/dl/)
+- [jsii](https://aws.github.io/jsii/)
+= [cdktf](https://developer.hashicorp.com/terraform/cdktf)
+- [terraform](https://www.terraform.io/)
+
 ## providers
   - [azuread](https://registry.terraform.io/providers/hashicorp/azuread/latest)
   - [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
