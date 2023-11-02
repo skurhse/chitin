@@ -23,7 +23,14 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
   - [azurerm_private_dns_zone](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone)
   - [azurerm_private_dns_zone_virtual_network_link](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_dns_zone_virtual_network_link)
   - [azurerm_postgresql_flexible_server_database](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_database)
+  - [azurerm_postgresql_flexible_server_firewall_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule)
+  - 
 - [cluster](src/pkg/stk/cluster.go)
+  - [azurerm_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster)
+  - 
+  - 
+  -
+  -
 
 ## actions
 - [terraform-cdk-action](https://github.com/marketplace/actions/terraform-cdk-action)
