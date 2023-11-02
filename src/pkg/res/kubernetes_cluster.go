@@ -3,19 +3,18 @@ package res
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
+	aks "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/kubernetescluster"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
+	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-// TODO <rbt 2023-10-11>
+// TODO <rbt 2023-10-28>
 // - Pipe jumpbox ip
 // - Pipe subnet id
-// -
-// -
-// ???
 
-func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutput) aks.KubernetesCluster {
+func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference) aks.KubernetesCluster {
 
 	accessProfile := KubernetesClusterApiServerAccessProfile{
 		AuthorizedIpRange:      jump.NIC().IP(),
@@ -40,5 +39,4 @@ func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming
 	}
 
 	id := Ids.KubernetesCluster
-
 }

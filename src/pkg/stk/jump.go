@@ -92,7 +92,7 @@ func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens
 
 	res.NewVirtualMachine(stk, cfg, naming, rg, nic)
 
-	res.New
+	adminGroup := res.NewAdminGroup(stk, cfg, naming, rg)
 
 	return DefaultJumpDrum{
 		StackName_: name,
