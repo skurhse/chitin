@@ -7,9 +7,12 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
   - [azuread](https://registry.terraform.io/providers/hashicorp/azuread/latest)
   - [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
 
-## resources
+## modules
 - [core](src/pkg/stk/core.go)
   - [naming](https://registry.terraform.io/modules/Azure/naming/azurerm/latest)
+
+## resources
+- [core](src/pkg/stk/core.go)
   - [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network)
   - [azurerm_application_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_security_group)
   - [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group)
