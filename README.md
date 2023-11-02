@@ -6,7 +6,7 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
 ## runtimes
 - [go](https://go.dev/dl/)
 - [jsii](https://aws.github.io/jsii/)
-= [cdktf](https://developer.hashicorp.com/terraform/cdktf)
+- [cdktf](https://developer.hashicorp.com/terraform/cdktf)
 - [terraform](https://www.terraform.io/)
 
 ## providers
