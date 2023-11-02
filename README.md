@@ -8,8 +8,7 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
   - [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
 
 ## modules
-- [core](src/pkg/stk/core.go)
-  - [naming](https://registry.terraform.io/modules/Azure/naming/azurerm/latest)
+- [naming](https://registry.terraform.io/modules/Azure/naming/azurerm/latest)
 
 ## resources
 - [core](src/pkg/stk/core.go)
