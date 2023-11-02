@@ -41,3 +41,9 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
 ## actions
 - [terraform-cdk-action](https://github.com/marketplace/actions/terraform-cdk-action)
 - [deploy-to-kubernetes-cluster](https://github.com/marketplace/actions/deploy-to-kubernetes-cluster)
+
+
+## postgres infra docs
+- [networking overview](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-networking#private-access-vnet-integration)
+- [connect with managed identity](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-connect-with-managed-identity)
+- [audit logging (tbd)](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-audit)
