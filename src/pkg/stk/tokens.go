@@ -3,19 +3,19 @@ package stk
 import "github.com/transprogrammer/xenia/pkg/cfg"
 
 const (
-	CoreToken    = "core"
-	JumpToken    = "jump"
-	PostgresToken   = "postgres"
-	DevToken     = "dev"
-	ProdToken    = "prod"
-	ClusterToken = "cluster"
+	CoreToken     = "core"
+	JumpToken     = "jump"
+	PostgresToken = "postgres"
+	DevToken      = "dev"
+	ProdToken     = "prod"
+	ClusterToken  = "cluster"
 )
 
 type Tokens struct {
-	Core    []string
-	Jump    []string
-	Postgres   PostgresTokens
-	Cluster []string
+	Core     []string
+	Jump     []string
+	Postgres PostgresTokens
+	Cluster  []string
 }
 
 type PostgresTokens struct {
