@@ -5,12 +5,13 @@ import "github.com/aws/jsii-runtime-go"
 type IdsIndex struct {
 	AppSecGroup                                         *string
 	CosmosDBAccount                                     *string
-	CosmosDBPostgresDatabase                               *string
+	CosmosDBPostgresDatabase                            *string
 	KubernetesCluster                                   *string
 	NetworkInterface                                    *string
 	NetworkInterfaceApplicationSecurityGroupAssociation *string
 	NetworkInterfaceNetworkSecurityGroupAssociation     *string
 	NetworkSecurityGroup                                *string
+	PostgresFlexibleServer                              *string
 	PrivateDNSZone                                      *string
 	PrivateDNSZoneGroup                                 *string
 	PrivateDNSZoneVNetLink                              *string
@@ -23,14 +24,15 @@ type IdsIndex struct {
 }
 
 var Ids = IdsIndex{
-	AppSecGroup:           jsii.String("application_security_group"),
-	CosmosDBAccount:       jsii.String("cosmosdb_account"),
+	AppSecGroup:              jsii.String("application_security_group"),
+	CosmosDBAccount:          jsii.String("cosmosdb_account"),
 	CosmosDBPostgresDatabase: jsii.String("cosmosdb_postgres_database"),
-	KubernetesCluster:     jsii.String("kubernetes_cluster"),
-	NetworkInterface:      jsii.String("network_interface"),
+	KubernetesCluster:        jsii.String("kubernetes_cluster"),
+	NetworkInterface:         jsii.String("network_interface"),
 	NetworkInterfaceApplicationSecurityGroupAssociation: jsii.String("network_interface_asg_association"),
 	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),
 	NetworkSecurityGroup:                                jsii.String("network_security_group"),
+	PostgresFlexibleServer:                              jsii.String("postgres_flexible_server"),
 	PrivateDNSZone:                                      jsii.String("private_dns_zone"),
 	PrivateDNSZoneGroup:                                 jsii.String("private_dns_zone_group"),
 	PrivateDNSZoneVNetLink:                              jsii.String("private_dns_zone_virtual_network_link"),
