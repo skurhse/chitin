@@ -16,7 +16,7 @@ import (
 type CoreDrum interface {
 	Drum
 	JumpBeat() JumpCoreBeat
-	MongoBeats() MongoCoreBeats
+	PostgresBeats() PostgresCoreBeats
 	ClusterBeat() ClusterCoreBeat
 }
 
@@ -24,14 +24,14 @@ type DefaultCoreDrum struct {
 	StackName_   *string
 	Stack_       cdktf.TerraformStack
 	JumpBeat_    DefaultJumpCoreBeat
-	MongoBeats_  DefaultMongoCoreBeats
+	PostgresBeats_  DefaultPostgresCoreBeats
 	ClusterBeat_ DefaultClusterCoreBeat
 }
 
 type CoreConfig interface {
 	cfg.Config
 	JumpConfig
-	MongoConfig
+	PostgresConfig
 }
 
 type CoreRegions interface {
@@ -66,8 +66,8 @@ func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
 	return c.JumpBeat_
 }
 
-func (c DefaultCoreDrum) MongoBeats() MongoCoreBeats {
-	return MongoCoreBeats(c.MongoBeats_)
+func (c DefaultCoreDrum) PostgresBeats() PostgresCoreBeats {
+	return PostgresCoreBeats(c.PostgresBeats_)
 }
 
 func (c DefaultCoreDrum) ClusterBeat() ClusterCoreBeat {
@@ -76,10 +76,10 @@ func (c DefaultCoreDrum) ClusterBeat() ClusterCoreBeat {
 
 type CoreSubnetsIndex struct {
 	Jump  *string
-	Mongo MongoSubnetsIndex
+	Postgres PostgresSubnetsIndex
 }
 
-type MongoSubnetsIndex struct {
+type PostgresSubnetsIndex struct {
 	Dev  *string
 	Prod *string
 }
@@ -87,33 +87,33 @@ type MongoSubnetsIndex struct {
 const (
 	coreAddr      = "10.0.0.0/16"
 	jumpAddr      = "10.1.0.0./24"
-	mongoDevAddr  = "10.2.0.0./24"
-	mongoProdAddr = "10.3.0.0./24"
+	postgresDevAddr  = "10.2.0.0./24"
+	postgresProdAddr = "10.3.0.0./24"
 )
 
 var CoreAddrSpace = []*string{jsii.String(coreAddr)}
 
 var CoreSubnets = CoreSubnetsIndex{
 	Jump: jsii.String(jumpAddr),
-	Mongo: MongoSubnetsIndex{
-		Dev:  jsii.String(mongoDevAddr),
-		Prod: jsii.String(mongoProdAddr),
+	Postgres: PostgresSubnetsIndex{
+		Dev:  jsii.String(postgresDevAddr),
+		Prod: jsii.String(postgresProdAddr),
 	},
 }
 
 type CoreSubnetsIndicesIndex struct {
 	Jump  int
-	Mongo MongoCoreSubnetsIndicesIndex
+	Postgres PostgresCoreSubnetsIndicesIndex
 }
 
-type MongoCoreSubnetsIndicesIndex struct {
+type PostgresCoreSubnetsIndicesIndex struct {
 	Dev  int
 	Prod int
 }
 
 var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 	Jump: 0,
-	Mongo: MongoCoreSubnetsIndicesIndex{
+	Postgres: PostgresCoreSubnetsIndicesIndex{
 		Dev:  1,
 		Prod: 2,
 	},
@@ -125,12 +125,12 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	stack := NewStack(scope, name)
 	prv.NewAzureRM(stack)
 
-	mongoTokens := tokens.Mongo
+	postgresTokens := tokens.Postgres
 
 	naming := mod.NewNaming(stack, tokens.Core)
 	jumpNaming := mod.NewNaming(stack, tokens.Jump)
-	mongoDevNaming := mod.NewNaming(stack, mongoTokens.Dev)
-	mongoProdNaming := mod.NewNaming(stack, mongoTokens.Prod)
+	postgresDevNaming := mod.NewNaming(stack, postgresTokens.Dev)
+	postgresProdNaming := mod.NewNaming(stack, postgresTokens.Prod)
 
 	rg := res.NewResourceGroup(stack, cfg, naming)
 
@@ -142,22 +142,22 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 
 	jumpSubnetInput := res.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
-	mongoDevAddrs := CoreSubnets.Mongo.Dev
-	mongoProdAddrs := CoreSubnets.Mongo.Prod
+	postgresDevAddrs := CoreSubnets.Postgres.Dev
+	postgresProdAddrs := CoreSubnets.Postgres.Prod
 
-	mongoDevSubnetInput := res.NewSubnetInput(stack, mongoDevNaming, nil, mongoDevAddrs)
-	mongoProdSubnetInput := res.NewSubnetInput(stack, mongoProdNaming, nil, mongoProdAddrs)
+	postgresDevSubnetInput := res.NewSubnetInput(stack, postgresDevNaming, nil, postgresDevAddrs)
+	postgresProdSubnetInput := res.NewSubnetInput(stack, postgresProdNaming, nil, postgresProdAddrs)
 
 	subnetInputs := make([]vnet.VirtualNetworkSubnet, 3)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
-	subnetInputs[CoreSubnetIndices.Mongo.Dev] = mongoDevSubnetInput
-	subnetInputs[CoreSubnetIndices.Mongo.Prod] = mongoProdSubnetInput
+	subnetInputs[CoreSubnetIndices.Postgres.Dev] = postgresDevSubnetInput
+	subnetInputs[CoreSubnetIndices.Postgres.Prod] = postgresProdSubnetInput
 
 	vnet := res.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
 
 	jumpSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Jump)
-	mongoDevSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Mongo.Dev)
-	mongoProdSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Mongo.Prod)
+	postgresDevSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres.Dev)
+	postgresProdSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres.Prod)
 
 	return DefaultCoreDrum{
 		StackName_: name,
@@ -168,15 +168,15 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 			ASG_:    jumpASG,
 			NSG_:    jumpNSG,
 		},
-		MongoBeats_: DefaultMongoCoreBeats{
-			Dev_: DefaultMongoCoreBeat{
-				Naming_: mongoDevNaming,
-				Subnet_: mongoDevSubnet,
+		PostgresBeats_: DefaultPostgresCoreBeats{
+			Dev_: DefaultPostgresCoreBeat{
+				Naming_: postgresDevNaming,
+				Subnet_: postgresDevSubnet,
 				VNet_:   vnet,
 			},
-			Prod_: DefaultMongoCoreBeat{
-				Naming_: mongoProdNaming,
-				Subnet_: mongoProdSubnet,
+			Prod_: DefaultPostgresCoreBeat{
+				Naming_: postgresProdNaming,
+				Subnet_: postgresProdSubnet,
 				VNet_:   vnet,
 			},
 		},

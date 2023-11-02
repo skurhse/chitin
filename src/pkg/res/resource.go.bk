@@ -20,12 +20,12 @@ import (
 	"github.com/transprogrammer/xenia/generated/naming"
 )
 
-func NewMongoPrivateDNSZone(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, rg resourcegroup.ResourceGroup) privatednszone.PrivateDnsZone {
+func NewPostgresPrivateDNSZone(stk cdktf.TerraformStack, cfg cfg.AppConfiguration, rg resourcegroup.ResourceGroup) privatednszone.PrivateDnsZone {
 
 	id := cfg.ResourceIds.PrivateDNSZone
 
 	inp := &privatednszone.PrivateDnsZoneConfig{
-		Name:              jsii.String("privatelink.mongo.cosmos.azure.com"),
+		Name:              jsii.String("privatelink.postgres.cosmos.azure.com"),
 		ResourceGroupName: rg.Name(),
 	}
 

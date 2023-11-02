@@ -23,12 +23,12 @@ func main() {
 	core := stk.NewCore(app, cfg, tokens)
 	jump := stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump)
 
-	mongoDev := stk.NewMongo(app, cfg, core.MongoBeats().Dev(), tokens.Mongo.Dev)
-	mongoProd := stk.NewMongo(app, cfg, core.MongoBeats().Prod(), tokens.Mongo.Prod)
+	postgresDev := stk.NewPostgres(app, cfg, core.PostgresBeats().Dev(), tokens.Postgres.Dev)
+	postgresProd := stk.NewPostgres(app, cfg, core.PostgresBeats().Prod(), tokens.Postgres.Prod)
 
-	cluster := stk.NewCluster(app, cfg, core.ClusterBeat(), jump.ClusterBeat(), tokens.Cluster)
+	// cluster := stk.NewCluster(app, cfg, core.ClusterBeat(), jump.ClusterBeat(), tokens.Cluster)
 
-	drums := [5]stk.Drum{core, jump, mongoDev, mongoProd, cluster}
+	drums := [5]stk.Drum{core, jump, postgresDev, postgresProd, cluster}
 
 	for _, drum := range drums {
 		// asp.AddTags(drum, cfg)

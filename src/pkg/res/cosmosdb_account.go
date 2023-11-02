@@ -9,7 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewCosmosDBMongoAccount(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) dbacct.CosmosdbAccount {
+func NewCosmosDBPostgresAccount(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) dbacct.CosmosdbAccount {
 
 	consistencyPolicy := dbacct.CosmosdbAccountConsistencyPolicy{
 		ConsistencyLevel: jsii.String("Eventual"),
@@ -36,9 +36,9 @@ func NewCosmosDBMongoAccount(stack cdktf.TerraformStack, cfg cfg.Config, naming 
 		Name:                       naming.CosmosdbAccountOutput(),
 		Location:                   cfg.Regions().Primary(),
 		ResourceGroupName:          rg.Name(),
-		Kind:                       jsii.String("MongoDB"),
+		Kind:                       jsii.String("PostgresDB"),
 		OfferType:                  jsii.String("Standard"),
-		MongoServerVersion:         jsii.String("4.2"),
+		PostgresServerVersion:         jsii.String("4.2"),
 		PublicNetworkAccessEnabled: jsii.Bool(false),
 		ConsistencyPolicy:          &consistencyPolicy,
 		GeoLocation:                &geoLocation,
