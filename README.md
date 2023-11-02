@@ -3,7 +3,7 @@
 
 a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
 
-## link tree
+## links
 
 - stacks
   - [core](src/pkg/stk/core.go)
