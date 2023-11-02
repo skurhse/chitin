@@ -7,6 +7,9 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
 
 - stacks
   - [core](src/pkg/stk/core.go)
+    - [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network)
+    - [azurerm_application_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_security_group)
+    - [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group)
   - [jumpbox](src/pkg/stk/jump.go)
   - [postgres](src/pkg/stk/postgres.go)
   - [mongo](src/pkg/stk/mongo.go)
