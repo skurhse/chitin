@@ -11,7 +11,6 @@ a Terraform CDK project that creates and provisions Azure Kubernetes Service clu
   - [postgres](src/pkg/stk/postgres.go)
   - [mongo](src/pkg/stk/mongo.go)
   - [cluster](src/pkg/stk/cluster.go)
-  - actions
 - providers
   - [azurerm](https://github.com/hashicorp/terraform-provider-azurerm)
   - [kubernetes](https://github.com/hashicorp/terraform-provider-kubernetes)
