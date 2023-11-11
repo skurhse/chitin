@@ -13,7 +13,7 @@ type IdsIndex struct {
 	NetworkInterfaceNetworkSecurityGroupAssociation     *string
 	NetworkSecurityGroup                                *string
 	PostgresFlexibleServer                              *string
-	PostgresFlexibleServerADAdmin                       *string
+	PostgresAdmin                       *string
 	PrivateDNSZone                                      *string
 	PrivateDNSZoneGroup                                 *string
 	PrivateDNSZoneVNetLink                              *string
@@ -36,7 +36,7 @@ var Ids = IdsIndex{
 	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),
 	NetworkSecurityGroup:                                jsii.String("network_security_group"),
 	PostgresFlexibleServer:                              jsii.String("postgresql_flexible_server"),
-	PostgresFlexibleServerADAdmin:                       jsii.String("postgresql_flexible_server_active_directory_admin"),
+	PostgresAdmin:                       jsii.String("postgresql_flexible_server_active_directory_admin"),
 	PrivateDNSZone:                                      jsii.String("private_dns_zone"),
 	PrivateDNSZoneGroup:                                 jsii.String("private_dns_zone_group"),
 	PrivateDNSZoneVNetLink:                              jsii.String("private_dns_zone_virtual_network_link"),
