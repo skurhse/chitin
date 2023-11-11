@@ -10,45 +10,6 @@ import (
 	"github.com/transprogrammer/xenia/pkg/res"
 )
 
-type ClusterDrum interface {
-	Drum
-}
-
-type DefaultClusterDrum struct {
-	StackName_ *string
-	Stack_     cdktf.TerraformStack
-}
-
-func (self DefaultClusterDrum) StackName() *string {
-	return self.StackName_
-}
-
-func (self DefaultClusterDrum) Stack() cdktf.TerraformStack {
-	return self.Stack_
-}
-
-type ClusterConfig interface {
-	cfg.Config
-	WhitelistIPs() *[]*string
-}
-
-type ClusterCoreBeat interface {
-	CoreBeat
-}
-
-type DefaultClusterCoreBeat struct {
-	Naming_ naming.Naming
-	Subnet_ vnet.VirtualNetworkSubnetOutputReference
-}
-
-func (c DefaultClusterCoreBeat) Naming() naming.Naming {
-	return c.Naming_
-}
-
-func (c DefaultClusterCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
-	return c.Subnet_
-}
-
 func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBeat, jump ClusterJumpBeat, tokens []string) DefaultClusterDrum {
 	subnet := core.Subnet()
 
