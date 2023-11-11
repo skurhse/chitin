@@ -4,6 +4,7 @@ import "github.com/aws/jsii-runtime-go"
 
 type IdsIndex struct {
 	AppSecGroup                                         *string
+	ClientConfig                                        *string
 	CosmosDBAccount                                     *string
 	CosmosDBPostgresDatabase                            *string
 	KubernetesCluster                                   *string
@@ -25,6 +26,7 @@ type IdsIndex struct {
 
 var Ids = IdsIndex{
 	AppSecGroup:              jsii.String("application_security_group"),
+	ClientConfig:             jsii.String("client_config"),
 	CosmosDBAccount:          jsii.String("cosmosdb_account"),
 	CosmosDBPostgresDatabase: jsii.String("cosmosdb_postgres_database"),
 	KubernetesCluster:        jsii.String("kubernetes_cluster"),
