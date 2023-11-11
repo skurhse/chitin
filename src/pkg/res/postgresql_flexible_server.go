@@ -39,7 +39,6 @@ func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, namin
 		StorageMb:                 storageMB,
 		SkuName:                   skuName,
 		GeoRedundantBackupEnabled: backupEnabled,
-	  HighAvailability
 
 		DependsOn: &[]cdktf.ITerraformDependable{vnetLink},
 	}
