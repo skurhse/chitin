@@ -21,20 +21,8 @@ func main() {
 	tokens := stk.NewTokens(cfg)
 
 	core := stk.NewCore(app, cfg, tokens)
-	//jump := stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump)
-
-	postgresDev := stk.NewPostgres(app, cfg, core.PostgresBeats().Dev(), tokens.Postgres.Dev)
-	// postgresProd := stk.NewPostgres(app, cfg, core.PostgresBeats().Prod(), tokens.Postgres.Prod)
-
-	// cluster := stk.NewCluster(app, cfg, core.ClusterBeat(), jump.ClusterBeat(), tokens.Cluster)
-
-	// drums := [5]stk.Drum{core, jump, postgresDev, postgresProd, cluster}
-	drums := [5]stk.Drum{core, postgresDev}
-
-	for _, drum := range drums {
-		// asp.AddTags(drum, cfg)
-		fmt.Printf(*drum.StackName())
-	}
+	jump := stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump)
+	postgres := stk.NewPostgres(app, cfg, core.PostgresBeat().Dev(), tokens.Postgres)
 
 	app.Synth()
 }

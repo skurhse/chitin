@@ -11,54 +11,15 @@ import (
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
 
-type PostgresDrum interface {
-	Drum
-}
-
-type DefaultPostgresDrum struct {
-	StackName_ *string
-	Stack_     cdktf.TerraformStack
-}
-
-func (self DefaultPostgresDrum) StackName() *string {
-	return self.StackName_
-}
-
-func (self DefaultPostgresDrum) Stack() cdktf.TerraformStack {
-	return self.Stack_
-}
-
-type PostgresConfig interface {
-	cfg.Config
-}
-
-type PostgresCoreBeats interface {
-	Dev() PostgresCoreBeat
-	Prod() PostgresCoreBeat
-}
-
 type PostgresCoreBeat interface {
 	CoreBeat
 	VNet() vnet.VirtualNetwork
-}
-
-type DefaultPostgresCoreBeats struct {
-	Dev_  DefaultPostgresCoreBeat
-	Prod_ DefaultPostgresCoreBeat
 }
 
 type DefaultPostgresCoreBeat struct {
 	Naming_ naming.Naming
 	Subnet_ vnet.VirtualNetworkSubnetOutputReference
 	VNet_   vnet.VirtualNetwork
-}
-
-func (c DefaultPostgresCoreBeats) Dev() PostgresCoreBeat {
-	return c.Dev_
-}
-
-func (c DefaultPostgresCoreBeats) Prod() PostgresCoreBeat {
-	return c.Prod_
 }
 
 func (c DefaultPostgresCoreBeat) Naming() naming.Naming {
