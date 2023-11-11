@@ -20,6 +20,7 @@ func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, namin
 	serverVersion := jsii.String("15")
 	storageMB := jsii.Number(32768)
 	skuName := jsii.String("B_Standard_B1ms")
+	backupEnabled := jsii.Bool(true)
 
 	auth := &pg.PostgresqlFlexibleServerAuthentication{
 		ActiveDirectoryAuthEnabled: jsii.Bool(true),
@@ -28,15 +29,17 @@ func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, namin
 	}
 
 	input := pg.PostgresqlFlexibleServerConfig{
-		Name:              naming.PostgresqlServerOutput(),
-		ResourceGroupName: rg.Name(),
-		Location:          cfg.Regions().Primary(),
-		Version:           serverVersion,
-		DelegatedSubnetId: subnet.Id(),
-		PrivateDnsZoneId:  zone.Id(),
-		Authentication:    auth,
-		StorageMb:         storageMB,
-		SkuName:           skuName,
+		Name:                      naming.PostgresqlServerOutput(),
+		ResourceGroupName:         rg.Name(),
+		Location:                  cfg.Regions().Primary(),
+		Version:                   serverVersion,
+		DelegatedSubnetId:         subnet.Id(),
+		PrivateDnsZoneId:          zone.Id(),
+		Authentication:            auth,
+		StorageMb:                 storageMB,
+		SkuName:                   skuName,
+		GeoRedundantBackupEnabled: backupEnabled,
+	  HighAvailability
 
 		DependsOn: &[]cdktf.ITerraformDependable{vnetLink},
 	}
