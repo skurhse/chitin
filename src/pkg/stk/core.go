@@ -1,122 +1,30 @@
 package stk
 
 import (
-	"github.com/hashicorp/terraform-cdk-go/cdktf"
-
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
 	"github.com/transprogrammer/xenia/pkg/mod"
 	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 )
 
-type CoreDrum interface {
-	Drum
-	JumpBeat() JumpCoreBeat
-	PostgresBeats() PostgresCoreBeats
-	ClusterBeat() ClusterCoreBeat
-}
-
-type DefaultCoreDrum struct {
-	StackName_   *string
-	Stack_       cdktf.TerraformStack
-	JumpBeat_    DefaultJumpCoreBeat
-	PostgresBeats_  DefaultPostgresCoreBeats
-	ClusterBeat_ DefaultClusterCoreBeat
-}
-
-type CoreConfig interface {
-	cfg.Config
-	JumpConfig
-	PostgresConfig
-}
-
-type CoreRegions interface {
-	Primary() string
-	Secondary() string
-}
-
-type DefaultCoreConfig struct {
-	Tokens_ []string
-	Regions DefaultCoreRegions
-}
-
-type DefaultCoreRegions struct {
-	Primary_   string
-	Secondary_ string
-}
-
-type CoreBeat interface {
-	Naming() naming.Naming
-	Subnet() vnet.VirtualNetworkSubnetOutputReference
-}
-
-func (c DefaultCoreDrum) StackName() *string {
-	return c.StackName_
-}
-
-func (c DefaultCoreDrum) Stack() cdktf.TerraformStack {
-	return c.Stack_
-}
-
-func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
-	return c.JumpBeat_
-}
-
-func (c DefaultCoreDrum) PostgresBeats() PostgresCoreBeats {
-	return PostgresCoreBeats(c.PostgresBeats_)
-}
-
-func (c DefaultCoreDrum) ClusterBeat() ClusterCoreBeat {
-	return ClusterCoreBeat(c.ClusterBeat_)
-}
-
-type CoreSubnetsIndex struct {
-	Jump  *string
-	Postgres PostgresSubnetsIndex
-}
-
-type PostgresSubnetsIndex struct {
-	Dev  *string
-	Prod *string
-}
-
 const (
-	coreAddr      = "10.0.0.0/16"
-	jumpAddr      = "10.1.0.0./24"
-	postgresDevAddr  = "10.2.0.0./24"
-	postgresProdAddr = "10.3.0.0./24"
+	coreAddr     = "10.0.0.0/16"
+	jumpAddr     = "10.1.0.0./24"
+	postgresAddr = "10.2.0.0./24"
 )
 
 var CoreAddrSpace = []*string{jsii.String(coreAddr)}
 
 var CoreSubnets = CoreSubnetsIndex{
-	Jump: jsii.String(jumpAddr),
-	Postgres: PostgresSubnetsIndex{
-		Dev:  jsii.String(postgresDevAddr),
-		Prod: jsii.String(postgresProdAddr),
-	},
-}
-
-type CoreSubnetsIndicesIndex struct {
-	Jump  int
-	Postgres PostgresCoreSubnetsIndicesIndex
-}
-
-type PostgresCoreSubnetsIndicesIndex struct {
-	Dev  int
-	Prod int
+	Jump:     jsii.String(jumpAddr),
+	Postgres: jsii.String(postgresAddr),
 }
 
 var CoreSubnetIndices = CoreSubnetsIndicesIndex{
-	Jump: 0,
-	Postgres: PostgresCoreSubnetsIndicesIndex{
-		Dev:  1,
-		Prod: 2,
-	},
+	Jump:     0,
+	Postgres: 1,
 }
 
 func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultCoreDrum {
