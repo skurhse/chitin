@@ -22,8 +22,8 @@ func (c DefaultCoreDrum) JumpBeat() JumpCoreBeat {
 	return c.JumpBeat_
 }
 
-func (c DefaultCoreDrum) PostgresBeats() PostgresCoreBeats {
-	return PostgresCoreBeats(c.PostgresBeats_)
+func (c DefaultCoreDrum) PostgresBeat() PostgresCoreBeat {
+	return PostgresCoreBeat(c.PostgresBeat_)
 }
 
 func (c DefaultCoreDrum) ClusterBeat() ClusterCoreBeat {
