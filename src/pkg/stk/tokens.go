@@ -6,33 +6,23 @@ const (
 	CoreToken     = "core"
 	JumpToken     = "jump"
 	PostgresToken = "postgres"
-	DevToken      = "dev"
-	ProdToken     = "prod"
 	ClusterToken  = "cluster"
 )
 
 type Tokens struct {
 	Core     []string
 	Jump     []string
-	Postgres PostgresTokens
+	Postgres []string
 	Cluster  []string
-}
-
-type PostgresTokens struct {
-	Dev  []string
-	Prod []string
 }
 
 func NewTokens(cfg cfg.Config) Tokens {
 	name := *cfg.Name()
 
 	return Tokens{
-		Core: []string{name, CoreToken},
-		Jump: []string{name, JumpToken},
-		Postgres: PostgresTokens{
-			Dev:  []string{name, PostgresToken, DevToken},
-			Prod: []string{name, PostgresToken, ProdToken},
-		},
-		Cluster: []string{name, ClusterToken},
+		Core:     []string{name, CoreToken},
+		Jump:     []string{name, JumpToken},
+		Postgres: []string{name, PostgresToken},
+		Cluster:  []string{name, ClusterToken},
 	}
 }

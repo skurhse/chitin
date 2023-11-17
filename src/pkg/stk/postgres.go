@@ -5,6 +5,7 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
+	"github.com/transprogrammer/xenia/pkg/dat"
 	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 
@@ -45,13 +46,12 @@ func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBe
 	vnet := core.VNet()
 
 	rg := res.NewResourceGroup(stk, cfg, naming)
-
-	server := NewPostgresServer(stk, cfg, naming, rg)
-
-	res.NewCosmosDBPostgresDatabase(stk, cfg, naming, rg, acct)
+	client := dat.NewClientConfig(stk)
 
 	zone := res.NewPrivateDNSZone(stk, rg)
-	res.NewPrivateDNSZoneVNetLink(stk, cfg, naming, rg, zone, vnet)
+	link := res.NewPrivateDNSZoneVNetLink(stk, cfg, naming, rg, zone, vnet)
+
+	server := res.NewPostgresFlexibleServer(stk, cfg, naming, rg, subnet, zone, link)
 
 	res.NewPrivateEndpoint(stk, cfg, naming, rg, acct, subnet, zone)
 

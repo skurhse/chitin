@@ -33,39 +33,30 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	stack := NewStack(scope, name)
 	prv.NewAzureRM(stack)
 
-	postgresTokens := tokens.Postgres
+	client = res.Ne
 
 	naming := mod.NewNaming(stack, tokens.Core)
 	jumpNaming := mod.NewNaming(stack, tokens.Jump)
-	postgresDevNaming := mod.NewNaming(stack, postgresTokens.Dev)
-	postgresProdNaming := mod.NewNaming(stack, postgresTokens.Prod)
+	postgresNaming := mod.NewNaming(stack, tokens.Postgres)
 
 	rg := res.NewResourceGroup(stack, cfg, naming)
 
 	jumpASG := res.NewASG(stack, cfg, jumpNaming, rg)
-
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
-
 	jumpNSG := res.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
-
 	jumpSubnetInput := res.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
-	postgresDevAddrs := CoreSubnets.Postgres.Dev
-	postgresProdAddrs := CoreSubnets.Postgres.Prod
+	postgresAddrs := CoreSubnets.Postgres
+	postgresSubnetInput := res.NewSubnetInput(stack, postgresNaming, nil, postgresAddrs)
 
-	postgresDevSubnetInput := res.NewSubnetInput(stack, postgresDevNaming, nil, postgresDevAddrs)
-	postgresProdSubnetInput := res.NewSubnetInput(stack, postgresProdNaming, nil, postgresProdAddrs)
-
-	subnetInputs := make([]vnet.VirtualNetworkSubnet, 3)
+	subnetInputs := make([]vnet.VirtualNetworkSubnet, 2)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
-	subnetInputs[CoreSubnetIndices.Postgres.Dev] = postgresDevSubnetInput
-	subnetInputs[CoreSubnetIndices.Postgres.Prod] = postgresProdSubnetInput
+	subnetInputs[CoreSubnetIndices.Postgres] = postgresSubnetInput
 
 	vnet := res.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
 
 	jumpSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Jump)
-	postgresDevSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres.Dev)
-	postgresProdSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres.Prod)
+	postgresSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres)
 
 	return DefaultCoreDrum{
 		StackName_: name,
@@ -76,17 +67,11 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 			ASG_:    jumpASG,
 			NSG_:    jumpNSG,
 		},
-		PostgresBeats_: DefaultPostgresCoreBeats{
-			Dev_: DefaultPostgresCoreBeat{
-				Naming_: postgresDevNaming,
-				Subnet_: postgresDevSubnet,
-				VNet_:   vnet,
-			},
-			Prod_: DefaultPostgresCoreBeat{
-				Naming_: postgresProdNaming,
-				Subnet_: postgresProdSubnet,
-				VNet_:   vnet,
-			},
+		PostgresBeat_: DefaultPostgresCoreBeat{
+			Naming_: postgresNaming,
+			Subnet_: postgresSubnet,
+			VNet_:   vnet,
+			Client_: client,
 		},
 	}
 }
