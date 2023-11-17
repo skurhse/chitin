@@ -1,5 +1,4 @@
-
-# 🦊 xenia
+# 🦊 xenia · alpha
 
 a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
 
