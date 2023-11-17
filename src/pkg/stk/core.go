@@ -30,37 +30,36 @@ var CoreSubnetIndices = CoreSubnetsIndicesIndex{
 func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultCoreDrum {
 	name := NewName(tokens.Core)
 
-	stack := NewStack(scope, name)
-	prv.NewAzureRM(stack)
+	stk := NewStack(scope, name)
+	prv.NewAzureRM(stk)
 
-	client = res.Ne
+	naming := mod.NewNaming(stk, tokens.Core)
+	jumpNaming := mod.NewNaming(stk, tokens.Jump)
+	postgresNaming := mod.NewNaming(stk, tokens.Postgres)
 
-	naming := mod.NewNaming(stack, tokens.Core)
-	jumpNaming := mod.NewNaming(stack, tokens.Jump)
-	postgresNaming := mod.NewNaming(stack, tokens.Postgres)
+	rg := res.NewResourceGroup(stk, cfg, naming)
+	client := res.NewDataAzurermClientConfig(stk)
 
-	rg := res.NewResourceGroup(stack, cfg, naming)
-
-	jumpASG := res.NewASG(stack, cfg, jumpNaming, rg)
+	jumpASG := res.NewASG(stk, cfg, jumpNaming, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
-	jumpNSG := res.NewNSG(stack, cfg, jumpNaming, rg, jumpSecurityRule)
-	jumpSubnetInput := res.NewSubnetInput(stack, jumpNaming, jumpNSG, CoreSubnets.Jump)
+	jumpNSG := res.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
+	jumpSubnetInput := res.NewSubnetInput(stk, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
 	postgresAddrs := CoreSubnets.Postgres
-	postgresSubnetInput := res.NewSubnetInput(stack, postgresNaming, nil, postgresAddrs)
+	postgresSubnetInput := res.NewSubnetInput(stk, postgresNaming, nil, postgresAddrs)
 
 	subnetInputs := make([]vnet.VirtualNetworkSubnet, 2)
 	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
 	subnetInputs[CoreSubnetIndices.Postgres] = postgresSubnetInput
 
-	vnet := res.NewVNet(stack, cfg, naming, rg, CoreAddrSpace, subnetInputs)
+	vnet := res.NewVNet(stk, cfg, naming, rg, CoreAddrSpace, subnetInputs)
 
 	jumpSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Jump)
 	postgresSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres)
 
 	return DefaultCoreDrum{
 		StackName_: name,
-		Stack_:     stack,
+		Stack_:     stk,
 		JumpBeat_: DefaultJumpCoreBeat{
 			Naming_: jumpNaming,
 			Subnet_: jumpSubnet,

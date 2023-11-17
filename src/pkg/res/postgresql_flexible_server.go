@@ -3,6 +3,7 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
+	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
 	pg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/postgresqlflexibleserver"
 	dns "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
 	nl "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
@@ -15,7 +16,7 @@ import (
 // PORT: Using postgres server naming as stand-in. <>
 // ???: Add flexi-server resource definition to naming fork? <rbt>
 
-func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, zone dns.PrivateDnsZone, vnetLink nl.PrivateDnsZoneVirtualNetworkLink, tenantId *string) pg.PostgresqlFlexibleServer {
+func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, zone dns.PrivateDnsZone, vnetLink nl.PrivateDnsZoneVirtualNetworkLink, client cnf.DataAzurermClientConfig) pg.PostgresqlFlexibleServer {
 
 	serverVersion := jsii.String("15")
 	storageMB := jsii.Number(32768)
@@ -25,7 +26,7 @@ func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, namin
 	auth := &pg.PostgresqlFlexibleServerAuthentication{
 		ActiveDirectoryAuthEnabled: jsii.Bool(true),
 		PasswordAuthEnabled:        jsii.Bool(false),
-		TenantId:                   tenantId,
+		TenantId:                   client.TenantId(),
 	}
 
 	input := pg.PostgresqlFlexibleServerConfig{

@@ -5,22 +5,24 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/dat"
 	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
 
+	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
 
 type PostgresCoreBeat interface {
 	CoreBeat
 	VNet() vnet.VirtualNetwork
+	Client() cnf.DataAzurermClientConfig
 }
 
 type DefaultPostgresCoreBeat struct {
 	Naming_ naming.Naming
 	Subnet_ vnet.VirtualNetworkSubnetOutputReference
 	VNet_   vnet.VirtualNetwork
+	Client_ cnf.DataAzurermClientConfig
 }
 
 func (c DefaultPostgresCoreBeat) Naming() naming.Naming {
@@ -35,6 +37,10 @@ func (c DefaultPostgresCoreBeat) VNet() vnet.VirtualNetwork {
 	return c.VNet_
 }
 
+func (c DefaultPostgresCoreBeat) Client() cnf.DataAzurermClientConfig {
+	return c.Client_
+}
+
 func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBeat, tokens []string) DefaultPostgresDrum {
 	name := NewName(tokens)
 
@@ -44,16 +50,16 @@ func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBe
 	naming := core.Naming()
 	subnet := core.Subnet()
 	vnet := core.VNet()
+	client := core.Client()
 
 	rg := res.NewResourceGroup(stk, cfg, naming)
-	client := dat.NewClientConfig(stk)
 
 	zone := res.NewPrivateDNSZone(stk, rg)
 	link := res.NewPrivateDNSZoneVNetLink(stk, cfg, naming, rg, zone, vnet)
 
-	server := res.NewPostgresFlexibleServer(stk, cfg, naming, rg, subnet, zone, link)
+	srv := res.NewPostgresFlexibleServer(stk, cfg, naming, rg, subnet, zone, link, client)
 
-	res.NewPrivateEndpoint(stk, cfg, naming, rg, acct, subnet, zone)
+	res.NewPrivateEndpoint(stk, cfg, naming, rg, srv, subnet, zone)
 
 	return DefaultPostgresDrum{
 		StackName_: name,

@@ -5,9 +5,9 @@ import (
 	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
 )
 
-func NewClientConfig(stack cdktf.TerraformStack) cnf.DataAzurermClientConfig {
+func NewDataAzurermClientConfig(stack cdktf.TerraformStack) cnf.DataAzurermClientConfig {
 
 	input := cnf.DataAzurermClientConfigConfig{}
 
-	return cnf.NewClientConfig(stack, input.DeClientConfig, &input)
+	return cnf.NewDataAzurermClientConfig(stack, Ids.ClientConfig, &input)
 }
