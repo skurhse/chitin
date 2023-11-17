@@ -12,64 +12,6 @@ import (
 	"github.com/transprogrammer/xenia/pkg/res"
 )
 
-type JumpDrum interface {
-	Drum
-}
-
-type DefaultJumpDrum struct {
-	StackName_ *string
-	Stack_     cdktf.TerraformStack
-}
-
-func (self DefaultJumpDrum) StackName() *string {
-	return self.StackName_
-}
-
-func (self DefaultJumpDrum) Stack() cdktf.TerraformStack {
-	return self.Stack_
-}
-
-type JumpConfig interface {
-	cfg.Config
-	WhitelistIPs() *[]*string
-}
-
-type JumpCoreBeat interface {
-	CoreBeat
-	ASG() asg.ApplicationSecurityGroup
-	NSG() nsg.NetworkSecurityGroup
-}
-
-type DefaultJumpCoreBeat struct {
-	Naming_ naming.Naming
-	Subnet_ vnet.VirtualNetworkSubnetOutputReference
-	ASG_    asg.ApplicationSecurityGroup
-	NSG_    nsg.NetworkSecurityGroup
-	VNet_   vnet.VirtualNetwork
-}
-
-func (c DefaultJumpCoreBeat) Naming() naming.Naming {
-	return c.Naming_
-}
-
-func (c DefaultJumpCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
-	return c.Subnet_
-}
-
-func (c DefaultJumpCoreBeat) ASG() asg.ApplicationSecurityGroup {
-	return c.ASG_
-}
-
-func (c DefaultJumpCoreBeat) NSG() nsg.NetworkSecurityGroup {
-	return c.NSG_
-}
-
-func (c DefaultJumpCoreBeat) VNet() vnet.VirtualNetwork {
-	return c.VNet_
-}
-
-type JumpBeat interface{}
-
 func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens []string) DefaultJumpDrum {
 	name := NewName(tokens)
 

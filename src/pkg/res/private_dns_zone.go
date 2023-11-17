@@ -10,7 +10,7 @@ import (
 func NewPrivateDNSZone(stack cdktf.TerraformStack, rg rg.ResourceGroup) pdnsz.PrivateDnsZone {
 
 	input := pdnsz.PrivateDnsZoneConfig{
-		Name:              jsii.String("privatelink.mongo.cosmos.azure.com"),
+		Name:              jsii.String("privatelink.postgres.cosmos.azure.com"),
 		ResourceGroupName: rg.Name(),
 	}
 

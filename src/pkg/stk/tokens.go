@@ -3,22 +3,22 @@ package stk
 import "github.com/transprogrammer/xenia/pkg/cfg"
 
 const (
-	CoreToken    = "core"
-	JumpToken    = "jump"
-	MongoToken   = "mongo"
-	DevToken     = "dev"
-	ProdToken    = "prod"
-	ClusterToken = "cluster"
+	CoreToken     = "core"
+	JumpToken     = "jump"
+	PostgresToken = "postgres"
+	DevToken      = "dev"
+	ProdToken     = "prod"
+	ClusterToken  = "cluster"
 )
 
 type Tokens struct {
-	Core    []string
-	Jump    []string
-	Mongo   MongoTokens
-	Cluster []string
+	Core     []string
+	Jump     []string
+	Postgres PostgresTokens
+	Cluster  []string
 }
 
-type MongoTokens struct {
+type PostgresTokens struct {
 	Dev  []string
 	Prod []string
 }
@@ -29,9 +29,9 @@ func NewTokens(cfg cfg.Config) Tokens {
 	return Tokens{
 		Core: []string{name, CoreToken},
 		Jump: []string{name, JumpToken},
-		Mongo: MongoTokens{
-			Dev:  []string{name, MongoToken, DevToken},
-			Prod: []string{name, MongoToken, ProdToken},
+		Postgres: PostgresTokens{
+			Dev:  []string{name, PostgresToken, DevToken},
+			Prod: []string{name, PostgresToken, ProdToken},
 		},
 		Cluster: []string{name, ClusterToken},
 	}

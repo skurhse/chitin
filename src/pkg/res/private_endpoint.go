@@ -19,7 +19,7 @@ func NewPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.Config, naming namin
 	privateServiceConnection := pe.PrivateEndpointPrivateServiceConnection{
 		Name:                        jsii.String("cosmosdb"),
 		PrivateConnectionResourceId: acct.Id(),
-		SubresourceNames:            &[]*string{jsii.String("MongoDB")},
+		SubresourceNames:            &[]*string{jsii.String("PostgresDB")},
 		IsManualConnection:          jsii.Bool(false),
 	}
 
