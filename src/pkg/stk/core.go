@@ -16,20 +16,20 @@ const (
 
 var CoreAddrSpace = []*string{jsii.String(coreAddr)}
 
-var CoreSubnetAddrs = CoreSubnetsIndex{
+var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Jump:     jsii.String(jumpAddr),
 	Postgres: jsii.String(postgresAddr),
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultCoreDrum {
-	name := NewName(tokens.Core)
+func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex) DefaultCoreDrum {
+	name := NewName(tokenSets.Core)
 
 	stk := NewStack(scope, name)
 	prv.NewAzureRM(stk)
 
-	naming := mod.NewNaming(stk, tokens.Core)
-	jumpNaming := mod.NewNaming(stk, tokens.Jump)
-	postgresNaming := mod.NewNaming(stk, tokens.Postgres)
+	naming := mod.NewNaming(stk, tokenSets.Core)
+	jumpNaming := mod.NewNaming(stk, tokenSets.Jump)
+	postgresNaming := mod.NewNaming(stk, tokenSets.Postgres)
 
 	rg := res.NewResourceGroup(stk, cfg, naming)
 	client := res.NewDataAzurermClientConfig(stk)
@@ -37,7 +37,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	jumpASG := res.NewASG(stk, cfg, jumpNaming, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 	jumpNSG := res.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
-	jumpSubnet := res.NewSubnet(stk, jumpNaming, jumpNSG, CoreSubnets.Jump)
+	jumpSubnet := res.NewSubnet(stk, jumpNaming, jumpNSG, CoreSubnetAddrs.Jump, CoreSubnetAddrs.Jump, Tokens.Jump)
 
 	postgresAddrs := CoreSubnets.Postgres
 	postgresSubnet := res.NewSubnet(postgresNaming, nil, postgresAddrs)

@@ -1,28 +1,36 @@
 package stk
 
-import "github.com/transprogrammer/xenia/pkg/cfg"
-
-const (
-	CoreToken     = "core"
-	JumpToken     = "jump"
-	PostgresToken = "postgres"
-	ClusterToken  = "cluster"
+import (
+	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-type Tokens struct {
+type TokensIndex struct {
+	Core     string
+	Jump     string
+	Postgres string
+	Cluster  string
+}
+
+type TokenSetsIndex struct {
 	Core     []string
 	Jump     []string
 	Postgres []string
 	Cluster  []string
 }
 
-func NewTokens(cfg cfg.Config) Tokens {
+var Tokens = TokensIndex{
+	Core:     "core",
+	Jump:     "jump",
+	Postgres: "postgres",
+}
+
+func NewTokenSets(cfg cfg.Config) TokenSetsIndex {
 	name := *cfg.Name()
 
-	return Tokens{
-		Core:     []string{name, CoreToken},
-		Jump:     []string{name, JumpToken},
-		Postgres: []string{name, PostgresToken},
-		Cluster:  []string{name, ClusterToken},
+	return TokenSetsIndex{
+		Core:     []string{name, Tokens.Core},
+		Jump:     []string{name, Tokens.Jump},
+		Postgres: []string{name, Tokens.Postgres},
+		Cluster:  []string{name, Tokens.Cluster},
 	}
 }
