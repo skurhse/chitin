@@ -59,8 +59,6 @@ func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBe
 
 	srv := res.NewPostgresFlexibleServer(stk, cfg, naming, rg, subnet, zone, link, client)
 
-	res.NewPrivateEndpoint(stk, cfg, naming, rg, srv, subnet, zone)
-
 	return DefaultPostgresDrum{
 		StackName_: name,
 		Stack_:     stk,

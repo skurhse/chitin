@@ -3,7 +3,6 @@ package stk
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/transprogrammer/xenia/pkg/mod"
 	"github.com/transprogrammer/xenia/pkg/prv"
 	"github.com/transprogrammer/xenia/pkg/res"
@@ -17,14 +16,9 @@ const (
 
 var CoreAddrSpace = []*string{jsii.String(coreAddr)}
 
-var CoreSubnets = CoreSubnetsIndex{
+var CoreSubnetAddrs = CoreSubnetsIndex{
 	Jump:     jsii.String(jumpAddr),
 	Postgres: jsii.String(postgresAddr),
-}
-
-var CoreSubnetIndices = CoreSubnetsIndicesIndex{
-	Jump:     0,
-	Postgres: 1,
 }
 
 func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultCoreDrum {
@@ -43,19 +37,12 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokens Tokens) DefaultC
 	jumpASG := res.NewASG(stk, cfg, jumpNaming, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 	jumpNSG := res.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
-	jumpSubnetInput := res.NewSubnetInput(stk, jumpNaming, jumpNSG, CoreSubnets.Jump)
+	jumpSubnet := res.NewSubnet(stk, jumpNaming, jumpNSG, CoreSubnets.Jump)
 
 	postgresAddrs := CoreSubnets.Postgres
-	postgresSubnetInput := res.NewSubnetInput(stk, postgresNaming, nil, postgresAddrs)
-
-	subnetInputs := make([]vnet.VirtualNetworkSubnet, 2)
-	subnetInputs[CoreSubnetIndices.Jump] = jumpSubnetInput
-	subnetInputs[CoreSubnetIndices.Postgres] = postgresSubnetInput
+	postgresSubnet := res.NewSubnet(postgresNaming, nil, postgresAddrs)
 
 	vnet := res.NewVNet(stk, cfg, naming, rg, CoreAddrSpace, subnetInputs)
-
-	jumpSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Jump)
-	postgresSubnet := res.GetSubnet(vnet, CoreSubnetIndices.Postgres)
 
 	return DefaultCoreDrum{
 		StackName_: name,

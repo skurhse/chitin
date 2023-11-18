@@ -1,6 +1,6 @@
 package stk
 
-type CoreSubnetsIndex struct {
+type CoreSubnetsAddrsIndex struct {
 	Jump     *string
 	Postgres *string
 }
