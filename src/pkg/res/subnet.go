@@ -46,7 +46,7 @@ func NewDelegatedSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.Resour
 		ResourceGroupName:  rg.Name(),
 		VirtualNetworkName: vnet.Name(),
 		AddressPrefixes:    &[]*string{addrPrefix},
-		Delegation:         delegation,
+		Delegation:         &[]sn.SubnetDelegation{delegation},
 	}
 
 	return sn.NewSubnet(stk, &id, &input)
