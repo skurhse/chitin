@@ -9,6 +9,7 @@ import (
 	"github.com/transprogrammer/xenia/pkg/res"
 
 	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
 )
 
@@ -20,7 +21,7 @@ type PostgresCoreBeat interface {
 
 type DefaultPostgresCoreBeat struct {
 	Naming_ naming.Naming
-	Subnet_ vnet.VirtualNetworkSubnetOutputReference
+	Subnet_ sn.Subnet
 	VNet_   vnet.VirtualNetwork
 	Client_ cnf.DataAzurermClientConfig
 }
@@ -29,7 +30,7 @@ func (c DefaultPostgresCoreBeat) Naming() naming.Naming {
 	return c.Naming_
 }
 
-func (c DefaultPostgresCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
+func (c DefaultPostgresCoreBeat) Subnet() sn.Subnet {
 	return c.Subnet_
 }
 

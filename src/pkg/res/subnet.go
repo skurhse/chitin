@@ -25,11 +25,8 @@ func NewSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, 
 	return sn.NewSubnet(stk, &id, &input)
 }
 
-func NewPostgresSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, addrPrefix *string, token string) sn.Subnet {
-
-	id := fmt.Sprintf("%s_%s", *Ids.Subnet, token)
-
-	delegation := sn.SubnetDelegation{
+func NewPostgresSubnetDelegation() sn.SubnetDelegation {
+	return sn.SubnetDelegation{
 		Name: jsii.String("fs"),
 		ServiceDelegation: &sn.SubnetDelegationServiceDelegation{
 			Name: jsii.String("Microsoft.DBforPostgreSQL/flexibleServers"),
@@ -38,6 +35,11 @@ func NewPostgresSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.Resourc
 			},
 		},
 	}
+}
+
+func NewDelegatedSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, delegation sn.SubnetDelegation, addrPrefix *string, token string) sn.Subnet {
+
+	id := fmt.Sprintf("%s_%s", *Ids.Subnet, token)
 
 	input := sn.SubnetConfig{
 		Name:               naming.SubnetOutput(),

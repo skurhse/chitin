@@ -9,40 +9,39 @@ import (
 )
 
 const (
-	coreAddr     = "10.0.0.0/16"
-	jumpAddr     = "10.1.0.0./24"
-	postgresAddr = "10.2.0.0./24"
+	coreAddr = "10.0.0.0/16"
+	jumpAddr = "10.1.0.0./24"
+	pgAddr   = "10.2.0.0./24"
 )
 
 var CoreAddrSpace = []*string{jsii.String(coreAddr)}
 
 var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Jump:     jsii.String(jumpAddr),
-	Postgres: jsii.String(postgresAddr),
+	Postgres: jsii.String(pgAddr),
 }
 
 func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex, token string) DefaultCoreDrum {
-	
-	name := NewName(tokenSets.Core)
+
+	name := NewStackName(tokenSets.Core)
 	stk := NewStack(scope, name)
 	prv.NewAzureRM(stk)
 
 	coreName := mod.NewNaming(stk, tokenSets.Core)
-	jumpName := mod.NewNaming(stk, tokenSets.Jump)
-	pgName := mod.NewNaming(stk, tokenSets.Postgres)
-
 	rg := res.NewResourceGroup(stk, cfg, coreName)
 	client := res.NewDataAzurermClientConfig(stk)
 	vnet := res.NewVirtualNetwork(stk, coreName, rg, CoreAddrSpace, token)
 
+	jumpName := mod.NewNaming(stk, tokenSets.Jump)
 	jumpASG := res.NewASG(stk, cfg, jumpName, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 	jumpNSG := res.NewNSG(stk, cfg, jumpName, rg, jumpSecurityRule)
 	jumpSubnet := res.NewSubnet(stk, jumpName, rg, vnet, CoreSubnetAddrs.Jump, Tokens.Jump)
-	jumpSubnetNSGAssoc := res.NewSubnetNSGAssoc(stk, jumpName
+	res.NewSubnetNSGAssoc(stk, jumpSubnet, jumpNSG, Tokens.Jump)
 
-	postgresAddrs := CoreSubnetAddrs.Postgres
-	postgresSubnet := res.NewSubnet(pgName, nil, postgresAddrs)
+	pgName := mod.NewNaming(stk, tokenSets.Postgres)
+	pgDelegation := res.NewPostgresSubnetDelegation()
+	pgSubnet := res.NewDelegatedSubnet(stk, pgName, rg, vnet, pgDelegation, CoreSubnetAddrs.Postgres, Tokens.Postgres)
 
 	return DefaultCoreDrum{
 		StackName_: name,
@@ -55,7 +54,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsInde
 		},
 		PostgresBeat_: DefaultPostgresCoreBeat{
 			Naming_: pgName,
-			Subnet_: postgresSubnet,
+			Subnet_: pgSubnet,
 			VNet_:   vnet,
 			Client_: client,
 		},
