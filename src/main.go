@@ -22,8 +22,8 @@ func main() {
 	tokens := stk.Tokens
 
 	core := stk.NewCore(app, cfg, tokenSets, tokens.Core)
-	jump := stk.NewJump(app, cfg, core.JumpBeat(), tokenSets.Jump)
-	postgres := stk.NewPostgres(app, cfg, core.PostgresBeat().Dev(), tokens.Postgres)
+	stk.NewJump(app, cfg, core.JumpBeat(), tokenSets.Jump)
+	stk.NewPostgres(app, cfg, core.PostgresBeat(), tokenSets.Postgres)
 
 	app.Synth()
 }
