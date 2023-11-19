@@ -21,40 +21,40 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Postgres: jsii.String(postgresAddr),
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex) DefaultCoreDrum {
+func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex, token string) DefaultCoreDrum {
+	
 	name := NewName(tokenSets.Core)
-
 	stk := NewStack(scope, name)
 	prv.NewAzureRM(stk)
 
-	naming := mod.NewNaming(stk, tokenSets.Core)
-	jumpNaming := mod.NewNaming(stk, tokenSets.Jump)
-	postgresNaming := mod.NewNaming(stk, tokenSets.Postgres)
+	coreName := mod.NewNaming(stk, tokenSets.Core)
+	jumpName := mod.NewNaming(stk, tokenSets.Jump)
+	pgName := mod.NewNaming(stk, tokenSets.Postgres)
 
-	rg := res.NewResourceGroup(stk, cfg, naming)
+	rg := res.NewResourceGroup(stk, cfg, coreName)
 	client := res.NewDataAzurermClientConfig(stk)
+	vnet := res.NewVirtualNetwork(stk, coreName, rg, CoreAddrSpace, token)
 
-	jumpASG := res.NewASG(stk, cfg, jumpNaming, rg)
+	jumpASG := res.NewASG(stk, cfg, jumpName, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
-	jumpNSG := res.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
-	jumpSubnet := res.NewSubnet(stk, jumpNaming, rg, vnet, jumpNSG, CoreSubnetAddrs.Jump, CoreSubnetAddrs.Jump, Tokens.Jump)
+	jumpNSG := res.NewNSG(stk, cfg, jumpName, rg, jumpSecurityRule)
+	jumpSubnet := res.NewSubnet(stk, jumpName, rg, vnet, CoreSubnetAddrs.Jump, Tokens.Jump)
+	jumpSubnetNSGAssoc := res.NewSubnetNSGAssoc(stk, jumpName
 
-	postgresAddrs := CoreSubnets.Postgres
-	postgresSubnet := res.NewSubnet(postgresNaming, nil, postgresAddrs)
-
-	vnet := res.NewVNet(stk, cfg, naming, rg, CoreAddrSpace, subnetInputs)
+	postgresAddrs := CoreSubnetAddrs.Postgres
+	postgresSubnet := res.NewSubnet(pgName, nil, postgresAddrs)
 
 	return DefaultCoreDrum{
 		StackName_: name,
 		Stack_:     stk,
 		JumpBeat_: DefaultJumpCoreBeat{
-			Naming_: jumpNaming,
+			Naming_: jumpName,
 			Subnet_: jumpSubnet,
 			ASG_:    jumpASG,
 			NSG_:    jumpNSG,
 		},
 		PostgresBeat_: DefaultPostgresCoreBeat{
-			Naming_: postgresNaming,
+			Naming_: pgName,
 			Subnet_: postgresSubnet,
 			VNet_:   vnet,
 			Client_: client,
