@@ -1,7 +1,7 @@
 package stk
 
 import (
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	"github.com/transprogrammer/xenia/generated/naming"
 )
 
