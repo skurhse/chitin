@@ -37,7 +37,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsInde
 	jumpASG := res.NewASG(stk, cfg, jumpNaming, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 	jumpNSG := res.NewNSG(stk, cfg, jumpNaming, rg, jumpSecurityRule)
-	jumpSubnet := res.NewSubnet(stk, jumpNaming, jumpNSG, CoreSubnetAddrs.Jump, CoreSubnetAddrs.Jump, Tokens.Jump)
+	jumpSubnet := res.NewSubnet(stk, jumpNaming, rg, vnet, jumpNSG, CoreSubnetAddrs.Jump, CoreSubnetAddrs.Jump, Tokens.Jump)
 
 	postgresAddrs := CoreSubnets.Postgres
 	postgresSubnet := res.NewSubnet(postgresNaming, nil, postgresAddrs)

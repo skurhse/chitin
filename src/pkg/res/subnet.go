@@ -11,7 +11,7 @@ import (
 	nm "github.com/transprogrammer/xenia/generated/naming"
 )
 
-func NewSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, delegation sn.SubnetDelegation, addrPrefix *string, token string) sn.Subnet {
+func NewSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, addrPrefix *string, token string) sn.Subnet {
 
 	id := fmt.Sprintf("%s_%s", *Ids.Subnet, token)
 
@@ -20,15 +20,16 @@ func NewSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, 
 		ResourceGroupName:  rg.Name(),
 		VirtualNetworkName: vnet.Name(),
 		AddressPrefixes:    &[]*string{addrPrefix},
-		Delegation:         &delegation,
 	}
 
 	return sn.NewSubnet(stk, &id, &input)
 }
 
-func NewPostgresSubnetDelegation() sn.SubnetDelegation {
+func NewPostgresSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, addrPrefix *string, token string) sn.Subnet {
 
-	return sn.SubnetDelegation{
+	id := fmt.Sprintf("%s_%s", *Ids.Subnet, token)
+
+	delegation := sn.SubnetDelegation{
 		Name: jsii.String("fs"),
 		ServiceDelegation: &sn.SubnetDelegationServiceDelegation{
 			Name: jsii.String("Microsoft.DBforPostgreSQL/flexibleServers"),
@@ -37,4 +38,14 @@ func NewPostgresSubnetDelegation() sn.SubnetDelegation {
 			},
 		},
 	}
+
+	input := sn.SubnetConfig{
+		Name:               naming.SubnetOutput(),
+		ResourceGroupName:  rg.Name(),
+		VirtualNetworkName: vnet.Name(),
+		AddressPrefixes:    &[]*string{addrPrefix},
+		Delegation:         delegation,
+	}
+
+	return sn.NewSubnet(stk, &id, &input)
 }
