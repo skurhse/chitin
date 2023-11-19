@@ -1,19 +1,19 @@
 package stk
 
 import (
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	"github.com/transprogrammer/xenia/generated/naming"
 )
 
 type DefaultClusterCoreBeat struct {
 	Naming_ naming.Naming
-	Subnet_ vnet.VirtualNetworkSubnetOutputReference
+	Subnet_ sn.Subnet
 }
 
 func (c DefaultClusterCoreBeat) Naming() naming.Naming {
 	return c.Naming_
 }
 
-func (c DefaultClusterCoreBeat) Subnet() vnet.VirtualNetworkSubnetOutputReference {
+func (c DefaultClusterCoreBeat) Subnet() sn.Subnet {
 	return c.Subnet_
 }

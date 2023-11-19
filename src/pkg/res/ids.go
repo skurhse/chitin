@@ -2,6 +2,8 @@ package res
 
 import "github.com/aws/jsii-runtime-go"
 
+// TODO: Refactor for string literal for tokenization and jit-construct support. <rbt>
+
 type IdsIndex struct {
 	AppSecGroup                                         *string
 	ClientConfig                                        *string
@@ -13,7 +15,7 @@ type IdsIndex struct {
 	NetworkInterfaceNetworkSecurityGroupAssociation     *string
 	NetworkSecurityGroup                                *string
 	PostgresFlexibleServer                              *string
-	PostgresAdmin                       *string
+	PostgresAdmin                                       *string
 	PrivateDNSZone                                      *string
 	PrivateDNSZoneGroup                                 *string
 	PrivateDNSZoneVNetLink                              *string
@@ -21,6 +23,7 @@ type IdsIndex struct {
 	PublicIP                                            *string
 	ResourceGroup                                       *string
 	Subnet                                              *string
+	SubnetNSGAssoc                                      string
 	VirtualMachine                                      *string
 	VirtualNetwork                                      *string
 }
@@ -36,7 +39,7 @@ var Ids = IdsIndex{
 	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),
 	NetworkSecurityGroup:                                jsii.String("network_security_group"),
 	PostgresFlexibleServer:                              jsii.String("postgresql_flexible_server"),
-	PostgresAdmin:                       jsii.String("postgresql_flexible_server_active_directory_admin"),
+	PostgresAdmin:                                       jsii.String("postgresql_flexible_server_active_directory_admin"),
 	PrivateDNSZone:                                      jsii.String("private_dns_zone"),
 	PrivateDNSZoneGroup:                                 jsii.String("private_dns_zone_group"),
 	PrivateDNSZoneVNetLink:                              jsii.String("private_dns_zone_virtual_network_link"),
@@ -44,6 +47,7 @@ var Ids = IdsIndex{
 	PublicIP:                                            jsii.String("public_ip"),
 	ResourceGroup:                                       jsii.String("resource_group"),
 	Subnet:                                              jsii.String("subnet"),
+	SubnetNSGAssoc:                                      "subnet_nsg_assoc",
 	VirtualMachine:                                      jsii.String("virtual_machine"),
 	VirtualNetwork:                                      jsii.String("virtual_network"),
 }

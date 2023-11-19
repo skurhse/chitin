@@ -7,14 +7,14 @@ import (
 	pdnsz "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
 	pe "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privateendpoint"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
 // TODO: Modularize. <rbt>
 
-func NewPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet vnet.VirtualNetworkSubnetOutputReference, zone pdnsz.PrivateDnsZone) pe.PrivateEndpoint {
+func NewPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, acct dbacct.CosmosdbAccount, subnet sn.Subnet, zone pdnsz.PrivateDnsZone) pe.PrivateEndpoint {
 
 	privateServiceConnection := pe.PrivateEndpointPrivateServiceConnection{
 		Name:                        jsii.String("cosmosdb"),

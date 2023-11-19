@@ -14,7 +14,7 @@ import (
 // - Pipe jumpbox ip
 // - Pipe subnet id
 
-func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference) aks.KubernetesCluster {
+func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet sn.Subnet) aks.KubernetesCluster {
 
 	accessProfile := KubernetesClusterApiServerAccessProfile{
 		AuthorizedIpRange:      jump.NIC().IP(),

@@ -10,12 +10,12 @@ import (
 	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/publicip"
 	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
 
-func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, ip publicip.PublicIp) nic.NetworkInterface {
+func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet sn.Subnet, ip publicip.PublicIp) nic.NetworkInterface {
 	ipConfig := nic.NetworkInterfaceIpConfiguration{
 		Name:                       jsii.String("ipcfg"),
 		Primary:                    jsii.Bool(true),

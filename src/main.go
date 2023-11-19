@@ -18,11 +18,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tokens := stk.NewTokens(cfg)
+	tokenSets := stk.NewTokenSets(cfg)
+	tokens := stk.Tokens
 
-	core := stk.NewCore(app, cfg, tokens)
-	jump := stk.NewJump(app, cfg, core.JumpBeat(), tokens.Jump)
-	postgres := stk.NewPostgres(app, cfg, core.PostgresBeat().Dev(), tokens.Postgres)
+	core := stk.NewCore(app, cfg, tokenSets, tokens.Core)
+	stk.NewJump(app, cfg, core.JumpBeat(), tokenSets.Jump)
+	stk.NewPostgres(app, cfg, core.PostgresBeat(), tokenSets.Postgres)
 
 	app.Synth()
 }
