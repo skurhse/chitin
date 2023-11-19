@@ -8,7 +8,7 @@ import (
 	dns "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
 	nl "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
 	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
+	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
 	"github.com/transprogrammer/xenia/generated/naming"
 	"github.com/transprogrammer/xenia/pkg/cfg"
 )
@@ -16,7 +16,7 @@ import (
 // PORT: Using postgres server naming as stand-in. <>
 // ???: Add flexi-server resource definition to naming fork? <rbt>
 
-func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet vnet.VirtualNetworkSubnetOutputReference, zone dns.PrivateDnsZone, vnetLink nl.PrivateDnsZoneVirtualNetworkLink, client cnf.DataAzurermClientConfig) pg.PostgresqlFlexibleServer {
+func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, subnet sn.Subnet, zone dns.PrivateDnsZone, vnetLink nl.PrivateDnsZoneVirtualNetworkLink, client cnf.DataAzurermClientConfig) pg.PostgresqlFlexibleServer {
 
 	serverVersion := jsii.String("15")
 	storageMB := jsii.Number(32768)
