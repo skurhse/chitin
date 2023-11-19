@@ -1,6 +1,6 @@
-# 🦊 xenia <sup><sup>[ alpha ]</sup></sup>
+# 🦊 Xenia <sup><sup>\<alpha\></sup></sup>
 
-a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
+A Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
 
 ## runtimes
 - [go](https://go.dev/dl/)
