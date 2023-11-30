@@ -1,4 +1,4 @@
-# 🦊 xen · alpha
+# 🦊 xen · pre-alpha
 
 *Xen* is a Terraform CDK project for Azure Kubernetes Service clusters, managed with GitHub Actions.
 
@@ -11,6 +11,7 @@
 ## providers
   - [azuread](https://registry.terraform.io/providers/hashicorp/azuread/latest)
   - [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
+  - [github](https://registry.terraform.io/providers/integrations/github/latest)
 
 ## modules
 - [naming](https://registry.terraform.io/modules/Azure/naming/azurerm/latest)
