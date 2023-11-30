@@ -1,22 +1,28 @@
 # 🦊 xen · pre-alpha
 
-*Xen* is a Terraform CDK project for Azure Kubernetes Service clusters, managed with GitHub Actions.
+*Xen* is a cdktf project for AKS clusters, managed with GitHub Actions.
 
-## runtimes
+## features
+ -
+
+## references
+### runtimes
 - [go](https://go.dev/dl/)
 - [jsii](https://aws.github.io/jsii/)
 - [cdktf](https://developer.hashicorp.com/terraform/cdktf)
 - [terraform](https://www.terraform.io/)
+- [docker](https://docs.docker.com/)
+- [actions](https://docs.github.com/en/actions)
 
-## providers
+### providers
   - [azuread](https://registry.terraform.io/providers/hashicorp/azuread/latest)
   - [azurerm](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
   - [github](https://registry.terraform.io/providers/integrations/github/latest)
 
-## modules
+### modules
 - [naming](https://registry.terraform.io/modules/Azure/naming/azurerm/latest)
 
-## resources
+### resources
 - [core](src/pkg/stk/core.go)
   - [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network)
   - [azurerm_application_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_security_group)
@@ -38,12 +44,12 @@
   - [azurerm_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster)
   - 
 
-## actions
+### actions
 - [terraform-cdk-action](https://github.com/marketplace/actions/terraform-cdk-action)
 - [deploy-to-kubernetes-cluster](https://github.com/marketplace/actions/deploy-to-kubernetes-cluster)
 
 
-## postgres infra docs
+### postgres infra docs
 - [networking overview](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-networking#private-access-vnet-integration)
 - [connect with managed identity](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-connect-with-managed-identity)
 - [audit logging (tbd)](https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-audit)
