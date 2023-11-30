@@ -1,6 +1,6 @@
 # 🦊 xen · alpha
 
-a Terraform CDK project that creates and provisions Azure Kubernetes Service clusters, managed via GitHub Actions.
+*Xen* is a Terraform CDK project for Azure Kubernetes Service clusters, managed with GitHub Actions.
 
 ## runtimes
 - [go](https://go.dev/dl/)
