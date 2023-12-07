@@ -17,11 +17,11 @@ func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens
 	naming := core.Naming()
 	asg := core.ASG()
 	nsg := core.NSG()
-	subnet := core.Subnet()
+	vnet = core.VirtualNetwork()
 
 	rg := res.NewResourceGroup(stk, cfg, naming)
 
-	jumpName := mod.NewNaming(stk, tokenSets.Jump)
+	jumpName := mod.NewNaming(stk, tokens)
 	jumpASG := res.NewASG(stk, cfg, jumpName, rg)
 	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
 	jumpNSG := res.NewNSG(stk, cfg, jumpName, rg, jumpSecurityRule)
