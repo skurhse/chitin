@@ -6,9 +6,9 @@ import (
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/xen/pkg/cfg"
-	"github.com/skurhse/xen/pkg/stk"
-)
+	"github.com/skurhse/xen/pkg/sng"
 
+ck
 func main() {
 	app := cdktf.NewApp(nil)
 

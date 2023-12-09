@@ -1,16 +1,16 @@
-package stk
+package sng
 
 import "github.com/hashicorp/terraform-cdk-go/cdktf"
 
-type DefaultClusterDrum struct {
+type DefaultJumpMelody struct {
 	StackName_ *string
 	Stack_     cdktf.TerraformStack
 }
 
-func (self DefaultClusterDrum) StackName() *string {
+func (self DefaultJumpMelody) StackName() *string {
 	return self.StackName_
 }
 
-func (self DefaultClusterDrum) Stack() cdktf.TerraformStack {
+func (self DefaultJumpMelody) Stack() cdktf.TerraformStack {
 	return self.Stack_
 }

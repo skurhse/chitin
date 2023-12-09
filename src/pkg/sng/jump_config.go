@@ -1,8 +1,8 @@
-package stk
+package sng
 
 import "github.com/skurhse/xen/pkg/cfg"
 
-type ClusterConfig interface {
+type JumpConfig interface {
 	cfg.Config
 	WhitelistIPs() *[]*string
 }

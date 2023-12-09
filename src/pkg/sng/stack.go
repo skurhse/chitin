@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"

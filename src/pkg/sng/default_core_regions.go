@@ -1,4 +1,4 @@
-package stk
+package sng
 
 type DefaultCoreRegions struct {
 	Primary_   string

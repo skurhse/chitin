@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"
@@ -8,7 +8,7 @@ import (
 	"github.com/skurhse/xen/pkg/res"
 )
 
-func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens []string) DefaultJumpDrum {
+func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreTune, tokens []string) DefaultJumpMelody {
 	name := NewStackName(tokens)
 
 	stk := cdktf.NewTerraformStack(app, name)
@@ -39,7 +39,7 @@ func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreBeat, tokens
 
 	// res.NewAdminGroup(stk, cfg, naming, rg)
 
-	return DefaultJumpDrum{
+	return DefaultJumpMelody{
 		StackName_: name,
 		Stack_:     stk,
 	}

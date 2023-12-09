@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"
@@ -21,7 +21,7 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Postgres: jsii.String(pgAddr),
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex, token string) DefaultCoreDrum {
+func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex, token string) DefaultCoreMelody {
 
 	name := NewStackName(tokenSets.Core)
 	stk := NewStack(scope, name)
@@ -43,16 +43,16 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsInde
 	pgDelegation := res.NewPostgresSubnetDelegation()
 	pgSubnet := res.NewDelegatedSubnet(stk, pgName, rg, vnet, pgDelegation, CoreSubnetAddrs.Postgres, Tokens.Postgres)
 
-	return DefaultCoreDrum{
+	return DefaultCoreMelody{
 		StackName_: name,
 		Stack_:     stk,
-		JumpBeat_: DefaultJumpCoreBeat{
+		JumpTune_: DefaultJumpCoreTune{
 			Naming_: jumpName,
 			Subnet_: jumpSubnet,
 			ASG_:    jumpASG,
 			NSG_:    jumpNSG,
 		},
-		PostgresBeat_: DefaultPostgresCoreBeat{
+		PostgresTune_: DefaultPostgresCoreTune{
 			Naming_: pgName,
 			Subnet_: pgSubnet,
 			VNet_:   vnet,

@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import "fmt"
 

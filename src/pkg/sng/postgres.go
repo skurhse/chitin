@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"
@@ -9,7 +9,7 @@ import (
 	"github.com/skurhse/xen/pkg/res"
 )
 
-func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBeat, tokens []string) DefaultPostgresDrum {
+func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreTune, tokens []string) DefaultPostgresMelody {
 	name := NewStackName(tokens)
 
 	stk := cdktf.NewTerraformStack(scope, name)
@@ -30,7 +30,7 @@ func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBe
 
 	res.NewPostgresFlexibleServer(stk, cfg, naming, rg, pgSubnet, zone, link, client)
 
-	return DefaultPostgresDrum{
+	return DefaultPostgresMelody{
 		StackName_: name,
 		Stack_:     stk,
 	}

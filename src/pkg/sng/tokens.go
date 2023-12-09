@@ -1,4 +1,4 @@
-package stk
+package sng
 
 import (
 	"github.com/skurhse/xen/pkg/cfg"
