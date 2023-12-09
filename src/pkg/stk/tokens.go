@@ -1,7 +1,7 @@
 package stk
 
 import (
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 type TokensIndex struct {

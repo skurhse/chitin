@@ -5,8 +5,8 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/stk"
+	"github.com/skurhse/xen/pkg/cfg"
+	"github.com/skurhse/xen/pkg/stk"
 )
 
 const ProjectTagKey = "project"

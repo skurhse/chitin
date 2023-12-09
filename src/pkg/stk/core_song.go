@@ -3,9 +3,9 @@ package stk
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/transprogrammer/xenia/pkg/mod"
-	"github.com/transprogrammer/xenia/pkg/prv"
-	"github.com/transprogrammer/xenia/pkg/res"
+	"github.com/skurhse/xen/pkg/mod"
+	"github.com/skurhse/xen/pkg/prv"
+	"github.com/skurhse/xen/pkg/res"
 )
 
 const (

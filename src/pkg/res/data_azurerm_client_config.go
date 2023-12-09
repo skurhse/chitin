@@ -2,7 +2,7 @@ package res
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
+	cnf "github.com/skurhse/xen/generated/hashicorp/azurerm/dataazurermclientconfig"
 )
 
 func NewDataAzurermClientConfig(stack cdktf.TerraformStack) cnf.DataAzurermClientConfig {

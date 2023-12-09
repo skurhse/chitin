@@ -3,11 +3,11 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	lvm "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/linuxvirtualmachine"
-	nic "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterface"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	lvm "github.com/skurhse/xen/generated/hashicorp/azurerm/linuxvirtualmachine"
+	nic "github.com/skurhse/xen/generated/hashicorp/azurerm/networkinterface"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 func NewVirtualMachine(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, nic nic.NetworkInterface) lvm.LinuxVirtualMachine {

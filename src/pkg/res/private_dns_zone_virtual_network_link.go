@@ -5,12 +5,12 @@ import (
 
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	pdnsz "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
-	pdnszvnl "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	pdnsz "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszone"
+	pdnszvnl "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 func NewPrivateDNSZoneVNetLink(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, zone pdnsz.PrivateDnsZone, vnet vnet.VirtualNetwork) pdnszvnl.PrivateDnsZoneVirtualNetworkLink {

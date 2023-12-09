@@ -3,8 +3,8 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	pdnsz "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
+	pdnsz "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszone"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
 )
 
 func NewPrivateDNSZone(stack cdktf.TerraformStack, rg rg.ResourceGroup) pdnsz.PrivateDnsZone {

@@ -3,9 +3,10 @@ package stk
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/prv"
-	"github.com/transprogrammer/xenia/pkg/res"
+	"github.com/skurhse/xen/pkg/cfg"
+	"github.com/skurhse/xen/pkg/mod"
+	"github.com/skurhse/xen/pkg/prv"
+	"github.com/skurhse/xen/pkg/res"
 )
 
 func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBeat, tokens []string) DefaultPostgresDrum {
@@ -15,16 +16,19 @@ func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreBe
 	prv.NewAzureRM(stk)
 
 	naming := core.Naming()
-	subnet := core.Subnet()
-	vnet := core.VNet()
+	vnet := core.VirtualNetwork()
 	client := core.Client()
 
 	rg := res.NewResourceGroup(stk, cfg, naming)
 
+	pgName := mod.NewNaming(stk, tokens)
+	pgDelegation := res.NewPostgresSubnetDelegation()
+	pgSubnet := res.NewDelegatedSubnet(stk, pgName, rg, vnet, pgDelegation, CoreSubnetAddrs.Postgres, Tokens.Postgres)
+
 	zone := res.NewPrivateDNSZone(stk, rg)
 	link := res.NewPrivateDNSZoneVNetLink(stk, cfg, naming, rg, zone, vnet)
 
-	res.NewPostgresFlexibleServer(stk, cfg, naming, rg, subnet, zone, link, client)
+	res.NewPostgresFlexibleServer(stk, cfg, naming, rg, pgSubnet, zone, link, client)
 
 	return DefaultPostgresDrum{
 		StackName_: name,

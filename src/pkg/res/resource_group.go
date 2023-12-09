@@ -2,9 +2,9 @@ package res
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 func NewResourceGroup(scope constructs.Construct, config cfg.Config, naming naming.Naming) rg.ResourceGroup {

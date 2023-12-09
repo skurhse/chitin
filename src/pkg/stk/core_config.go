@@ -1,6 +1,6 @@
 package stk
 
-import "github.com/transprogrammer/xenia/pkg/cfg"
+import "github.com/skurhse/xen/pkg/cfg"
 
 type CoreConfig interface {
 	cfg.Config

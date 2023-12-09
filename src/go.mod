@@ -1,4 +1,4 @@
-module github.com/transprogrammer/xenia
+module github.com/skurhse/xen
 
 go 1.21
 

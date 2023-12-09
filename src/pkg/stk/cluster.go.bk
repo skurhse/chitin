@@ -3,11 +3,11 @@ package stk
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
-	"github.com/transprogrammer/xenia/pkg/prv"
-	"github.com/transprogrammer/xenia/pkg/res"
+	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
+	"github.com/skurhse/xen/pkg/prv"
+	"github.com/skurhse/xen/pkg/res"
 )
 
 func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreBeat, jump ClusterJumpBeat, tokens []string) DefaultClusterDrum {

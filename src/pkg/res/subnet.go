@@ -5,10 +5,10 @@ import (
 
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
-	nm "github.com/transprogrammer/xenia/generated/naming"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	sn "github.com/skurhse/xen/generated/hashicorp/azurerm/subnet"
+	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
+	nm "github.com/skurhse/xen/generated/naming"
 )
 
 func NewSubnet(stk cdktf.TerraformStack, naming nm.Naming, rg rg.ResourceGroup, vnet vnet.VirtualNetwork, addrPrefix *string, token string) sn.Subnet {

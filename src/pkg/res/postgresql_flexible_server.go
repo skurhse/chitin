@@ -3,14 +3,14 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	cnf "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/dataazurermclientconfig"
-	pg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/postgresqlflexibleserver"
-	dns "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
-	nl "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	cnf "github.com/skurhse/xen/generated/hashicorp/azurerm/dataazurermclientconfig"
+	pg "github.com/skurhse/xen/generated/hashicorp/azurerm/postgresqlflexibleserver"
+	dns "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszone"
+	nl "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszonevirtualnetworklink"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	sn "github.com/skurhse/xen/generated/hashicorp/azurerm/subnet"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 // PORT: Using postgres server naming as stand-in. <>

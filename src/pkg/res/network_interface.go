@@ -3,16 +3,16 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	asg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/applicationsecuritygroup"
-	nic "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterface"
-	nicasg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterfaceapplicationsecuritygroupassociation"
-	nicnsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networkinterfacesecuritygroupassociation"
-	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
-	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/publicip"
-	"github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	asg "github.com/skurhse/xen/generated/hashicorp/azurerm/applicationsecuritygroup"
+	nic "github.com/skurhse/xen/generated/hashicorp/azurerm/networkinterface"
+	nicasg "github.com/skurhse/xen/generated/hashicorp/azurerm/networkinterfaceapplicationsecuritygroupassociation"
+	nicnsg "github.com/skurhse/xen/generated/hashicorp/azurerm/networkinterfacesecuritygroupassociation"
+	nsg "github.com/skurhse/xen/generated/hashicorp/azurerm/networksecuritygroup"
+	"github.com/skurhse/xen/generated/hashicorp/azurerm/publicip"
+	"github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	sn "github.com/skurhse/xen/generated/hashicorp/azurerm/subnet"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup, subnet sn.Subnet, ip publicip.PublicIp) nic.NetworkInterface {

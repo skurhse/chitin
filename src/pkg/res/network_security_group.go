@@ -3,11 +3,11 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	asg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/applicationsecuritygroup"
-	nsg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/networksecuritygroup"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	asg "github.com/skurhse/xen/generated/hashicorp/azurerm/applicationsecuritygroup"
+	nsg "github.com/skurhse/xen/generated/hashicorp/azurerm/networksecuritygroup"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 func NewNSG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) nsg.NetworkSecurityGroup {

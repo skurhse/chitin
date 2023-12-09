@@ -3,13 +3,13 @@ package res
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	dbacct "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/cosmosdbaccount"
-	pdnsz "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privatednszone"
-	pe "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/privateendpoint"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	sn "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/subnet"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	dbacct "github.com/skurhse/xen/generated/hashicorp/azurerm/cosmosdbaccount"
+	pdnsz "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszone"
+	pe "github.com/skurhse/xen/generated/hashicorp/azurerm/privateendpoint"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	sn "github.com/skurhse/xen/generated/hashicorp/azurerm/subnet"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 // TODO: Modularize. <rbt>

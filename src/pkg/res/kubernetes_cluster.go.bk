@@ -3,11 +3,11 @@ package res
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	aks "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/kubernetescluster"
-	rg "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/transprogrammer/xenia/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/transprogrammer/xenia/generated/naming"
-	"github.com/transprogrammer/xenia/pkg/cfg"
+	aks "github.com/skurhse/xen/generated/hashicorp/azurerm/kubernetescluster"
+	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
+	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/xen/pkg/cfg"
 )
 
 // TODO <rbt 2023-10-28>

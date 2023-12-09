@@ -5,7 +5,7 @@ import (
 
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/transprogrammer/xenia/generated/naming"
+	"github.com/skurhse/xen/generated/naming"
 )
 
 type NamingConfig interface {
