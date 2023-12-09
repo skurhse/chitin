@@ -14,10 +14,10 @@ path=$(realpath "$0")
 dir=$(dirname "$path")
 cd "$dir/../"
 
-export XENIA_NAME='xenia'
-export XENIA_REGION_PRIMARY='USEast2'
-export XENIA_REGION_SECONDARY='USWest2'
-[[ "${XENIA_WHITELIST_IPS@a}" == *x* ]] || export XENIA_WHITELIST_IPS=''
+export XEN_NAME='xen'
+export XEN_REGION_PRIMARY='USEast2'
+export XEN_REGION_SECONDARY='USWest2'
+[[ "${XEN_WHITELIST_IPS@a}" == *x* ]] || export XEN_WHITELIST_IPS=''
 
 mkdir -p './out'
 npx cdktf synth 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-const EnvVarPrefix = "XENIA"
+const EnvVarPrefix = "XEN"
 
 var RegionEnvVarPrefix = fmt.Sprintf("%s_REGION", EnvVarPrefix)
 
