@@ -7,8 +7,8 @@ import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/xen/pkg/cfg"
 	"github.com/skurhse/xen/pkg/sng"
+)
 
-ck
 func main() {
 	app := cdktf.NewApp(nil)
 
@@ -18,12 +18,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tokenSets := stk.NewTokenSets(cfg)
-	tokens := stk.Tokens
+	tokenSets := sng.NewTokenSets(cfg)
+	tokens := sng.Tokens
 
-	core := stk.NewCore(app, cfg, tokenSets, tokens.Core)
-	stk.NewJump(app, cfg, core.JumpBeat(), tokenSets.Jump)
-	stk.NewPostgres(app, cfg, core.PostgresBeat(), tokenSets.Postgres)
+	sng.NewCore(app, cfg, tokenSets, tokens.Core)
 
 	app.Synth()
 }
