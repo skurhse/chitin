@@ -1,8 +1,4 @@
-package sng
-
-import (
-	"github.com/skurhse/xen/pkg/cfg"
-)
+package cfg
 
 type TokensIndex struct {
 	Core     string
@@ -24,7 +20,7 @@ var Tokens = TokensIndex{
 	Postgres: "postgres",
 }
 
-func NewTokenSets(cfg cfg.Config) TokenSetsIndex {
+func NewTokenSets(cfg Config) TokenSetsIndex {
 	name := *cfg.Name()
 
 	return TokenSetsIndex{

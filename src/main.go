@@ -6,7 +6,6 @@ import (
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/xen/pkg/cfg"
-	"github.com/skurhse/xen/pkg/sng"
 )
 
 func main() {
@@ -18,8 +17,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tokenSets := sng.NewTokenSets(cfg)
-	tokens := sng.Tokens
+	tokenSets := cfg.NewTokenSets(cfg)
+	tokens := cfg.Tokens
 
 	sng.NewCore(app, cfg, tokenSets, tokens.Core)
 
