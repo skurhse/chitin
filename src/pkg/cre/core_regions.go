@@ -1,4 +1,4 @@
-package sng
+package cre
 
 type CoreRegions interface {
 	Primary() string

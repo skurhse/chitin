@@ -1,4 +1,4 @@
-package sng
+package cre
 
 import "github.com/hashicorp/terraform-cdk-go/cdktf"
 
