@@ -6,21 +6,22 @@ import (
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/xen/pkg/cfg"
+	"github.com/skurhse/xen/pkg/cre"
 )
 
 func main() {
 	app := cdktf.NewApp(nil)
 
-	cfg, err := cfg.Load()
+	config, err := cfg.Load()
 	if err != nil {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
 	}
 
-	tokenSets := cfg.NewTokenSets(cfg)
+	tokenSets := cfg.NewTokenSets(config)
 	tokens := cfg.Tokens
 
-	sng.NewCore(app, cfg, tokenSets, tokens.Core)
+	cre.NewCore(app, config, tokenSets, tokens.Core)
 
 	app.Synth()
 }
