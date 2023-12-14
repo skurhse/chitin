@@ -1,4 +1,4 @@
-package sng
+package aks
 
 type ClusterMelody interface {
 	Melody

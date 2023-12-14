@@ -1,4 +1,4 @@
-package sng
+package aks
 
 import "github.com/hashicorp/terraform-cdk-go/cdktf"
 
