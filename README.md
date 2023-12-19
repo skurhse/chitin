@@ -1,6 +1,6 @@
-# 🦊 xen · pre-alpha
+# 🪲 chitin · pre-alpha
 
-*Xen* is a cdktf project for AKS clusters, managed with GitHub Actions.
+*Chitin* is a cdktf project for AKS clusters, managed with GitHub Actions.
 
 ## features
  -
