@@ -2,9 +2,6 @@
 
 *Chitin* is a cdktf project for AKS clusters, managed with GitHub Actions.
 
-## features
- -
-
 ## references
 ### runtimes
 - [go](https://go.dev/dl/)
