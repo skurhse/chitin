@@ -3,13 +3,10 @@ package cfg
 import (
 	"fmt"
 	"os"
-	"strings"
-
-	"github.com/aws/jsii-runtime-go"
 )
 
 type Config interface {
-	Name() *string
+	Name() string
 	Regions() Regions
 }
 
@@ -19,9 +16,8 @@ type Regions interface {
 }
 
 type DefaultConfig struct {
-	Name_         *string
-	Regions_      DefaultRegions
-	WhitelistIPs_ *[]*string
+	Name_    *string
+	Regions_ DefaultRegions
 }
 
 type DefaultRegions struct {
@@ -45,10 +41,6 @@ func (r DefaultRegions) Secondary() *string {
 	return r.Secondary_
 }
 
-func (c DefaultConfig) WhitelistIPs() *[]*string {
-	return c.WhitelistIPs_
-}
-
 func Load() (DefaultConfig, error) {
 
 	cfg := DefaultConfig{
@@ -58,33 +50,26 @@ func Load() (DefaultConfig, error) {
 			Secondary_: new(string),
 		},
 	}
-	var whitelistIPsList string
 
 	keyMap := map[*string]string{
 		cfg.Name_:               EnvVarNames.Name,
 		cfg.Regions_.Primary_:   EnvVarNames.Regions.Primary,
 		cfg.Regions_.Secondary_: EnvVarNames.Regions.Secondary,
-		&whitelistIPsList:       EnvVarNames.WhitelistIPs,
 	}
 
 	for k, v := range keyMap {
-		var present bool
+		var exists bool
 		var val string
-		*k, present = os.LookupEnv(v)
-		if !present {
-			err := fmt.Errorf("lookup env: %v not present", v)
+
+		*k, exists = os.LookupEnv(v)
+
+		if !exists {
+			err := fmt.Errorf("lookup env: %v nonexistent", v)
 			return cfg, err
 		}
+
 		k = &val
 	}
-
-	whitelistIPVals := strings.Split(whitelistIPsList, ",")
-	var whitelistIPs []*string
-	for _, val := range whitelistIPVals {
-		whitelistIPs = append(whitelistIPs, jsii.String(val))
-	}
-
-	cfg.WhitelistIPs_ = &whitelistIPs
 
 	return cfg, nil
 }

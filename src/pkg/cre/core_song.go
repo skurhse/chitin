@@ -6,6 +6,7 @@ import (
 	"github.com/skurhse/xen/pkg/mod"
 	"github.com/skurhse/xen/pkg/prv"
 	"github.com/skurhse/xen/pkg/res"
+	"github.com/skurhse/xen/pkg/sng"
 )
 
 const (
@@ -21,10 +22,10 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Postgres: jsii.String(pgAddr),
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, tokenSets TokenSetsIndex, token string) DefaultCoreMelody {
+func NewCoreSong(scope constructs.Construct, config CoreConfig, token string) DefaultCoreMelody {
 
-	name := NewStackName(tokenSets.Core)
-	stk := NewStack(scope, name)
+	name := sng.NewSongName(config.Name(), token)
+	stk := sng.NewStack(scope, name)
 	prv.NewAzureRM(stk)
 
 	coreName := mod.NewNaming(stk, tokenSets.Core)

@@ -18,10 +18,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tokenSets := cfg.NewTokenSets(config)
 	tokens := cfg.Tokens
 
-	cre.NewCore(app, config, tokenSets, tokens.Core)
+	cre.NewCore(app, config, tokens.Core)
 
 	app.Synth()
 }
