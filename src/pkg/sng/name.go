@@ -2,7 +2,7 @@ package sng
 
 import "fmt"
 
-func NewSongName(tokens ...string) *string {
+func NewName(tokens ...string) *string {
 	name := tokens[0]
 
 	for _, token := range tokens[1:] {

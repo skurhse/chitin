@@ -12,7 +12,7 @@ type NamingConfig interface {
 	Tokens() []*string
 }
 
-func NewNaming(scope constructs.Construct, tokens []string) naming.Naming {
+func NewNaming(scope constructs.Construct, tokens ...string) naming.Naming {
 	var prefix []*string
 	var id = *Ids.Naming
 	for _, token := range tokens {

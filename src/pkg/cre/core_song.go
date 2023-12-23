@@ -22,42 +22,23 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Postgres: jsii.String(pgAddr),
 }
 
-func NewCoreSong(scope constructs.Construct, config CoreConfig, token string) DefaultCoreMelody {
+func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCoreMelody {
 
-	name := sng.NewSongName(config.Name(), token)
+	name := sng.NewName(cfg.Name(), token)
+
 	stk := sng.NewStack(scope, name)
 	prv.NewAzureRM(stk)
 
-	coreName := mod.NewNaming(stk, tokenSets.Core)
-	rg := res.NewResourceGroup(stk, cfg, coreName)
-	client := res.NewDataAzurermClientConfig(stk)
-	vnet := res.NewVirtualNetwork(stk, coreName, rg, CoreAddrSpace, token)
+	naming := mod.NewNaming(stk, cfg.Name(), token)
 
-	jumpName := mod.NewNaming(stk, tokenSets.Jump)
-	jumpASG := res.NewASG(stk, cfg, jumpName, rg)
-	jumpSecurityRule := res.NewSSHSecurityRule(cfg.WhitelistIPs(), jumpASG)
-	jumpNSG := res.NewNSG(stk, cfg, jumpName, rg, jumpSecurityRule)
-	jumpSubnet := res.NewSubnet(stk, jumpName, rg, vnet, CoreSubnetAddrs.Jump, Tokens.Jump)
-	res.NewSubnetNSGAssoc(stk, jumpSubnet, jumpNSG, Tokens.Jump)
-
-	pgName := mod.NewNaming(stk, tokenSets.Postgres)
-	pgDelegation := res.NewPostgresSubnetDelegation()
-	pgSubnet := res.NewDelegatedSubnet(stk, pgName, rg, vnet, pgDelegation, CoreSubnetAddrs.Postgres, Tokens.Postgres)
+	rg := res.NewResourceGroup(stk, cfg, naming)
+	clnt := res.NewDataAzurermClientConfig(stk)
+	vnet := res.NewVirtualNetwork(stk, naming, rg, CoreAddrSpace, token)
 
 	return DefaultCoreMelody{
-		StackName_: name,
-		Stack_:     stk,
-		JumpTune_: DefaultJumpCoreTune{
-			Naming_: jumpName,
-			Subnet_: jumpSubnet,
-			ASG_:    jumpASG,
-			NSG_:    jumpNSG,
-		},
-		PostgresTune_: DefaultPostgresCoreTune{
-			Naming_: pgName,
-			Subnet_: pgSubnet,
-			VNet_:   vnet,
-			Client_: client,
-		},
+		Stack_:          stk,
+		StackName_:      name,
+		Client_:         clnt,
+		VirtualNetwork_: vnet,
 	}
 }

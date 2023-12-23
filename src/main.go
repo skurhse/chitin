@@ -12,7 +12,7 @@ import (
 func main() {
 	app := cdktf.NewApp(nil)
 
-	config, err := cfg.Load()
+	appCfg, err := cfg.Load()
 	if err != nil {
 		err = fmt.Errorf("load config: %w", err)
 		log.Fatal(err)
@@ -20,7 +20,7 @@ func main() {
 
 	tokens := cfg.Tokens
 
-	cre.NewCore(app, config, tokens.Core)
+	cre.NewCore(app, appCfg, tokens.Core)
 
 	app.Synth()
 }
