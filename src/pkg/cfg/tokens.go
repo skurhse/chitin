@@ -21,7 +21,7 @@ var Tokens = TokensIndex{
 }
 
 func NewTokenSets(cfg Config) TokenSetsIndex {
-	name := *cfg.Name()
+	name := cfg.Name()
 
 	return TokenSetsIndex{
 		Core:     []string{name, Tokens.Core},

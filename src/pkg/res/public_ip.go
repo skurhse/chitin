@@ -10,6 +10,7 @@ import (
 )
 
 func NewPublicIP(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) ip.PublicIp {
+
 	input := ip.PublicIpConfig{
 		Name:                 naming.PublicIpOutput(),
 		Location:             cfg.Regions().Primary(),
@@ -17,7 +18,7 @@ func NewPublicIP(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Namin
 		Sku:                  jsii.String("Basic"),
 		AllocationMethod:     jsii.String("Dynamic"),
 		IpVersion:            jsii.String("IPv4"),
-		DomainNameLabel:      cfg.Name(),
+		DomainNameLabel:      jsii.String(cfg.Name()),
 		IdleTimeoutInMinutes: jsii.Number(4),
 	}
 
