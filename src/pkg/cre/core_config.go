@@ -1,6 +1,6 @@
 package cre
 
-import "github.com/skurhse/xen/pkg/cfg"
+import "github.com/skurhse/chitin/pkg/cfg"
 
 type CoreConfig interface {
 	cfg.Config

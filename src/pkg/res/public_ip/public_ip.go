@@ -3,10 +3,10 @@ package publicip
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	ip "github.com/skurhse/xen/generated/hashicorp/azurerm/publicip"
-	"github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/skurhse/xen/generated/naming"
-	"github.com/skurhse/xen/pkg/cfg"
+	ip "github.com/skurhse/chitin/generated/hashicorp/azurerm/publicip"
+	"github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/cfg"
 )
 
 func NewPublicIP(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg resourcegroup.ResourceGroup) ip.PublicIp {

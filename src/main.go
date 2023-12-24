@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/skurhse/xen/pkg/cfg"
-	"github.com/skurhse/xen/pkg/cre"
+	"github.com/skurhse/chitin/pkg/cfg"
+	"github.com/skurhse/chitin/pkg/cre"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package prv
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"
-	"github.com/skurhse/xen/generated/hashicorp/azurerm/provider"
+	"github.com/skurhse/chitin/generated/hashicorp/azurerm/provider"
 )
 
 func NewAzureRM(scope constructs.Construct) provider.AzurermProvider {

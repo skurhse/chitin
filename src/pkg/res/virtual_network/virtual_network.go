@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
-	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/skurhse/xen/generated/naming"
+	"github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
+	vnet "github.com/skurhse/chitin/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/skurhse/chitin/generated/naming"
 )
 
 func NewVirtualNetwork(stk cdktf.TerraformStack, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, token string) vnet.VirtualNetwork {

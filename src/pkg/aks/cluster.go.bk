@@ -3,11 +3,11 @@ package sng
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
-	"github.com/skurhse/xen/generated/naming"
-	"github.com/skurhse/xen/pkg/cfg"
-	"github.com/skurhse/xen/pkg/prv"
-	"github.com/skurhse/xen/pkg/res"
+	vnet "github.com/skurhse/chitin/generated/hashicorp/azurerm/virtualnetwork"
+	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/cfg"
+	"github.com/skurhse/chitin/pkg/prv"
+	"github.com/skurhse/chitin/pkg/res"
 )
 
 func NewCluster(app constructs.Construct, cfg ClusterConfig, core ClusterCoreTune, jump ClusterJumpTune, tokens []string) DefaultClusterMelody {

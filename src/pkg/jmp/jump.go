@@ -3,9 +3,9 @@ package sng
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/skurhse/xen/pkg/mod"
-	"github.com/skurhse/xen/pkg/prv"
-	"github.com/skurhse/xen/pkg/res"
+	"github.com/skurhse/chitin/pkg/mod"
+	"github.com/skurhse/chitin/pkg/prv"
+	"github.com/skurhse/chitin/pkg/res"
 )
 
 func NewJump(app constructs.Construct, cfg JumpConfig, core JumpCoreTune, tokens []string) DefaultJumpMelody {

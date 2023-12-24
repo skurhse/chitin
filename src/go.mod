@@ -1,4 +1,4 @@
-module github.com/skurhse/xen
+module github.com/skurhse/chitin
 
 go 1.21
 

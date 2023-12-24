@@ -3,13 +3,13 @@ package privateendpoint
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	dbacct "github.com/skurhse/xen/generated/hashicorp/azurerm/cosmosdbaccount"
-	pdnsz "github.com/skurhse/xen/generated/hashicorp/azurerm/privatednszone"
-	pe "github.com/skurhse/xen/generated/hashicorp/azurerm/privateendpoint"
-	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
-	sn "github.com/skurhse/xen/generated/hashicorp/azurerm/subnet"
-	"github.com/skurhse/xen/generated/naming"
-	"github.com/skurhse/xen/pkg/cfg"
+	dbacct "github.com/skurhse/chitin/generated/hashicorp/azurerm/cosmosdbaccount"
+	pdnsz "github.com/skurhse/chitin/generated/hashicorp/azurerm/privatednszone"
+	pe "github.com/skurhse/chitin/generated/hashicorp/azurerm/privateendpoint"
+	rg "github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
+	sn "github.com/skurhse/chitin/generated/hashicorp/azurerm/subnet"
+	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/cfg"
 )
 
 // TODO: Modularize. <rbt>

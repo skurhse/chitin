@@ -1,6 +1,6 @@
 package sng
 
-import "github.com/skurhse/xen/pkg/cfg"
+import "github.com/skurhse/chitin/pkg/cfg"
 
 type JumpConfig interface {
 	cfg.Config

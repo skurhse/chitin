@@ -3,10 +3,10 @@ package applicationsecuritygroup
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	asg "github.com/skurhse/xen/generated/hashicorp/azurerm/applicationsecuritygroup"
-	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/skurhse/xen/generated/naming"
-	"github.com/skurhse/xen/pkg/cfg"
+	asg "github.com/skurhse/chitin/generated/hashicorp/azurerm/applicationsecuritygroup"
+	rg "github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/cfg"
 )
 
 var appSecurityGroupResourceId = jsii.String("application_security_group")

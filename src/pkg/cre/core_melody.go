@@ -2,8 +2,8 @@ package cre
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	cnf "github.com/skurhse/xen/generated/hashicorp/azurerm/dataazurermclientconfig"
-	vnet "github.com/skurhse/xen/generated/hashicorp/azurerm/virtualnetwork"
+	cnf "github.com/skurhse/chitin/generated/hashicorp/azurerm/dataazurermclientconfig"
+	vnet "github.com/skurhse/chitin/generated/hashicorp/azurerm/virtualnetwork"
 )
 
 type DefaultCoreMelody struct {

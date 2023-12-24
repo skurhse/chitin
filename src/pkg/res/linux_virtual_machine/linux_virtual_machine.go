@@ -3,11 +3,11 @@ package linuxvirtualmachine
 import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	lvm "github.com/skurhse/xen/generated/hashicorp/azurerm/linuxvirtualmachine"
-	nic "github.com/skurhse/xen/generated/hashicorp/azurerm/networkinterface"
-	rg "github.com/skurhse/xen/generated/hashicorp/azurerm/resourcegroup"
-	"github.com/skurhse/xen/generated/naming"
-	"github.com/skurhse/xen/pkg/cfg"
+	lvm "github.com/skurhse/chitin/generated/hashicorp/azurerm/linuxvirtualmachine"
+	nic "github.com/skurhse/chitin/generated/hashicorp/azurerm/networkinterface"
+	rg "github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
+	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/cfg"
 )
 
 func NewVirtualMachine(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, nic nic.NetworkInterface) lvm.LinuxVirtualMachine {

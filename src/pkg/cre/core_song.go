@@ -3,10 +3,10 @@ package cre
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
-	"github.com/skurhse/xen/pkg/mod"
-	"github.com/skurhse/xen/pkg/prv"
-	"github.com/skurhse/xen/pkg/res"
-	"github.com/skurhse/xen/pkg/sng"
+	"github.com/skurhse/chitin/pkg/mod"
+	"github.com/skurhse/chitin/pkg/prv"
+	"github.com/skurhse/chitin/pkg/sng"
+	rg "github.skurhse/
 )
 
 const (
@@ -31,7 +31,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCo
 
 	naming := mod.NewNaming(stk, cfg.Name(), token)
 
-	rg := res.NewResourceGroup(stk, cfg, naming)
+	rg := rg.NewResourceGroup(stk, cfg, naming)
 	clnt := res.NewDataAzurermClientConfig(stk)
 	vnet := res.NewVirtualNetwork(stk, naming, rg, CoreAddrSpace, token)
 

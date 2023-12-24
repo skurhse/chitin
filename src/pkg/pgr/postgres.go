@@ -3,10 +3,10 @@ package sng
 import (
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
-	"github.com/skurhse/xen/pkg/cfg"
-	"github.com/skurhse/xen/pkg/mod"
-	"github.com/skurhse/xen/pkg/prv"
-	"github.com/skurhse/xen/pkg/res"
+	"github.com/skurhse/chitin/pkg/cfg"
+	"github.com/skurhse/chitin/pkg/mod"
+	"github.com/skurhse/chitin/pkg/prv"
+	"github.com/skurhse/chitin/pkg/res"
 )
 
 func NewPostgres(scope constructs.Construct, cfg cfg.Config, core PostgresCoreTune, tokens []string) DefaultPostgresMelody {
