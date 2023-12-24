@@ -22,5 +22,5 @@ func NewPublicIP(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Namin
 		IdleTimeoutInMinutes: jsii.Number(4),
 	}
 
-	return ip.NewPublicIp(stack, Ids.PublicIP, &input)
+	return ip.NewPublicIp(stack, res.Ids.PublicIP, &input)
 }

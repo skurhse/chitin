@@ -25,5 +25,5 @@ func NewPrivateDNSZoneVNetLink(stack cdktf.TerraformStack, cfg cfg.Config, namin
 		RegistrationEnabled: jsii.Bool(true),
 	}
 
-	return pdnszvnl.NewPrivateDnsZoneVirtualNetworkLink(stack, Ids.PrivateDNSZoneVNetLink, &input)
+	return pdnszvnl.NewPrivateDnsZoneVirtualNetworkLink(stack, res.Ids.PrivateDNSZoneVNetLink, &input)
 }

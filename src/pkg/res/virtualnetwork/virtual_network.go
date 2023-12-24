@@ -11,7 +11,7 @@ import (
 
 func NewVirtualNetwork(stk cdktf.TerraformStack, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, token string) vnet.VirtualNetwork {
 
-	id := fmt.Sprintf("%s_%s", Ids.VirtualNetwork, token)
+	id := fmt.Sprintf("%s_%s", res.Ids.VirtualNetwork, token)
 
 	input := vnet.VirtualNetworkConfig{
 		Name:              naming.VirtualNetworkOutput(),

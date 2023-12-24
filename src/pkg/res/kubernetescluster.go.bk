@@ -38,5 +38,5 @@ func NewCluster(scope constructs.Construct, cfg cfg.Config, naming naming.Naming
 		AzureActiveDirectoryRoleBasedAccessControl: roleBasedAccessControl,
 	}
 
-	id := Ids.KubernetesCluster
+	id := res.Ids.KubernetesCluster
 }

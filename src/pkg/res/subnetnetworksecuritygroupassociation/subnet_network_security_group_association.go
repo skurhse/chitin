@@ -11,7 +11,7 @@ import (
 
 func NewSubnetNSGAssoc(stk cdktf.TerraformStack, subnet sn.Subnet, nsg nsg.NetworkSecurityGroup, token string) as.SubnetNetworkSecurityGroupAssociation {
 
-	id := fmt.Sprintf("%s_%s", Ids.SubnetNSGAssoc, token)
+	id := fmt.Sprintf("%s_%s", res.Ids.SubnetNSGAssoc, token)
 
 	input := as.SubnetNetworkSecurityGroupAssociationConfig{
 		SubnetId:               subnet.Id(),

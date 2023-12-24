@@ -16,5 +16,5 @@ func NewPostgresADAdmin(stack cdktf.TerraformStack, rg rg.ResourceGroup, client 
 		TenantId:          client.TenantId(),
 	}
 
-	return ad.NewPostgresqlFlexibleServerActiveDirectoryAdministrator(stack, Ids.PostgresAdmin, &input)
+	return ad.NewPostgresqlFlexibleServerActiveDirectoryAdministrator(stack, res.Ids.PostgresAdmin, &input)
 }

@@ -39,5 +39,5 @@ func NewPrivateEndpoint(stack cdktf.TerraformStack, cfg cfg.Config, naming namin
 		PrivateDnsZoneGroup:      &privateDNSZoneGroup,
 	}
 
-	return pe.NewPrivateEndpoint(stack, Ids.PrivateEndpoint, &input)
+	return pe.NewPrivateEndpoint(stack, res.Ids.PrivateEndpoint, &input)
 }

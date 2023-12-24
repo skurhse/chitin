@@ -26,7 +26,7 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 
 func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCoreMelody {
 
-	name := sng.NewName(cfg.Name(), token)
+	name := sng.NewStackName(cfg.Name(), token)
 
 	stk := sng.NewStack(scope, name)
 	prv.NewAzureRM(stk)

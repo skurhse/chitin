@@ -14,5 +14,5 @@ func NewPrivateDNSZone(stack cdktf.TerraformStack, rg rg.ResourceGroup) pdnsz.Pr
 		ResourceGroupName: rg.Name(),
 	}
 
-	return pdnsz.NewPrivateDnsZone(stack, Ids.PrivateDNSZone, &input)
+	return pdnsz.NewPrivateDnsZone(stack, res.Ids.PrivateDNSZone, &input)
 }

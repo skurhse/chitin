@@ -44,5 +44,5 @@ func NewPostgresFlexibleServer(stack cdktf.TerraformStack, cfg cfg.Config, namin
 		DependsOn: &[]cdktf.ITerraformDependable{vnetLink},
 	}
 
-	return pg.NewPostgresqlFlexibleServer(stack, Ids.PostgresFlexibleServer, &input)
+	return pg.NewPostgresqlFlexibleServer(stack, res.Ids.PostgresFlexibleServer, &input)
 }

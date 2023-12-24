@@ -61,5 +61,5 @@ func NewVirtualMachine(stack cdktf.TerraformStack, cfg cfg.Config, naming naming
 		AdminSshKey:          &sshKeys,
 	}
 
-	return lvm.NewLinuxVirtualMachine(stack, Ids.VirtualMachine, &input)
+	return lvm.NewLinuxVirtualMachine(stack, res.Ids.VirtualMachine, &input)
 }

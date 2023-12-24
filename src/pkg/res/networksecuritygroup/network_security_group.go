@@ -12,7 +12,7 @@ import (
 
 func NewNSG(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg rg.ResourceGroup, securityRule nsg.NetworkSecurityGroupSecurityRule) nsg.NetworkSecurityGroup {
 
-	id := Ids.NetworkSecurityGroup
+	id := res.Ids.NetworkSecurityGroup
 
 	input := nsg.NetworkSecurityGroupConfig{
 		Name:              naming.NetworkSecurityGroupOutput(),

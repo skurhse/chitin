@@ -6,7 +6,7 @@ import (
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/chitin/pkg/cfg"
-	"github.com/skurhse/chitin/pkg/cre"
+	"github.com/skurhse/chitin/pkg/sng/cre"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 
 	appCfg, err := cfg.Load()
 	if err != nil {
-		err = fmt.Errorf("load config: %w", err)
+		err = fmt.Errorf("loading app config: %w", err)
 		log.Fatal(err)
 	}
 

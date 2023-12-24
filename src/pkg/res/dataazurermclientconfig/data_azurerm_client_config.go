@@ -9,5 +9,5 @@ func NewDataAzurermClientConfig(stack cdktf.TerraformStack) cnf.DataAzurermClien
 
 	input := cnf.DataAzurermClientConfigConfig{}
 
-	return cnf.NewDataAzurermClientConfig(stack, Ids.ClientConfig, &input)
+	return cnf.NewDataAzurermClientConfig(stack, res.Ids.ClientConfig, &input)
 }

@@ -31,11 +31,11 @@ func NewNIC(stack cdktf.TerraformStack, cfg cfg.Config, naming naming.Naming, rg
 		IpConfiguration:   &[]*nic.NetworkInterfaceIpConfiguration{&ipConfig},
 	}
 
-	return nic.NewNetworkInterface(stack, Ids.NetworkInterface, input)
+	return nic.NewNetworkInterface(stack, res.Ids.NetworkInterface, input)
 }
 
 func NewNICAssocASG(stack cdktf.TerraformStack, cfg cfg.Config, nic nic.NetworkInterface, asg asg.ApplicationSecurityGroup) nicasg.NetworkInterfaceApplicationSecurityGroupAssociation {
-	id := Ids.NetworkInterfaceApplicationSecurityGroupAssociation
+	id := res.Ids.NetworkInterfaceApplicationSecurityGroupAssociation
 
 	input := &nicasg.NetworkInterfaceApplicationSecurityGroupAssociationConfig{
 		NetworkInterfaceId:         nic.Id(),
@@ -46,7 +46,7 @@ func NewNICAssocASG(stack cdktf.TerraformStack, cfg cfg.Config, nic nic.NetworkI
 }
 
 func NewNICAssocNSG(stack cdktf.TerraformStack, cfg cfg.Config, nic nic.NetworkInterface, nsg nsg.NetworkSecurityGroup) nicnsg.NetworkInterfaceSecurityGroupAssociation {
-	id := Ids.NetworkInterfaceNetworkSecurityGroupAssociation
+	id := res.Ids.NetworkInterfaceNetworkSecurityGroupAssociation
 
 	input := &nicnsg.NetworkInterfaceSecurityGroupAssociationConfig{
 		NetworkInterfaceId:     nic.Id(),
