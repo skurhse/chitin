@@ -5,9 +5,10 @@ import (
 	"github.com/aws/jsii-runtime-go"
 	"github.com/skurhse/chitin/pkg/mod"
 	"github.com/skurhse/chitin/pkg/prv"
+	cnf "github.com/skurhse/chitin/pkg/res/dataazurermclientconfig"
+	rg "github.com/skurhse/chitin/pkg/res/resourcegroup"
+	vnet "github.com/skurhse/chitin/pkg/res/virtualnetwork"
 	"github.com/skurhse/chitin/pkg/sng"
-	rg "github.skurhse/chitin/pkg/res/resource_group"
-	vnet "github.skurhse/chitin/pkg/res/virtual_network"
 )
 
 const (
