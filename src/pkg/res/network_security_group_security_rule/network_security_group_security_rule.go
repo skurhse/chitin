@@ -1,1 +1,1 @@
-package res
+package networksecuritygroupsecurityrule

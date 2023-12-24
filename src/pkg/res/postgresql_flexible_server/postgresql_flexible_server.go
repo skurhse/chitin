@@ -1,4 +1,4 @@
-package res
+package postgresqlflexibleserver
 
 import (
 	"github.com/aws/jsii-runtime-go"

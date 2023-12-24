@@ -1,4 +1,4 @@
-package res
+package applicationsecuritygroup
 
 import (
 	"github.com/aws/jsii-runtime-go"

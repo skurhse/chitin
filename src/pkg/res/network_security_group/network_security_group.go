@@ -1,4 +1,4 @@
-package res
+package networksecuritygroup
 
 import (
 	"github.com/aws/jsii-runtime-go"

@@ -1,4 +1,4 @@
-package res
+package linuxvirtualmachine
 
 import (
 	"github.com/aws/jsii-runtime-go"

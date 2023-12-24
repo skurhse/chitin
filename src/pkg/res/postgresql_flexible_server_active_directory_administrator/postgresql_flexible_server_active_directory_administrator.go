@@ -1,4 +1,4 @@
-package res
+package postgresqlflexibleserveractivedirectoryadministrator
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"

@@ -1,4 +1,4 @@
-package res
+package privateendpoint
 
 import (
 	"github.com/aws/jsii-runtime-go"

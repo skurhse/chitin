@@ -1,4 +1,4 @@
-package res
+package subnetnetworksecuritygroupassociation
 
 import (
 	"fmt"

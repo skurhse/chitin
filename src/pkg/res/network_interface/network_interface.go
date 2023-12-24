@@ -1,4 +1,4 @@
-package res
+package networkinterface
 
 import (
 	"github.com/aws/jsii-runtime-go"

@@ -1,4 +1,4 @@
-package res
+package resourcegroup
 
 import (
 	"github.com/aws/constructs-go/constructs/v10"

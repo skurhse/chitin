@@ -1,4 +1,4 @@
-package res
+package publicip
 
 import (
 	"github.com/aws/jsii-runtime-go"
