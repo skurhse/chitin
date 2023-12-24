@@ -6,7 +6,8 @@ import (
 	"github.com/skurhse/chitin/pkg/mod"
 	"github.com/skurhse/chitin/pkg/prv"
 	"github.com/skurhse/chitin/pkg/sng"
-	rg "github.skurhse/
+	rg "github.skurhse/chitin/pkg/res/resource_group"
+	vnet "github.skurhse/chitin/pkg/res/virtual_network"
 )
 
 const (
@@ -32,8 +33,8 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCo
 	naming := mod.NewNaming(stk, cfg.Name(), token)
 
 	rg := rg.NewResourceGroup(stk, cfg, naming)
-	clnt := res.NewDataAzurermClientConfig(stk)
-	vnet := res.NewVirtualNetwork(stk, naming, rg, CoreAddrSpace, token)
+	clnt := cnf.NewDataAzurermClientConfig(stk)
+	vnet := vnet.NewVirtualNetwork(stk, naming, rg, CoreAddrSpace, token)
 
 	return DefaultCoreMelody{
 		Stack_:          stk,
