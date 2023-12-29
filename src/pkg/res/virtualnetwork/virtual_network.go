@@ -7,6 +7,7 @@ import (
 	"github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
 	vnet "github.com/skurhse/chitin/generated/hashicorp/azurerm/virtualnetwork"
 	"github.com/skurhse/chitin/generated/naming"
+	"github.com/skurhse/chitin/pkg/res"
 )
 
 func NewVirtualNetwork(stk cdktf.TerraformStack, naming naming.Naming, rg resourcegroup.ResourceGroup, addrSpace []*string, token string) vnet.VirtualNetwork {

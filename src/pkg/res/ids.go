@@ -1,53 +1,51 @@
 package res
 
-import "github.com/aws/jsii-runtime-go"
-
 // TODO: Refactor for string literal for tokenization and jit-construct support. <rbt>
 
 type IdsIndex struct {
-	AppSecGroup                                         *string
-	ClientConfig                                        *string
-	CosmosDBAccount                                     *string
-	CosmosDBPostgresDatabase                            *string
-	KubernetesCluster                                   *string
-	NetworkInterface                                    *string
-	NetworkInterfaceApplicationSecurityGroupAssociation *string
-	NetworkInterfaceNetworkSecurityGroupAssociation     *string
-	NetworkSecurityGroup                                *string
-	PostgresFlexibleServer                              *string
-	PostgresAdmin                                       *string
-	PrivateDNSZone                                      *string
-	PrivateDNSZoneGroup                                 *string
-	PrivateDNSZoneVNetLink                              *string
-	PrivateEndpoint                                     *string
-	PublicIP                                            *string
-	ResourceGroup                                       *string
-	Subnet                                              *string
+	AppSecGroup                                         string
+	ClientConfig                                        string
+	CosmosDBAccount                                     string
+	CosmosDBPostgresDatabase                            string
+	KubernetesCluster                                   string
+	NetworkInterface                                    string
+	NetworkInterfaceApplicationSecurityGroupAssociation string
+	NetworkInterfaceNetworkSecurityGroupAssociation     string
+	NetworkSecurityGroup                                string
+	PostgresFlexibleServer                              string
+	PostgresAdmin                                       string
+	PrivateDNSZone                                      string
+	PrivateDNSZoneGroup                                 string
+	PrivateDNSZoneVNetLink                              string
+	PrivateEndpoint                                     string
+	PublicIP                                            string
+	ResourceGroup                                       string
+	Subnet                                              string
 	SubnetNSGAssoc                                      string
-	VirtualMachine                                      *string
-	VirtualNetwork                                      *string
+	VirtualMachine                                      string
+	VirtualNetwork                                      string
 }
 
 var Ids = IdsIndex{
-	AppSecGroup:              jsii.String("application_security_group"),
-	ClientConfig:             jsii.String("client_config"),
-	CosmosDBAccount:          jsii.String("cosmosdb_account"),
-	CosmosDBPostgresDatabase: jsii.String("cosmosdb_postgres_database"),
-	KubernetesCluster:        jsii.String("kubernetes_cluster"),
-	NetworkInterface:         jsii.String("network_interface"),
-	NetworkInterfaceApplicationSecurityGroupAssociation: jsii.String("network_interface_asg_association"),
-	NetworkInterfaceNetworkSecurityGroupAssociation:     jsii.String("network_interface_nsg_association"),
-	NetworkSecurityGroup:                                jsii.String("network_security_group"),
-	PostgresFlexibleServer:                              jsii.String("postgresql_flexible_server"),
-	PostgresAdmin:                                       jsii.String("postgresql_flexible_server_active_directory_admin"),
-	PrivateDNSZone:                                      jsii.String("private_dns_zone"),
-	PrivateDNSZoneGroup:                                 jsii.String("private_dns_zone_group"),
-	PrivateDNSZoneVNetLink:                              jsii.String("private_dns_zone_virtual_network_link"),
-	PrivateEndpoint:                                     jsii.String("private_endpoint"),
-	PublicIP:                                            jsii.String("public_ip"),
-	ResourceGroup:                                       jsii.String("resource_group"),
-	Subnet:                                              jsii.String("subnet"),
+	AppSecGroup:              "application_security_group",
+	ClientConfig:             "client_config",
+	CosmosDBAccount:          "cosmosdb_account",
+	CosmosDBPostgresDatabase: "cosmosdb_postgres_database",
+	KubernetesCluster:        "kubernetes_cluster",
+	NetworkInterface:         "network_interface",
+	NetworkInterfaceApplicationSecurityGroupAssociation: "network_interface_asg_association",
+	NetworkInterfaceNetworkSecurityGroupAssociation:     "network_interface_nsg_association",
+	NetworkSecurityGroup:                                "network_security_group",
+	PostgresFlexibleServer:                              "postgresql_flexible_server",
+	PostgresAdmin:                                       "postgresql_flexible_server_active_directory_admin",
+	PrivateDNSZone:                                      "private_dns_zone",
+	PrivateDNSZoneGroup:                                 "private_dns_zone_group",
+	PrivateDNSZoneVNetLink:                              "private_dns_zone_virtual_network_link",
+	PrivateEndpoint:                                     "private_endpoint",
+	PublicIP:                                            "public_ip",
+	ResourceGroup:                                       "resource_group",
+	Subnet:                                              "subnet",
 	SubnetNSGAssoc:                                      "subnet_nsg_assoc",
-	VirtualMachine:                                      jsii.String("virtual_machine"),
-	VirtualNetwork:                                      jsii.String("virtual_network"),
+	VirtualMachine:                                      "virtual_machine",
+	VirtualNetwork:                                      "virtual_network",
 }

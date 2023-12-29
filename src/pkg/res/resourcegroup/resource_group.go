@@ -1,6 +1,8 @@
 package resourcegroup
 
 import (
+	"fmt"
+
 	"github.com/aws/constructs-go/constructs/v10"
 	"github.com/aws/jsii-runtime-go"
 	rg "github.com/skurhse/chitin/generated/hashicorp/azurerm/resourcegroup"
@@ -11,10 +13,14 @@ import (
 
 func NewResourceGroup(scope constructs.Construct, config cfg.Config, naming naming.Naming) rg.ResourceGroup {
 
-	input := &rg.ResourceGroupConfig{
+	region := config.Regions().Primary()
+
+	input := rg.ResourceGroupConfig{
 		Name:     naming.ResourceGroupOutput(),
-		Location: jsii.String(config.Regions().Primary()),
+		Location: jsii.String(region),
 	}
 
-	return rg.NewResourceGroup(scope, res.Ids.ResourceGroup, input)
+	name := fmt.Sprintf("%s_%s", res.Ids.ResourceGroup, region)
+
+	return rg.NewResourceGroup(scope, &name, &input)
 }
