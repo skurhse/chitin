@@ -12,15 +12,16 @@ import (
 func main() {
 	app := cdktf.NewApp(nil)
 
-	appCfg, err := cfg.Load()
+	env, err := cfg.LoadEnvironment()
 	if err != nil {
-		err = fmt.Errorf("loading app config: %w", err)
+		err = fmt.Errorf("loading environment: %w", err)
 		log.Fatal(err)
 	}
 
 	tokens := cfg.Tokens
 
-	cre.NewCore(app, appCfg, tokens.Core)
+	cre.NewBackend(app, env, tokens.Backend)
+	cre.NewCore(app, env, tokens.Core)
 
 	app.Synth()
 }
