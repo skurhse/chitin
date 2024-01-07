@@ -1,4 +1,4 @@
-package cre
+package bck
 
 import (
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
@@ -6,25 +6,25 @@ import (
 	vnet "github.com/skurhse/chitin/generated/hashicorp/azurerm/virtualnetwork"
 )
 
-type CoreMelody struct {
+type BackendMelody struct {
 	Stack_          cdktf.TerraformStack
 	StackName_      *string
 	Client_         cnf.DataAzurermClientConfig
 	VirtualNetwork_ vnet.VirtualNetwork
 }
 
-func (c CoreMelody) Stack() cdktf.TerraformStack {
+func (c BackendMelody) Stack() cdktf.TerraformStack {
 	return c.Stack_
 }
 
-func (c CoreMelody) StackName() *string {
+func (c BackendMelody) StackName() *string {
 	return c.StackName_
 }
 
-func (c CoreMelody) Client() cnf.DataAzurermClientConfig {
+func (c BackendMelody) Client() cnf.DataAzurermClientConfig {
 	return c.Client_
 }
 
-func (c CoreMelody) VirtualNetwork() vnet.VirtualNetwork {
+func (c BackendMelody) VirtualNetwork() vnet.VirtualNetwork {
 	return c.VirtualNetwork_
 }

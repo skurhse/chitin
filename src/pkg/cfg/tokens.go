@@ -1,6 +1,7 @@
 package cfg
 
 type TokensIndex struct {
+	Backend  string
 	Core     string
 	Jump     string
 	Postgres string
@@ -8,6 +9,7 @@ type TokensIndex struct {
 }
 
 type TokenSetsIndex struct {
+	Backend  string
 	Core     []string
 	Jump     []string
 	Postgres []string
@@ -15,6 +17,7 @@ type TokenSetsIndex struct {
 }
 
 var Tokens = TokensIndex{
+	Backend:  "backend",
 	Core:     "core",
 	Jump:     "jump",
 	Postgres: "postgres",

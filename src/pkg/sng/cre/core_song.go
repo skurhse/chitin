@@ -24,7 +24,7 @@ var CoreSubnetAddrs = CoreSubnetAddrsIndex{
 	Postgres: jsii.String(pgAddr),
 }
 
-func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCoreMelody {
+func NewCore(scope constructs.Construct, cfg CoreConfig, token string) CoreMelody {
 
 	name := sng.NewStackName(cfg.Name(), token)
 
@@ -37,7 +37,7 @@ func NewCore(scope constructs.Construct, cfg CoreConfig, token string) DefaultCo
 	clnt := cnf.NewDataAzurermClientConfig(stk)
 	vnet := vnet.NewVirtualNetwork(stk, naming, rg, CoreAddrSpace, token)
 
-	return DefaultCoreMelody{
+	return CoreMelody{
 		Stack_:          stk,
 		StackName_:      name,
 		Client_:         clnt,

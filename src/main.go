@@ -6,6 +6,7 @@ import (
 
 	"github.com/hashicorp/terraform-cdk-go/cdktf"
 	"github.com/skurhse/chitin/pkg/cfg"
+	"github.com/skurhse/chitin/pkg/sng/bck"
 	"github.com/skurhse/chitin/pkg/sng/cre"
 )
 
@@ -20,7 +21,7 @@ func main() {
 
 	tokens := cfg.Tokens
 
-	cre.NewBackend(app, env, tokens.Backend)
+	bck.NewBackend(app, env, tokens.Backend)
 	cre.NewCore(app, env, tokens.Core)
 
 	app.Synth()
